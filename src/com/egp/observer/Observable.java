@@ -2,7 +2,7 @@ package com.egp.observer;
 
 import java.util.ArrayList;
 
-abstract class Observable {
+public abstract class Observable {
     private ArrayList<Observer> observers;
 
     public Observable() {

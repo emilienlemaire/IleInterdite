@@ -1,4 +1,4 @@
 package com.egp.controlleurs;
 
-public class FakeController {
+public class Controller {
 }

@@ -1,7 +1,12 @@
 package com.egp;
 
+import com.egp.modeles.Modele;
+import com.egp.vues.MainVue;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("PAUL est moche");
+        Modele modele = new Modele();
+
+        MainVue vue = new MainVue(modele);
     }
 }
