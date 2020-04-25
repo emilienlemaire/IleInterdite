@@ -46,6 +46,10 @@ public class Modele extends Observable {
         }
     }
 
+    public ArrayList<Zone> getCases() {
+        return this.cases;
+    }
+
     public String toString() {
         String msg = "";
         for (Zone c : this.cases) {
