@@ -29,8 +29,9 @@ public class Modele extends Observable {
 
         this.indices = new Random().ints(0, nbCols * nbRows).distinct().limit(6).toArray();
 
+        Type[] values = Type.values();
         for (int i = 0; i < this.indices.length; i++) {
-            this.cases.get(this.indices[i]).type = Type.values()[i + 1];
+            this.cases.get(this.indices[i]).type = values[i + 1];
         }
     }
 
