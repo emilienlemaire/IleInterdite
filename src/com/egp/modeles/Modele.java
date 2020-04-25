@@ -45,6 +45,7 @@ public class Modele extends Observable {
                 i++;
             }
         }
+        notifyObservers();
     }
 
     public ArrayList<Zone> getCases() {
