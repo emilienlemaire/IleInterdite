@@ -41,11 +41,23 @@ public class Modele extends Observable {
         while (i < 3) {
             int idx = r.nextInt(this.nbCols * this.nbRows);
             if (this.cases.get(idx).etat == Etat.Normale) {
+                this.cases.get(idx).etat = Etat.Innondee;
+                i++;
+            } else if (this.cases.get(idx).etat == Etat.Innondee) {
                 this.cases.get(idx).etat = Etat.Submergee;
                 i++;
             }
+
         }
         notifyObservers();
+    }
+
+    public int getNbRows() {
+        return nbRows;
+    }
+
+    public int getNbCols() {
+        return nbCols;
     }
 
     public ArrayList<Zone> getCases() {

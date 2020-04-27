@@ -5,8 +5,8 @@ import com.egp.constants.*;
 public class Zone {
     public Etat etat;
     public Type type;
-    public int x;
-    public int y;
+    public final int x;
+    public final int y;
 
     public Zone(Etat etat, Type type, int x, int y){
         this.etat = etat;

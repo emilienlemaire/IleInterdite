@@ -13,16 +13,28 @@ import java.util.ArrayList;
 public class GrilleVue extends JPanel implements Observer {
 
     private Modele modele;
-    private final static int TAILLE = 50;
+    private final int ROWS;
+    private final int COLS;
+    private final ArrayList<ZoneVue> zoneVues;
 
     public GrilleVue(Modele modele) {
         this.modele = modele;
+        ROWS = modele.getNbRows();
+        COLS = modele.getNbCols();
 
         modele.addObserver(this);
 
-        Dimension dim = new Dimension(TAILLE * 20, TAILLE * 20);
-
+        Dimension dim = new Dimension(COLS * 34, ROWS * 34);
         this.setPreferredSize(dim);
+
+        zoneVues = new ArrayList<>();
+        ArrayList<Zone> zones = this.modele.getCases();
+        for (int i = 0; i < COLS; i++) {
+            for (int j = 0; j < ROWS; j++) {
+                ZoneVue newZone = new ZoneVue(this.modele, zones.get(i * ROWS +j));
+                zoneVues.add(newZone);
+            }
+        }
 
     }
 
@@ -32,20 +44,14 @@ public class GrilleVue extends JPanel implements Observer {
     }
 
     public void paintComponent(Graphics graphics) {
-        ArrayList<Zone> zones = this.modele.getCases();
-        for (int i = 1; i <= 20; i++) {
-            for (int j = 1; j <20; j++) {
-                paint(graphics, zones.get((i-1) * 20 + (j-1)).etat, i, j, (i-1)*TAILLE, (j-1)*TAILLE);
+        for (int i = 0; i < COLS; i++) {
+            for (int j = 0; j < ROWS; j++) {
+                paint(graphics, zoneVues.get(i * ROWS + j));
             }
         }
     }
 
-    private void paint(Graphics g, Etat etat, int i, int j, int x, int y) {
-
-        g.setColor(etat.getColor());
-
-        g.fillRect(x, y, TAILLE, TAILLE);
-        g.setColor(Color.BLACK);
-        g.drawRect(x, y, TAILLE, TAILLE);
+    private void paint(Graphics g, ZoneVue zoneVue) {
+        zoneVue.paint(g);
     }
 }

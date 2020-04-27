@@ -5,7 +5,7 @@ import com.egp.vues.MainVue;
 
 public class Main {
     public static void main(String[] args) {
-        Modele modele = new Modele(20,20);
+        Modele modele = new Modele(12,20);
         //System.out.println(modele);
         modele.inondeCases();
         modele.inondeCases();

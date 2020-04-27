@@ -1,0 +1,9 @@
+.root {
+    -fx-font-family: "Fira Code";
+    -fx-font-size: 12pt;
+    -fx-font-smoothing-type: gray;
+}
+
+.menu-item {
+    -fx-text-fill: white;
+}
