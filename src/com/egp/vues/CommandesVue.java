@@ -15,7 +15,6 @@ public class CommandesVue extends JPanel {
         JButton finTourButton = new JButton("Fin de tour");
         this.add(finTourButton);
 
-
         Controller ctrl = new Controller(modele);
         finTourButton.addMouseListener(ctrl);
     }

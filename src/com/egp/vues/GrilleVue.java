@@ -40,22 +40,9 @@ public class GrilleVue extends JPanel implements Observer {
         }
     }
 
-    private void paint(Graphics g, Etat e, int i, int j, int x, int y) {
+    private void paint(Graphics g, Etat etat, int i, int j, int x, int y) {
 
-        switch (e) {
-            case Normale:
-                g.setColor(Color.GREEN);
-                break;
-            case Submergee:
-                g.setColor(new Color(50, 100, 255));
-                break;
-            case Innondee:
-                g.setColor(new Color(0, 0, 255));
-                break;
-            default:
-                g.setColor(Color.GREEN);
-                break;
-        }
+        g.setColor(etat.getColor());
 
         g.fillRect(x, y, TAILLE, TAILLE);
         g.setColor(Color.BLACK);
