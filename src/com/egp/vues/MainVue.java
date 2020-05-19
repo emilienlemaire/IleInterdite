@@ -6,12 +6,14 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MainVue {
-    private JFrame jFrame;
+    private static JFrame jFrame;
 
-    private GrilleVue grilleVue;
-    private CommandesVue commandesVue;
+    private static GrilleVue grilleVue;
+    private static CommandesVue commandesVue;
+    private static Cursor invalidCursor = null;
 
     public MainVue(Modele modele) {
+        Cursor invalidCursorTmp;
         jFrame = new JFrame();
         jFrame.setTitle("Ile Interdite");
         jFrame.setLayout( new FlowLayout());
@@ -26,5 +28,24 @@ public class MainVue {
         jFrame.pack();
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.setVisible(true);
+
+        try {
+            invalidCursorTmp = Cursor.getSystemCustomCursor("invalid32x32");
+        } catch (AWTException e) {
+            invalidCursorTmp = null;
+        }
+        invalidCursor = invalidCursorTmp;
+    }
+
+    public static void setCursorGood() {
+        jFrame.setCursor(Cursor.getDefaultCursor());
+    }
+
+    public static void setCursorWrong() {
+        if (invalidCursor == null) {
+            jFrame.setCursor(Cursor.getDefaultCursor());
+        } else {
+            jFrame.setCursor(invalidCursor);
+        }
     }
 }

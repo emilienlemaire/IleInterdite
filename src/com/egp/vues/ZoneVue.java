@@ -15,6 +15,7 @@ public class ZoneVue extends JPanel implements Observer {
 
     public ZoneVue(Modele modele, Zone zone) {
         this.modele = modele;
+        modele.addObserver(this);
         this.zone = zone;
     }
 
@@ -28,9 +29,18 @@ public class ZoneVue extends JPanel implements Observer {
     }
 
     public void paint(Graphics g) {
-        BufferedImage img = zone.type.getImage();
-        BufferedImage finalImg = zone.etat.getImage(img);
+        BufferedImage typeImg = zone.type.getImage();
+        BufferedImage etatImg = zone.etat.getImage(typeImg);
 
-        g.drawImage(finalImg, zone.x * 32, zone.y * 32, null);
+
+        BufferedImage playerImg = null;
+        if (zone.hasPlayer()) {
+            playerImg = zone.getPlayer().type.getImage(etatImg);
+        }
+
+        if (playerImg != null)
+            g.drawImage(playerImg,zone.x * 32, zone.y * 32, null);
+        else
+            g.drawImage(etatImg, zone.x * 32, zone.y * 32, null);
     }
 }

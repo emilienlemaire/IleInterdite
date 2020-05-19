@@ -24,7 +24,7 @@ public class GrilleVue extends JPanel implements Observer {
 
         modele.addObserver(this);
 
-        Dimension dim = new Dimension(COLS * 34, ROWS * 34);
+        Dimension dim = new Dimension(COLS * 32, ROWS * 32);
         this.setPreferredSize(dim);
 
         zoneVues = new ArrayList<>();
