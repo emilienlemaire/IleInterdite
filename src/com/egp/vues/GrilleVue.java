@@ -1,21 +1,24 @@
 package com.egp.vues;
 
-import javax.swing.*;
-
 import com.egp.constants.Etat;
 import com.egp.modeles.Modele;
 import com.egp.modeles.Zone;
 import com.egp.observer.Observer;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 import java.awt.*;
 import java.util.ArrayList;
 
-public class GrilleVue extends JPanel implements Observer {
+public class GrilleVue extends GridPane implements Observer {
 
     private Modele modele;
     private final int ROWS;
     private final int COLS;
-    private final ArrayList<ZoneVue> zoneVues;
+    private ArrayList<ZoneVue> zoneVues;
 
     public GrilleVue(Modele modele) {
         this.modele = modele;
@@ -24,15 +27,12 @@ public class GrilleVue extends JPanel implements Observer {
 
         modele.addObserver(this);
 
-        Dimension dim = new Dimension(COLS * 34, ROWS * 34);
-        this.setPreferredSize(dim);
-
         zoneVues = new ArrayList<>();
         ArrayList<Zone> zones = this.modele.getCases();
         for (int i = 0; i < COLS; i++) {
             for (int j = 0; j < ROWS; j++) {
-                ZoneVue newZone = new ZoneVue(this.modele, zones.get(i * ROWS +j));
-                zoneVues.add(newZone);
+                ZoneVue newZone = new ZoneVue(modele, zones.get(i * ROWS + j));
+                this.add(newZone, i, j);
             }
         }
 
@@ -40,7 +40,14 @@ public class GrilleVue extends JPanel implements Observer {
 
     @Override
     public void update() {
-        repaint();
+        zoneVues = new ArrayList<>();
+        ArrayList<Zone> zones = this.modele.getCases();
+        for (int i = 0; i < COLS; i++) {
+            for (int j = 0; j < ROWS; j++) {
+                ZoneVue newZone = new ZoneVue(modele, zones.get(i * ROWS + j));
+                this.add(newZone, i, j);
+            }
+        }
     }
 
     public void paintComponent(Graphics graphics) {

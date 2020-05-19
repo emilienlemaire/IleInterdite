@@ -1,30 +1,18 @@
 package com.egp.vues;
 
 import com.egp.modeles.Modele;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 
-import javax.swing.*;
-import java.awt.*;
+public class MainVue extends Scene {
 
-public class MainVue {
-    private JFrame jFrame;
+    public MainVue(Modele modele, Pane root) {
+        super(root, modele.getNbCols() * 32 + 150, modele.getNbRows() * 32);
 
-    private GrilleVue grilleVue;
-    private CommandesVue commandesVue;
 
-    public MainVue(Modele modele) {
-        jFrame = new JFrame();
-        jFrame.setTitle("Ile Interdite");
-        jFrame.setLayout( new FlowLayout());
+        GrilleVue grilleVue = new GrilleVue(modele);
+        CommandesVue commandesVue = new CommandesVue(modele);
 
-        grilleVue = new GrilleVue(modele);
-
-        commandesVue = new CommandesVue(modele);
-
-        jFrame.add(grilleVue);
-        jFrame.add(commandesVue);
-
-        jFrame.pack();
-        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jFrame.setVisible(true);
+        root.getChildren().addAll(grilleVue, commandesVue);
     }
 }

@@ -1,25 +1,22 @@
 package com.egp.constants;
 
-import org.jetbrains.annotations.NotNull;
+import javafx.scene.Group;
+import javafx.scene.effect.BlendMode;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 
 public enum Etat {
-    Normale("Normale", new Color(165, 220, 142), 0.f),
-    Innondee("Innondée", new Color(159, 206, 255), .5f),
-    Submergee("Submergée", new Color(71, 107, 255), 1.f);
+    Normale("Normale", 0.f),
+    Innondee("Innondée", .5f),
+    Submergee("Submergée", 1.f);
 
     private String name;
-    private Color color;
     private Float blendFactor;
 
-    Etat(String name, Color color, Float blendFactor) {
+    Etat(String name, Float blendFactor) {
         this.name = name;
-        this.color = color;
         this.blendFactor = blendFactor;
     }
 
@@ -27,24 +24,23 @@ public enum Etat {
         return this.name;
     }
 
-    public Color getColor() {
-        return this.color;
-    }
+    public Group getImage(Group img) {
 
-    public BufferedImage getImage(@NotNull BufferedImage img) {
-        BufferedImage overlay = null;
+        if (blendFactor == 0.f)
+            return img;
 
-        try {
-            overlay = ImageIO.read(new File("resources/states/submerged.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
+        Image overlay = new Image(new File("resources/states/submerged.png").toURI().toString());
+
+        ImageView overlayView = new ImageView(overlay);
+        overlayView.setFitWidth(32);
+        overlayView.setFitHeight(32);
+
+        if (blendFactor == .5f) {
+            overlayView.setBlendMode(BlendMode.HARD_LIGHT);
+        } else {
+            overlayView.setBlendMode(BlendMode.MULTIPLY);
         }
 
-        Graphics2D g2d = img.createGraphics();
-        g2d.setComposite(AlphaComposite.SrcOver.derive(blendFactor));
-        g2d.drawImage(overlay, 0, 0, 32, 32, null);
-        g2d.dispose();
-
-        return img;
+        return new Group(img, overlayView);
     }
 }

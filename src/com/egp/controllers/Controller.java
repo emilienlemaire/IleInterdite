@@ -2,62 +2,13 @@ package com.egp.controllers;
 
 import com.egp.modeles.Modele;
 
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
-public class Controller implements MouseListener {
+public class Controller {
 
     Modele modele;
     public Controller(Modele modele) { this.modele = modele; }
 
-    /**
-     * Invoked when the mouse button has been clicked (pressed
-     * and released) on a component.
-     *
-     * @param e the event to be processed
-     */
-    @Override
-    public void mouseClicked(MouseEvent e) {
+    public void finDeTour() {
         modele.inondeCases();
-    }
-
-    /**
-     * Invoked when a mouse button has been pressed on a component.
-     *
-     * @param e the event to be processed
-     */
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    /**
-     * Invoked when a mouse button has been released on a component.
-     *
-     * @param e the event to be processed
-     */
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    /**
-     * Invoked when the mouse enters a component.
-     *
-     * @param e the event to be processed
-     */
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    /**
-     * Invoked when the mouse exits a component.
-     *
-     * @param e the event to be processed
-     */
-    @Override
-    public void mouseExited(MouseEvent e) {
-
+        System.out.println("Fin de tour");
     }
 }
