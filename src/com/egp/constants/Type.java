@@ -1,10 +1,12 @@
 package com.egp.constants;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
+
+import javafx.scene.Group;
+import javafx.scene.effect.BlendMode;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 import java.io.File;
-import java.io.IOException;
 
 public enum Type {
     Normale("normal.png", null){
@@ -43,38 +45,35 @@ public enum Type {
         }
     };
 
-    private String base;
-    private String overlay;
+    private String basePath;
+    private String overlayPath;
 
-    Type(String base, String overlay) {
-        this.base = base;
-        this.overlay = overlay;
+    Type(String basePath, String overlay) {
+        this.basePath = basePath;
+        this.overlayPath = overlay;
     }
 
-    public BufferedImage getImage() {
-        BufferedImage img = null;
-        BufferedImage overlay = null;
+    public Group getImage() {
+        Image img;
+        Image overlay;
 
-        try {
-            img = ImageIO.read(new File("resources/cases/" + this.base));
-        } catch (IOException e) {
-            e.printStackTrace();
+        img = new Image(new File("resources/cases/" + this.basePath).toURI().toString());
+        overlay = new Image(new File("resources/cases/" + this.overlayPath).toURI().toString());
+
+        Group res;
+        ImageView base = new ImageView(img);
+        base.setFitWidth(32);
+        base.setFitHeight(32);
+        if (this.overlayPath != null) {
+            ImageView overlayView = new ImageView(overlay);
+            overlayView.setBlendMode(BlendMode.SRC_ATOP);
+            overlayView.setFitWidth(32);
+            overlayView.setFitHeight(32);
+            res = new Group(base, overlayView);
+        } else {
+            res = new Group(base);
         }
 
-        if (this.overlay != null) {
-            try {
-                overlay = ImageIO.read(new File("resources/cases/" + this.overlay));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            assert img != null;
-            Graphics2D g2d = img.createGraphics();
-            g2d.setComposite(AlphaComposite.SrcOver.derive(.8f));
-            g2d.drawImage(overlay, 0, 0, 32, 32, null);
-            g2d.dispose();
-        }
-
-        return img;
+        return res;
     }
 }

@@ -1,12 +1,13 @@
 package com.egp.observer;
 
-import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public abstract class Observable {
-    private ArrayList<Observer> observers;
+    private final List<Observer> observers;
 
     public Observable() {
-        this.observers = new ArrayList<>();
+        this.observers = new CopyOnWriteArrayList<>();
     }
 
     public void addObserver(Observer o) {

@@ -3,42 +3,50 @@ package com.egp.vues;
 import com.egp.controllers.Controller;
 import com.egp.modeles.Modele;
 import com.egp.observer.Observer;
+import javafx.scene.control.Button;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 
-import javax.swing.*;
-import java.awt.*;
-
-public class CommandesVue extends JPanel implements Observer {
+public class CommandesVue extends BorderPane implements Observer {
 
     private final Modele modele;
-    private final JProgressBar actionLeftBar;
+    private final ProgressBar actionLeftBar;
+    private StackPane progressPane;
+    private Text progressText;
 
     public CommandesVue(Modele modele) {
         this.modele = modele;
 
-        Dimension dim = new Dimension(150,32 * modele.getNbRows());
+        actionLeftBar = new ProgressBar();
+        actionLeftBar.setProgress(1);
 
-        actionLeftBar = new JProgressBar(0, 3);
-        actionLeftBar.setValue(3);
-        actionLeftBar.setStringPainted(true);
-        actionLeftBar.setString("3 / 3");
+        progressText = new Text("3 / 3");
 
-        JButton finTourButton = new JButton("Fin de tour");
+        progressPane = new StackPane();
+        progressPane.setMinWidth(150);
+        progressPane.getChildren().addAll(actionLeftBar, progressText);
+        this.setTop(progressPane);
 
-        this.setLayout(new BorderLayout());
-        this.setPreferredSize(dim);
+        Button finTourButton = new Button("Fin de tour");
 
-        this.add(actionLeftBar);
-
-        this.add(finTourButton);
+        StackPane buttonPane = new StackPane();
+        buttonPane.setMinWidth(150);
+        buttonPane.getChildren().addAll(finTourButton);
 
         Controller ctrl = new Controller(modele);
-        finTourButton.addMouseListener(ctrl);
+        finTourButton.setOnAction(actionEvent -> ctrl.finDeTour());
+
+        this.setBottom(buttonPane);
     }
 
     @Override
     public void update() {
-        int actionLeft = modele.getActionLeft();
-        actionLeftBar.setValue(actionLeft);
-        this.repaint();
+        int actionLeft = 3;
+        actionLeftBar.setProgress(actionLeft / 3);
+        progressText.setText( actionLeft + " / 3");
+        //this.repaint();
     }
 }
