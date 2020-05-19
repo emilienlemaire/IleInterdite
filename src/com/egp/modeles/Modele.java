@@ -59,6 +59,11 @@ public class Modele extends Observable {
         return this.currentPlayer.atteignable(c);
     }
 
+    public void deplace(Zone c){
+        this.currentPlayer.setPosition(c);
+        this.currentPlayer.setActions(this.currentPlayer.getActions() - 1);
+    }
+
     public boolean assechable(Zone c){
         if(c.etat == Etat.Normale || c.etat == Etat.Submergee)
             return false;
@@ -72,11 +77,6 @@ public class Modele extends Observable {
 
     public void asseche(Zone c){
         c.etat = Etat.Normale;
-    }
-
-    public void deplace(Zone c){
-        this.currentPlayer.setPosition(c);
-        this.currentPlayer.setActions(this.currentPlayer.getActions() - 1);
     }
 
     public void incrementeTour(){
