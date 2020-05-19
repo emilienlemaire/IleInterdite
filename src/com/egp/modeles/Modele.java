@@ -10,12 +10,19 @@ public class Modele extends Observable {
     private int nbCols;
     private int nbRows;
     private int[] indices;
+    private int nbPlayer;
+    private ArrayList<Player> players;
+    private Zone heliport;
+    private int nbTour = 0;
+    private Player currentPlayer;
 
-    public Modele(int nbCols, int nbRows) {
+    public Modele(int nbCols, int nbRows, int nbPlayer) {
         this.nbCols = nbCols;
         this.nbRows = nbRows;
+        this.nbPlayer = nbPlayer;
 
         this.cases = new ArrayList<>();
+        this.players = new ArrayList<>();
 
         this.init();
     }
@@ -27,12 +34,54 @@ public class Modele extends Observable {
             }
         }
 
-        this.indices = new Random().ints(0, nbCols * nbRows).distinct().limit(6).toArray();
-
         Type[] values = Type.values();
+
+        this.indices = new Random().ints(0, nbCols * nbRows).distinct().limit(values.length-1).toArray();
+
         for (int i = 0; i < this.indices.length; i++) {
             this.cases.get(this.indices[i]).type = values[i + 1];
+            if (values[i + 1] == Type.Heliport)
+                this.heliport = this.cases.get(this.indices[i]);
         }
+
+        int spawn_idx = new Random().nextInt(nbCols * nbRows);
+        for(int i = 0; i<this.nbPlayer; i++)
+            this.players.add(new Player(this.cases.get(spawn_idx), i+1));
+
+        setCurrentPlayer();
+    }
+
+    private void setCurrentPlayer(){
+        this.currentPlayer = this.players.get(nbTour % nbPlayer);
+    }
+
+    public boolean atteignable(Zone c){
+        return this.currentPlayer.atteignable(c);
+    }
+
+    public boolean assechable(Zone c){
+        if(c.etat == Etat.Normale || c.etat == Etat.Submergee)
+            return false;
+
+        if(this.currentPlayer.getPosition().x == c.x &&
+        this.currentPlayer.getPosition().y == c.y)
+            return true;
+
+        return atteignable(c);
+    }
+
+    public void asseche(Zone c){
+        c.etat = Etat.Normale;
+    }
+
+    public void deplace(Zone c){
+        this.currentPlayer.setPosition(c);
+        this.currentPlayer.setActions(this.currentPlayer.getActions() - 1);
+    }
+
+    public void incrementeTour(){
+        this.nbTour++;
+        setCurrentPlayer();
     }
 
     public void inondeCases() {
@@ -63,6 +112,8 @@ public class Modele extends Observable {
     public ArrayList<Zone> getCases() {
         return this.cases;
     }
+
+    public ArrayList<Player> getPlayers() { return this.players; }
 
     public String toString() {
         String msg = "";

@@ -12,11 +12,6 @@ public enum Type {
             return "Normale";
         }
     },
-    Spawn("normal.png", null){
-        public String toString() {
-            return "Spawn";
-        }
-    },
     Heliport("normal.png", "heliport.png"){
         public String toString() {
             return "Héliport";
