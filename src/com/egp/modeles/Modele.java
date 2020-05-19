@@ -44,9 +44,10 @@ public class Modele extends Observable {
                 this.heliport = this.cases.get(this.indices[i]);
         }
 
-        int spawn_idx = new Random().nextInt(nbCols * nbRows);
+        int[] spawn_idx = new Random().ints(0, nbCols * nbRows).limit(nbPlayer).toArray();
+
         for(int i = 0; i<this.nbPlayer; i++)
-            this.players.add(new Player(this.cases.get(spawn_idx), i+1));
+            this.players.add(new Player(this.cases.get(spawn_idx[i]), i+1));
 
         setCurrentPlayer();
     }
@@ -62,6 +63,7 @@ public class Modele extends Observable {
     public void deplace(Zone c){
         this.currentPlayer.setPosition(c);
         this.currentPlayer.setActions(this.currentPlayer.getActions() - 1);
+        notifyObservers();
     }
 
     public boolean assechable(Zone c){
@@ -77,6 +79,7 @@ public class Modele extends Observable {
 
     public void asseche(Zone c){
         c.etat = Etat.Normale;
+        notifyObservers();
     }
 
     public void incrementeTour(){
@@ -121,5 +124,9 @@ public class Modele extends Observable {
             msg += c.toString() + "\n";
         }
         return msg;
+    }
+
+    public Player getCurrentPlayer() {
+        return this.currentPlayer;
     }
 }

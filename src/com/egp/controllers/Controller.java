@@ -1,14 +1,49 @@
 package com.egp.controllers;
 
 import com.egp.modeles.Modele;
+import com.egp.modeles.Zone;
+import com.egp.vues.ActionsVue;
+import com.egp.vues.GrilleVue;
+import com.egp.vues.ZoneVue;
+import javafx.scene.Cursor;
+import javafx.scene.input.MouseEvent;
 
 public class Controller {
 
-    Modele modele;
-    public Controller(Modele modele) { this.modele = modele; }
+    private final Modele modele;
+    private final GrilleVue grilleVue;
+
+
+    public Controller(Modele modele, GrilleVue grilleVue) {
+        this.modele = modele;
+        this.grilleVue = grilleVue;
+    }
 
     public void finDeTour() {
         modele.inondeCases();
-        System.out.println("Fin de tour");
+    }
+
+
+    /*
+    * Il faut vérifier que le joueur à au moins une action
+    * (modele.getCurrentPlayer.getActions())
+    * que la case soit atteignable ou asséchable,
+    * si elle est que l'une des deux alors tu appelles
+    * modele.deplace(zone) ou modele.asseche(zone)
+    * si elle est les deux alors tu crée une nouvelle actionVue
+    * */
+    public void zoneClicked(Zone zone, MouseEvent mouseEvent) {
+
+    }
+
+
+    /*
+     * Si la zone est atteignable ou asséchable, alors
+     * zoneVue.setGoodCursor()
+     * sinon
+     * zoneVue.setBadCursor()
+     * */
+    public void mouseEnteredZone(ZoneVue zoneVue) {
+
     }
 }

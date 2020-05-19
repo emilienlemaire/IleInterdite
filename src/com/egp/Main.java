@@ -15,7 +15,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Modele modele = new Modele(12, 20);
+        Modele modele = new Modele(12, 20, 5);
         FlowPane root = new FlowPane();
         stage.setTitle("Ile Interdite");
         stage.setScene(new MainVue(modele, root));
