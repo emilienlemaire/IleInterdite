@@ -65,4 +65,6 @@ public class ZoneVue extends Pane {
         Image cursor = new Image(new File("resources/cursors/invalid32x32.gif").toURI().toString());
         mainVue.setCursor(new ImageCursor(cursor));
     }
+
+    public Zone getZone() { return this.zone; }
 }

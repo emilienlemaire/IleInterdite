@@ -57,7 +57,10 @@ public class Modele extends Observable {
     }
 
     public boolean atteignable(Zone c){
-        return this.currentPlayer.atteignable(c);
+        if (this.currentPlayer.getActions() > 0)
+            return this.currentPlayer.atteignable(c);
+        else
+            return false;
     }
 
     public void deplace(Zone c){
@@ -67,14 +70,17 @@ public class Modele extends Observable {
     }
 
     public boolean assechable(Zone c){
-        if(c.etat == Etat.Normale || c.etat == Etat.Submergee)
+        if (c.etat == Etat.Normale || c.etat == Etat.Submergee)
             return false;
 
-        if(this.currentPlayer.getPosition().x == c.x &&
+        if (this.currentPlayer.getActions() == 0)
+            return false;
+
+        if (this.currentPlayer.getPosition().x == c.x &&
         this.currentPlayer.getPosition().y == c.y)
             return true;
 
-        return atteignable(c);
+        return this.currentPlayer.atteignable(c);
     }
 
     public void asseche(Zone c){
@@ -85,6 +91,7 @@ public class Modele extends Observable {
     public void incrementeTour(){
         this.nbTour++;
         setCurrentPlayer();
+        notifyObservers();
     }
 
     public void inondeCases() {

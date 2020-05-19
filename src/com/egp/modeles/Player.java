@@ -32,13 +32,12 @@ public class Player {
     public int getID(){ return this.ID; }
 
     public boolean atteignable(Zone c){
-        if (this.actions == 0)
-            return false;
 
         if (c.etat == Etat.Submergee)
             return false;
 
         if (this.position.x == c.x){
+
             return this.position.y == c.y - 1 || this.position.y == c.y + 1;
 
         } else if (this.position.y == c.y){

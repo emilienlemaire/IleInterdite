@@ -21,12 +21,12 @@ public class Controller {
 
     public void finDeTour() {
         modele.inondeCases();
+        modele.incrementeTour();
     }
 
 
     /*
-    * Il faut vérifier que le joueur à au moins une action
-    * (modele.getCurrentPlayer.getActions())
+    * Il faut vérifier
     * que la case soit atteignable ou asséchable,
     * si elle est que l'une des deux alors tu appelles
     * modele.deplace(zone) ou modele.asseche(zone)
@@ -34,6 +34,16 @@ public class Controller {
     * */
     public void zoneClicked(Zone zone, MouseEvent mouseEvent) {
 
+        System.out.println(zone);
+
+        if (this.modele.atteignable(zone) && this.modele.assechable(zone))
+            new ActionsVue(zone, mouseEvent, this.grilleVue, this.modele);
+
+        else if (this.modele.assechable(zone))
+            this.modele.asseche(zone);
+
+        else if (this.modele.atteignable(zone))
+            this.modele.deplace(zone);
     }
 
 
@@ -44,6 +54,9 @@ public class Controller {
      * zoneVue.setBadCursor()
      * */
     public void mouseEnteredZone(ZoneVue zoneVue) {
-
+        if (this.modele.atteignable(zoneVue.getZone()) || this.modele.assechable(zoneVue.getZone()))
+            zoneVue.setGoodCursor();
+        else
+            zoneVue.setBadCursor();
     }
 }
