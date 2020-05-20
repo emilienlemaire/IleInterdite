@@ -21,7 +21,7 @@ public class ZoneVue extends Pane {
     private final Modele modele;
     private final Zone zone;
     private final MainVue mainVue;
-
+    private GridPane gp;
 
     public ZoneVue(Modele modele, Zone zone, int nbPlayers, int currentPlayer, MainVue mainVue) {
         this.modele = modele;
@@ -66,8 +66,10 @@ public class ZoneVue extends Pane {
             Image hover = new Image(new File("resources/cases/hover.png").toURI().toString());
             ImageView hoverView = new ImageView(hover);
             hoverPane.add(hoverView, 0, 0);
-
+            System.out.println(this.getChildren().contains(hoverPane));
+            this.getChildren().remove(gp);
             this.getChildren().add(hoverPane);
+            this.gp = hoverPane;
         }
     }
 
