@@ -53,6 +53,10 @@ public class Controller {
                 actionsVue.hide();
             }
             actionsVue = new ActionsVue(zone, mouseEvent, this.grilleVue, this.modele, true, false);
+        } else {
+            if (actionsVue != null) {
+                actionsVue.hide();
+            }
         }
     }
 
