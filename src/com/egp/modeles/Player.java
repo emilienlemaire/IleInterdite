@@ -36,13 +36,11 @@ public class Player {
         if (c.etat == Etat.Submergee)
             return false;
 
-        if (this.position.x == c.x){
-
+        if (this.position.x == c.x)
             return this.position.y == c.y - 1 || this.position.y == c.y + 1;
 
-        } else if (this.position.y == c.y){
+        if (this.position.y == c.y)
             return this.position.x == c.x - 1 || this.position.x == c.x + 1;
-        }
 
         return false;
     }

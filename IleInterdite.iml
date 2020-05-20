@@ -13,6 +13,19 @@
           <root url="jar://$MAVEN_REPOSITORY$/org/jetbrains/annotations/19.0.0/annotations-19.0.0.jar!/" />
         </CLASSES>
         <JAVADOC />
+        <LIBRARY_FILE />
+        <LIBRARY_FILE />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MAVEN_REPOSITORY$/org/jetbrains/annotations/17.0.0/annotations-17.0.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <LIBRARY_FILE />
+        <LIBRARY_FILE />
         <SOURCES />
       </library>
     </orderEntry>

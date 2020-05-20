@@ -12,6 +12,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import javafx.scene.shape.Rectangle;
+
 import java.io.File;
 
 public class ZoneVue extends Pane {
@@ -30,6 +32,7 @@ public class ZoneVue extends Pane {
         Group etatGrp = zone.etat.getImage(typeGrp);
 
         GridPane playerPane = new GridPane();
+
 
         if (nbPlayers > 0) {
             for (int i = 0; i < nbPlayers; i++) {
@@ -55,6 +58,17 @@ public class ZoneVue extends Pane {
         etatGrp.getChildren().add(playerPane);
 
         this.getChildren().add(etatGrp);
+    }
+
+    public void setHover() {
+        if (this.zone == Zone.getHover()) {
+            GridPane hoverPane = new GridPane();
+            Image hover = new Image(new File("resources/cases/hover.png").toURI().toString());
+            ImageView hoverView = new ImageView(hover);
+            hoverPane.add(hoverView, 0, 0);
+
+            this.getChildren().add(hoverPane);
+        }
     }
 
     public void setGoodCursor() {

@@ -31,7 +31,7 @@ public class Controller {
     * si elle est que l'une des deux alors tu appelles
     * modele.deplace(zone) ou modele.asseche(zone)
     * si elle est les deux alors tu crée une nouvelle actionVue
-    * */
+    */
     public void zoneClicked(Zone zone, MouseEvent mouseEvent) {
 
         System.out.println(zone);
@@ -54,6 +54,9 @@ public class Controller {
      * zoneVue.setBadCursor()
      * */
     public void mouseEnteredZone(ZoneVue zoneVue) {
+
+        Zone.setHover(zoneVue.getZone());
+        zoneVue.setHover();
         if (this.modele.atteignable(zoneVue.getZone()) || this.modele.assechable(zoneVue.getZone()))
             zoneVue.setGoodCursor();
         else
