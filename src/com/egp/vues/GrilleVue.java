@@ -21,8 +21,8 @@ public class GrilleVue extends GridPane implements Observer {
         this.modele = modele;
         this.controller = new Controller(modele, this);
         this.mainVue = mainVue;
-        ROWS = modele.getNbRows();
-        COLS = modele.getNbCols();
+        this.ROWS = modele.getNbRows();
+        this.COLS = modele.getNbCols();
 
         modele.addObserver(this);
 
@@ -39,7 +39,6 @@ public class GrilleVue extends GridPane implements Observer {
     }
 
     private void generateGrid() {
-        ArrayList<ZoneVue> zoneVues = new ArrayList<>();
         ArrayList<Zone> zones = this.modele.getCases();
         ArrayList<Player> players = modele.getPlayers();
         for (int i = 0; i < ROWS; i++) {
@@ -56,7 +55,7 @@ public class GrilleVue extends GridPane implements Observer {
                         }
                     }
                 }
-                ZoneVue newZone = new ZoneVue(modele, zone, nbPlayers, currentPlayer, this.mainVue);
+                ZoneVue newZone = new ZoneVue(zone, nbPlayers, currentPlayer, this.mainVue);
 
                 newZone.setOnMouseClicked(mouseEvent -> controller.zoneClicked(zone, mouseEvent));
                 newZone.setOnMouseEntered(mouseEvent -> controller.mouseEnteredZone(newZone));

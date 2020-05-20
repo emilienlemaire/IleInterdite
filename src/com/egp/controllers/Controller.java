@@ -5,13 +5,13 @@ import com.egp.modeles.Zone;
 import com.egp.vues.ActionsVue;
 import com.egp.vues.GrilleVue;
 import com.egp.vues.ZoneVue;
-import javafx.scene.Cursor;
 import javafx.scene.input.MouseEvent;
 
 public class Controller {
 
     private final Modele modele;
     private final GrilleVue grilleVue;
+    private ActionsVue actionsVue = null;
 
 
     public Controller(Modele modele, GrilleVue grilleVue) {
@@ -36,14 +36,25 @@ public class Controller {
 
         System.out.println(zone);
 
-        if (this.modele.atteignable(zone) && this.modele.assechable(zone))
-            new ActionsVue(zone, mouseEvent, this.grilleVue, this.modele);
+        if (this.modele.atteignable(zone) && this.modele.assechable(zone)) {
+            if (actionsVue != null) {
+                actionsVue.hide();
+            }
+            actionsVue = new ActionsVue(zone, mouseEvent, this.grilleVue, this.modele, true, true);
+        }
+        else if (this.modele.assechable(zone)) {
+            if (actionsVue != null) {
+                actionsVue.hide();
+            }
+            actionsVue = new ActionsVue(zone, mouseEvent, this.grilleVue, this.modele, false, true);
+        }
 
-        else if (this.modele.assechable(zone))
-            this.modele.asseche(zone);
-
-        else if (this.modele.atteignable(zone))
-            this.modele.deplace(zone);
+        else if (this.modele.atteignable(zone)) {
+            if (actionsVue != null) {
+                actionsVue.hide();
+            }
+            actionsVue = new ActionsVue(zone, mouseEvent, this.grilleVue, this.modele, true, false);
+        }
     }
 
 

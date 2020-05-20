@@ -1,6 +1,5 @@
 package com.egp.vues;
 
-import com.egp.modeles.Modele;
 import com.egp.modeles.Zone;
 import javafx.scene.Cursor;
 import javafx.scene.Group;

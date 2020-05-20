@@ -8,7 +8,7 @@ import javafx.scene.input.MouseEvent;
 
 public class ActionsVue extends ContextMenu {
 
-    public ActionsVue(Zone zone, MouseEvent mouseEvent, GrilleVue grilleVue, Modele modele) {
+    public ActionsVue(Zone zone, MouseEvent mouseEvent, GrilleVue grilleVue, Modele modele, boolean canMove, boolean canDry) {
         super();
         MenuItem moveItem = new MenuItem("Se déplacer");
         MenuItem dryItem = new MenuItem("Assécher");
@@ -17,6 +17,9 @@ public class ActionsVue extends ContextMenu {
         dryItem.setOnAction(actionEvent -> modele.asseche(zone));
 
         this.getItems().addAll(moveItem, dryItem);
+
+        moveItem.setDisable(!canMove);
+        dryItem.setDisable(!canDry);
 
         this.show(grilleVue, mouseEvent.getScreenX(), mouseEvent.getScreenY());
     }
