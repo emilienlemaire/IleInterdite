@@ -2,6 +2,7 @@ package com.egp.vues;
 
 import com.egp.controllers.Controller;
 import com.egp.modeles.Modele;
+import com.egp.modeles.Player;
 import com.egp.observer.Observer;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -9,6 +10,8 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+
+import java.util.ArrayList;
 
 public class CommandesVue extends BorderPane implements Observer {
 
@@ -44,6 +47,8 @@ public class CommandesVue extends BorderPane implements Observer {
         finTourButton.setOnAction(actionEvent -> controller.finDeTour());
 
         this.setBottom(buttonPane);
+
+        drawPlayers();
     }
 
     @Override
@@ -51,5 +56,18 @@ public class CommandesVue extends BorderPane implements Observer {
         int actionLeft = modele.getCurrentPlayer().getActions();
         actionLeftBar.setProgress(actionLeft / 3.);
         progressText.setText( actionLeft + " / 3");
+        drawPlayers();
+    }
+
+    public void drawPlayers() {
+        ArrayList<Player> players = modele.getPlayers();
+        VBox playerBox = new VBox();
+        for (Player player :
+                players) {
+            PlayerVue playerVue = new PlayerVue(player);
+            playerBox.getChildren().add(playerVue);
+        }
+        playerBox.setMaxWidth(150);
+        this.setCenter(playerBox);
     }
 }

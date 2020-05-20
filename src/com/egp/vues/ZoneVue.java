@@ -30,8 +30,8 @@ public class ZoneVue extends Pane {
         if (nbPlayers > 0) {
             for (int i = 0; i < nbPlayers; i++) {
                 Image player =
-                        (i + 1) == currentPlayer ? new Image(new File("resources/players/player.png").toURI().toString()) :
-                                new Image(new File("resources/players/not-playing.png").toURI().toString());
+                        (i + 1) == currentPlayer ? new Image(new File("resources/players/normal.png").toURI().toString()) :
+                                new Image(new File("resources/players/normal-b&w.png").toURI().toString());
 
                 ImageView playerView = new ImageView(player);
                 if (nbPlayers > 1) {
