@@ -6,6 +6,7 @@ import com.egp.vues.ActionsVue;
 import com.egp.vues.GrilleVue;
 import com.egp.vues.ZoneVue;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 
 public class Controller {
 
@@ -80,5 +81,9 @@ public class Controller {
     public void mouseExitedZone(ZoneVue zoneVue) {
         zoneVue.deleteHover();
         zoneVue.setGoodCursor();
+    }
+
+    public void gotKey() {
+        grilleVue.getMainVue().showPopUp();
     }
 }

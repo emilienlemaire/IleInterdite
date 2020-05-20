@@ -17,7 +17,7 @@ public class Main extends Application {
         Modele modele = new Modele(12, 20, 5);
         FlowPane root = new FlowPane();
         stage.setTitle("Ile Interdite");
-        stage.setScene(new MainVue(modele, root));
+        stage.setScene(new MainVue(modele, root, stage));
         stage.show();
     }
 }

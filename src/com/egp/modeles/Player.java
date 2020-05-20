@@ -1,8 +1,9 @@
 package com.egp.modeles;
 
 import com.egp.constants.Etat;
+import com.egp.observer.Observable;
 
-public class Player {
+public class Player extends Observable {
     private Zone position;
     private final int ID;
     private int actions = 3;
@@ -19,6 +20,7 @@ public class Player {
 
     public void setActions(int actions){
         this.actions = actions;
+        notifyObservers();
     }
 
     public Zone getPosition(){
@@ -27,6 +29,7 @@ public class Player {
 
     public void setPosition(Zone p){
         this.position = p;
+        notifyObservers();
     }
 
     public int getID(){ return this.ID; }
@@ -35,6 +38,7 @@ public class Player {
 
     public void setCles(int nbcles){
         this.cles = nbcles;
+        notifyObservers();
     }
 
     public boolean atteignable(Zone c){

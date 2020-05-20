@@ -2,17 +2,18 @@ package com.egp.vues;
 
 import com.egp.modeles.Player;
 import com.egp.observer.Observer;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.text.Text;
 
 import java.io.File;
+import java.util.ArrayList;
 
-public class PlayerVue extends FlowPane implements Observer {
+public class PlayerVue extends FlowPane {
     private final Player player;
     private int keys;
-    private final Text text;
+    private final ArrayList<ImageView> keyViews;
 
     public PlayerVue(Player player) {
         super();
@@ -21,16 +22,32 @@ public class PlayerVue extends FlowPane implements Observer {
 
         Image playerImg = new Image(new File("resources/players/normal.png").toURI().toString());
         ImageView playerView = new ImageView(playerImg);
-        playerView.setFitWidth(32);
-        playerView.setFitHeight(32);
-        this.text = new Text("Clés: " + keys);
+        playerView.setFitWidth(64);
+        playerView.setFitHeight(64);
 
-        this.getChildren().addAll(playerView, text);
-    }
+        this.getChildren().add(playerView);
 
-    @Override
-    public void update() {
-        this.keys = player.getCles();
-        this.text.setText("Clés: " + keys);
+        keyViews = new ArrayList<>();
+
+        for (int i = 0; i < 4; i++) {
+            Image key = new Image(new File("resources/keys/cle" +
+                    (i == 0 ? "" : (i + 1)) + ".png").toURI().toString());
+            ImageView keyView = new ImageView(key);
+
+            ColorAdjust colorAdjust = new ColorAdjust();
+            colorAdjust.setBrightness(-1);
+            keyView.setEffect(colorAdjust);
+            this.keyViews.add(keyView);
+        }
+
+        for (int i = 0; i< player.getCles(); i++) {
+            Image key = new Image(new File("resources/keys/cle" +
+                    (i == 0 ? "" : (i + 1)) + ".png").toURI().toString());
+            ImageView keyView = new ImageView(key);
+
+            this.keyViews.set(i, keyView);
+        }
+
+        this.getChildren().addAll(keyViews);
     }
 }

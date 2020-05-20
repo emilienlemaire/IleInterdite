@@ -5,7 +5,11 @@ import com.egp.modeles.Modele;
 import com.egp.modeles.Player;
 import com.egp.modeles.Zone;
 import com.egp.observer.Observer;
+import javafx.scene.Cursor;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
+import javafx.stage.Popup;
+
 
 import java.util.ArrayList;
 
@@ -20,6 +24,7 @@ public class GrilleVue extends GridPane implements Observer {
     public GrilleVue(Modele modele, MainVue mainVue) {
         this.modele = modele;
         this.controller = new Controller(modele, this);
+        modele.setController(this.controller);
         this.mainVue = mainVue;
         this.ROWS = modele.getNbRows();
         this.COLS = modele.getNbCols();
@@ -66,4 +71,7 @@ public class GrilleVue extends GridPane implements Observer {
         }
     }
 
+    public MainVue getMainVue() {
+        return mainVue;
+    }
 }

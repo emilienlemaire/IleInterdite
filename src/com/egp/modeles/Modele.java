@@ -1,6 +1,9 @@
 package com.egp.modeles;
 import com.egp.constants.*;
+import com.egp.controllers.Controller;
 import com.egp.observer.Observable;
+import javafx.scene.text.Text;
+import javafx.stage.Popup;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -15,6 +18,7 @@ public class Modele extends Observable {
     private Zone heliport;
     private int nbTour = 0;
     private Player currentPlayer;
+    private Controller controller;
 
     public Modele(int nbCols, int nbRows, int nbPlayer) {
         this.nbCols = nbCols;
@@ -124,6 +128,7 @@ public class Modele extends Observable {
         if (r > 0.66) {
             this.currentPlayer.setCles(this.currentPlayer.getCles() + 1);
             System.out.println(this.currentPlayer);
+            controller.gotKey();
             notifyObservers();
         }
         else if (r > 0.33) {
@@ -157,4 +162,6 @@ public class Modele extends Observable {
     public Player getCurrentPlayer() {
         return this.currentPlayer;
     }
+
+    public void setController(Controller controller) { this.controller = controller; }
 }
