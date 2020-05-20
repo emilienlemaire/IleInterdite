@@ -60,7 +60,7 @@ public class GrilleVue extends GridPane implements Observer {
 
                 newZone.setOnMouseClicked(mouseEvent -> controller.zoneClicked(zone, mouseEvent));
                 newZone.setOnMouseEntered(mouseEvent -> controller.mouseEnteredZone(newZone));
-                newZone.setOnMouseExited(mouseEvent -> newZone.setGoodCursor());
+                newZone.setOnMouseExited(mouseEvent -> controller.mouseExitedZone(newZone));
 
                 this.add(newZone, i, j);
             }

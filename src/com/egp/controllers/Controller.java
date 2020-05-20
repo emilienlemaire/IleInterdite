@@ -62,4 +62,9 @@ public class Controller {
         else
             zoneVue.setBadCursor();
     }
+
+    public void mouseExitedZone(ZoneVue zoneVue) {
+        zoneVue.deleteHover();
+        zoneVue.setGoodCursor();
+    }
 }

@@ -1,30 +1,25 @@
 package com.egp.vues;
 
-import com.egp.controllers.Controller;
 import com.egp.modeles.Modele;
 import com.egp.modeles.Zone;
-import com.egp.observer.Observer;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.ImageCursor;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
-import javafx.scene.shape.Rectangle;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 
 import java.io.File;
 
 public class ZoneVue extends Pane {
 
-    private final Modele modele;
     private final Zone zone;
     private final MainVue mainVue;
-    private GridPane gp;
+    private final Image hover = new Image(new File("resources/cases/hover2.png").toURI().toString());
+    private final ImageView hoverView = new ImageView(hover);
 
-    public ZoneVue(Modele modele, Zone zone, int nbPlayers, int currentPlayer, MainVue mainVue) {
-        this.modele = modele;
+    public ZoneVue(Zone zone, int nbPlayers, int currentPlayer, MainVue mainVue) {
         this.zone = zone;
         this.mainVue = mainVue;
 
@@ -37,7 +32,7 @@ public class ZoneVue extends Pane {
             for (int i = 0; i < nbPlayers; i++) {
                 Image player =
                         (i + 1) == currentPlayer ? new Image(new File("resources/players/player.png").toURI().toString()) :
-                        new Image(new File("resources/players/not-playing.png").toURI().toString());
+                                new Image(new File("resources/players/not-playing.png").toURI().toString());
 
                 ImageView playerView = new ImageView(player);
                 if (nbPlayers > 1) {
@@ -60,16 +55,11 @@ public class ZoneVue extends Pane {
     }
 
     public void setHover() {
-        if (this.zone == Zone.getHover()) {
-            GridPane hoverPane = new GridPane();
-            Image hover = new Image(new File("resources/cases/hover2.png").toURI().toString());
-            ImageView hoverView = new ImageView(hover);
-            hoverPane.add(hoverView, 0, 0);
-            System.out.println(this.getChildren().contains(hoverPane));
-            this.getChildren().remove(gp);
-            this.getChildren().add(hoverPane);
-            this.gp = hoverPane;
-        }
+        this.getChildren().add(hoverView);
+    }
+
+    public void deleteHover() {
+        this.getChildren().remove(hoverView);
     }
 
     public void setGoodCursor() {
