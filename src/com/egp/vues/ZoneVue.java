@@ -33,7 +33,6 @@ public class ZoneVue extends Pane {
 
         GridPane playerPane = new GridPane();
 
-
         if (nbPlayers > 0) {
             for (int i = 0; i < nbPlayers; i++) {
                 Image player =
@@ -63,7 +62,7 @@ public class ZoneVue extends Pane {
     public void setHover() {
         if (this.zone == Zone.getHover()) {
             GridPane hoverPane = new GridPane();
-            Image hover = new Image(new File("resources/cases/hover.png").toURI().toString());
+            Image hover = new Image(new File("resources/cases/hover2.png").toURI().toString());
             ImageView hoverView = new ImageView(hover);
             hoverPane.add(hoverView, 0, 0);
             System.out.println(this.getChildren().contains(hoverPane));
