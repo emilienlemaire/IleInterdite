@@ -85,6 +85,7 @@ public class Modele extends Observable {
 
     public void asseche(Zone c){
         c.etat = Etat.Normale;
+        this.currentPlayer.setActions(this.currentPlayer.getActions() - 1);
         notifyObservers();
     }
 

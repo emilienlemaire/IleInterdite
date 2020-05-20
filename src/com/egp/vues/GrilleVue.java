@@ -42,9 +42,9 @@ public class GrilleVue extends GridPane implements Observer {
         ArrayList<ZoneVue> zoneVues = new ArrayList<>();
         ArrayList<Zone> zones = this.modele.getCases();
         ArrayList<Player> players = modele.getPlayers();
-        for (int i = 0; i < COLS; i++) {
-            for (int j = 0; j < ROWS; j++) {
-                Zone zone = zones.get(i * ROWS + j);
+        for (int i = 0; i < ROWS; i++) {
+            for (int j = 0; j < COLS; j++) {
+                Zone zone = zones.get(i * COLS + j);
                 int nbPlayers = 0;
                 int currentPlayer = 0;
                 for (Player player :

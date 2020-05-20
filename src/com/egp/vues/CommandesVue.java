@@ -3,21 +3,25 @@ package com.egp.vues;
 import com.egp.controllers.Controller;
 import com.egp.modeles.Modele;
 import com.egp.observer.Observer;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 public class CommandesVue extends BorderPane implements Observer {
 
     private final Modele modele;
     private final ProgressBar actionLeftBar;
-    private StackPane progressPane;
-    private Text progressText;
+    private final Text progressText;
 
     public CommandesVue(Modele modele, Controller controller) {
         this.modele = modele;
+
+        BackgroundFill backgroundFill = new BackgroundFill(Color.GRAY, CornerRadii.EMPTY, Insets.EMPTY);
+
+        this.setBackground(new Background(backgroundFill));
 
         modele.addObserver(this);
 
@@ -26,7 +30,7 @@ public class CommandesVue extends BorderPane implements Observer {
 
         progressText = new Text("3 / 3");
 
-        progressPane = new StackPane();
+        StackPane progressPane = new StackPane();
         progressPane.setMinWidth(150);
         progressPane.getChildren().addAll(actionLeftBar, progressText);
         this.setTop(progressPane);

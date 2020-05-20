@@ -8,7 +8,7 @@ import javafx.scene.layout.Pane;
 public class MainVue extends Scene {
 
     public MainVue(Modele modele, Pane root) {
-        super(root, modele.getNbCols() * 32 + 150, modele.getNbRows() * 32);
+        super(root, modele.getNbRows() * 32 + 150, modele.getNbCols() * 32);
 
         GrilleVue grilleVue = new GrilleVue(modele, this);
         Controller controller = grilleVue.getController();
