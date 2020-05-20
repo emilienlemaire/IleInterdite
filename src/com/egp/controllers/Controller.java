@@ -21,6 +21,7 @@ public class Controller {
 
     public void finDeTour() {
         modele.inondeCases();
+        modele.dropCles();
         modele.incrementeTour();
     }
 
@@ -33,8 +34,6 @@ public class Controller {
     * si elle est les deux alors tu crée une nouvelle actionVue
     */
     public void zoneClicked(Zone zone, MouseEvent mouseEvent) {
-
-        System.out.println(zone);
 
         if (this.modele.atteignable(zone) && this.modele.assechable(zone)) {
             if (actionsVue != null) {

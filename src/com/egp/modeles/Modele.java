@@ -95,21 +95,41 @@ public class Modele extends Observable {
         notifyObservers();
     }
 
+    private boolean innondeCase(Zone c){
+        if (c.etat == Etat.Normale){
+            c.etat = Etat.Innondee;
+            return true;
+        }
+        if(c.etat == Etat.Innondee){
+            c.etat = Etat.Submergee;
+            return true;
+        }
+        return false;
+    }
+
     public void inondeCases() {
         int i = 0;
         Random r = new Random();
         while (i < 3) {
             int idx = r.nextInt(this.nbCols * this.nbRows);
-            if (this.cases.get(idx).etat == Etat.Normale) {
-                this.cases.get(idx).etat = Etat.Innondee;
+            if(innondeCase(this.cases.get(idx)))
                 i++;
-            } else if (this.cases.get(idx).etat == Etat.Innondee) {
-                this.cases.get(idx).etat = Etat.Submergee;
-                i++;
-            }
-
         }
         notifyObservers();
+    }
+
+
+    public void dropCles(){
+        float r = new Random().nextFloat();
+        if (r > 0.66) {
+            this.currentPlayer.setCles(this.currentPlayer.getCles() + 1);
+            System.out.println(this.currentPlayer);
+            notifyObservers();
+        }
+        else if (r > 0.33) {
+            innondeCase(this.currentPlayer.getPosition());
+            notifyObservers();
+        }
     }
 
     public int getNbRows() {
