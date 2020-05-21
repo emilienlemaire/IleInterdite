@@ -1,6 +1,7 @@
 package com.egp.vues;
 
 import com.egp.constants.Images;
+import com.egp.constants.Type;
 import com.egp.modeles.Modele;
 import com.egp.modeles.Player;
 import com.egp.modeles.Zone;
@@ -23,13 +24,15 @@ public class ZoneVue extends Pane implements Observer {
     private final MainVue mainVue;
     private final Image hover = new Image(new File("resources/cases/hover2.png").toURI().toString());
     private final ImageView hoverView = new ImageView(hover);
-    private final Group typeGrp;
+    private Group typeGrp;
     private Group etatGrp;
     private GridPane playerPane;
+    private Type type;
 
     public ZoneVue(Modele modele, Zone zone, MainVue mainVue) {
         this.modele = modele;
         this.zone = zone;
+        this.type = zone.type;
         this.mainVue = mainVue;
         this.typeGrp = zone.type.getImage();
         this.etatGrp = zone.etat.getImage(typeGrp);
@@ -93,7 +96,14 @@ public class ZoneVue extends Pane implements Observer {
     public void update() {
 
         this.getChildren().remove(etatGrp);
-        etatGrp = zone.etat.getImage(typeGrp);
+        if (this.zone.type != this.type) {
+            this.type = this.zone.type;
+            this.typeGrp = this.type.getImage();
+            this.etatGrp = this.zone.etat.getImage(typeGrp);
+            this.etatGrp.getChildren().add(playerPane);
+        } else {
+            this.etatGrp = this.zone.etat.getImage(typeGrp);
+        }
         this.playerPane.getChildren().clear();
 
         int nbPlayers = this.zone.getPlayers().size();
@@ -112,11 +122,11 @@ public class ZoneVue extends Pane implements Observer {
                 playerView.setFitWidth(16);
                 int v = i > 1 ? 1 : 0;
                 int h = i % 2 == 1 ? 1 : 0;
-                playerPane.add(playerView, v, h);
+                this.playerPane.add(playerView, v, h);
             } else {
                 playerView.setFitHeight(32);
                 playerView.setFitWidth(32);
-                playerPane.add(playerView, 0, 0);
+                this.playerPane.add(playerView, 0, 0);
             }
         }
         this.getChildren().add(etatGrp);

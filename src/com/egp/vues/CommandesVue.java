@@ -22,9 +22,7 @@ public class CommandesVue extends BorderPane implements Observer {
     public CommandesVue(Modele modele, Controller controller) {
         this.modele = modele;
 
-        BackgroundFill backgroundFill = new BackgroundFill(Color.GRAY, CornerRadii.EMPTY, Insets.EMPTY);
-
-        this.setBackground(new Background(backgroundFill));
+        this.setPadding(new Insets(10));
 
         modele.addObserver(this);
 
@@ -34,14 +32,14 @@ public class CommandesVue extends BorderPane implements Observer {
         progressText = new Text("3 / 3");
 
         StackPane progressPane = new StackPane();
-        progressPane.setMinWidth(150);
+        progressPane.setMinWidth(130);
         progressPane.getChildren().addAll(actionLeftBar, progressText);
         this.setTop(progressPane);
 
         Button finTourButton = new Button("Fin de tour");
 
         StackPane buttonPane = new StackPane();
-        buttonPane.setMinWidth(150);
+        buttonPane.setMinWidth(130);
         buttonPane.getChildren().addAll(finTourButton);
 
         finTourButton.setOnAction(actionEvent -> controller.finDeTour());
@@ -66,7 +64,7 @@ public class CommandesVue extends BorderPane implements Observer {
             PlayerVue playerVue = new PlayerVue(player);
             playerBox.getChildren().add(playerVue);
         }
-        playerBox.setMaxWidth(150);
+        playerBox.setMaxWidth(130);
         this.setCenter(playerBox);
     }
 }

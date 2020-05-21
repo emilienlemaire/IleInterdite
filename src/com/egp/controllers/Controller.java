@@ -7,6 +7,7 @@ import com.egp.vues.GrilleVue;
 import com.egp.vues.ZoneVue;
 import javafx.scene.input.MouseEvent;
 
+import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -41,38 +42,27 @@ public class Controller {
     */
     public void zoneClicked(Zone zone, MouseEvent mouseEvent) {
 
-        if (this.modele.atteignable(zone) && this.modele.assechable(zone)) {
-            if (actionsVue != null) {
-                actionsVue.hide();
-            }
-            actionsVue = new ActionsVue(zone, mouseEvent, this.grilleVue, this.modele, true, true);
+        if (actionsVue != null)
+            actionsVue.hide();
+
+        ArrayList<String> actions = new ArrayList<>();
+
+        if (this.modele.atteignable(zone)) {
+            actions.add("move");
         }
-        else if (this.modele.assechable(zone)) {
+        if (this.modele.assechable(zone)) {
             if (actionsVue != null) {
                 actionsVue.hide();
             }
-            actionsVue = new ActionsVue(zone, mouseEvent, this.grilleVue, this.modele, false, true);
+            actions.add("dry");
         }
 
-        else if (this.modele.atteignable(zone)) {
-            if (actionsVue != null) {
-                actionsVue.hide();
-            }
-            actionsVue = new ActionsVue(zone, mouseEvent, this.grilleVue, this.modele, true, false);
+        if (this.modele.recuperable(zone)) {
+            actions.add("get");
         }
 
-        else if (this.modele.recuperable(zone)) {
-            if (actionsVue != null) {
-                actionsVue.hide();
-            }
-            this.modele.recupere(zone);
-        }
-
-        else {
-            if (actionsVue != null) {
-                actionsVue.hide();
-            }
-        }
+        if (!actions.isEmpty())
+            actionsVue = new ActionsVue(zone, mouseEvent, this.grilleVue, this.modele, actions);
     }
 
 

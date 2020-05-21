@@ -25,6 +25,7 @@ public class Images {
     public static final ArrayList<Image> keys = new ArrayList<>(Arrays.asList(key1, key2, key3, key4));
 
     public static final Image overlay = new Image(getPath("resources/states/submerged.png"));
+    public static final Image hover = new Image(getPath("resources/cases/hover2.png"));
 
     public static final Image normalCase = new Image( getPath("resources/cases/normal.png"));
     public static final Image airCase = new Image( getPath("resources/cases/air.png"));

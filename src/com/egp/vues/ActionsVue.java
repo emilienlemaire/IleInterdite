@@ -6,20 +6,41 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 
+import java.util.ArrayList;
+
 public class ActionsVue extends ContextMenu {
 
-    public ActionsVue(Zone zone, MouseEvent mouseEvent, GrilleVue grilleVue, Modele modele, boolean canMove, boolean canDry) {
+    public ActionsVue(Zone zone, MouseEvent mouseEvent, GrilleVue grilleVue, Modele modele, ArrayList<String> actions) {
         super();
-        MenuItem moveItem = new MenuItem("Se déplacer");
-        MenuItem dryItem = new MenuItem("Assécher");
 
-        moveItem.setOnAction(actionEvent -> modele.deplace(zone));
-        dryItem.setOnAction(actionEvent -> modele.asseche(zone));
+        if (actions.size() < 1) {
+            throw new IllegalArgumentException("Actions must contains at least one action");
+        }
 
-        this.getItems().addAll(moveItem, dryItem);
+        ArrayList<MenuItem> menuItems = new ArrayList<>();
 
-        moveItem.setDisable(!canMove);
-        dryItem.setDisable(!canDry);
+        for (String action :
+                actions) {
+            if (action.equals("move")) {
+                MenuItem moveItem = new MenuItem("Se déplacer");
+                moveItem.setOnAction(actionEvent -> modele.deplace(zone));
+                menuItems.add(moveItem);
+            }
+
+            if (action.equals("dry")) {
+                MenuItem dryItem = new MenuItem("Assécher");
+                dryItem.setOnAction(actionEvent -> modele.asseche(zone));
+                menuItems.add(dryItem);
+            }
+
+            if (action.equals("get")) {
+                MenuItem getItem = new MenuItem("Récupérer");
+                getItem.setOnAction(actionEvent -> modele.recupere(zone));
+                menuItems.add(getItem);
+            }
+        }
+
+        this.getItems().addAll(menuItems);
 
         this.show(grilleVue, mouseEvent.getScreenX(), mouseEvent.getScreenY());
     }

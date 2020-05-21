@@ -68,6 +68,14 @@ public class PlayerVue extends FlowPane implements Observer{
             this.getChildren().add(0, playerView);
         }
 
+        for (int i = 0; i < 4; i++) {
+            ImageView keyView = keyViews.get(i);
+            ColorAdjust colorAdjust = new ColorAdjust();
+            colorAdjust.setBrightness(-1);
+            keyView.setEffect(colorAdjust);
+            this.keyViews.add(keyView);
+        }
+
         for (Key key :
                 keys) {
             ImageView keyView = keyViews.get(keyToInt(key));
@@ -81,9 +89,9 @@ public class PlayerVue extends FlowPane implements Observer{
             case Heliport:
                 break;
             case Air:
-                return 3;
-            case Terre:
                 return 2;
+            case Terre:
+                return 3;
             case Eau:
                 return 1;
             case Feu:

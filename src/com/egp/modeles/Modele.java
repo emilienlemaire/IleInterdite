@@ -137,7 +137,7 @@ public class Modele extends Observable {
         this.currentPlayer.addArtefacts(new Artefact(c.type));
         this.currentPlayer.setActions(this.currentPlayer.getActions() - 1);
 
-        c.type = Type.Normale;
+        c.setType(Type.Normale);
         System.out.println(this.currentPlayer);
         notifyObservers();
     }

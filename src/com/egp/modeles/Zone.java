@@ -71,5 +71,10 @@ public class Zone extends Observable {
 
         return false;
     }
+
+    public void setType(Type type) {
+        this.type = type;
+        notifyObservers();
+    }
 }
 

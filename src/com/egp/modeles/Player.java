@@ -11,8 +11,8 @@ public class Player extends Observable {
     private final int ID;
     private int actions = 3;
 
-    private ArrayList<Key> keys;
-    private ArrayList<Artefact> artefacts;
+    private final ArrayList<Key> keys;
+    private final ArrayList<Artefact> artefacts;
 
     public Player(Zone position, int ID){
         this.position = position;
