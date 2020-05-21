@@ -5,6 +5,7 @@ import com.egp.observer.Observable;
 
 public class Player extends Observable {
     private Zone position;
+    private boolean isCurrent = false;
     private final int ID;
     private int actions = 3;
     private int cles = 0;
@@ -59,4 +60,13 @@ public class Player extends Observable {
         return "Joueur no : " + this.ID + "\nNombre d'actions restantes : " + this.actions + "\nNombre de clés : " + this.cles;
     }
 
+    public boolean isCurrent() {
+        return isCurrent;
+    }
+
+    public void setCurrent(boolean current) {
+        this.position.setHasCurrent(current);
+        isCurrent = current;
+        notifyObservers();
+    }
 }

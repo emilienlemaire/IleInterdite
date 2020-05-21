@@ -14,6 +14,10 @@ public abstract class Observable {
         this.observers.add(o);
     }
 
+    public void clearObserver() {
+        this.observers.clear();
+    }
+
     public void notifyObservers() {
         for (Observer observer :
                 observers) {
