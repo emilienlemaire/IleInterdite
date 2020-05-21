@@ -1,23 +1,24 @@
 package com.egp.modeles;
 import com.egp.constants.*;
-import com.egp.controllers.Controller;
 import com.egp.observer.Observable;
-import javafx.scene.text.Text;
-import javafx.stage.Popup;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 public class Modele extends Observable {
     private final ArrayList<Zone> cases;
+
     private final int nbCols;
     private final int nbRows;
     private final int nbPlayer;
+
     private final ArrayList<Player> players;
     private Zone heliport;
     private int nbTour = 0;
     private Player currentPlayer;
-    private Controller controller;
+
+    private ArrayList<Key> keys;
 
     public Modele(int nbCols, int nbRows, int nbPlayer) {
         this.nbCols = nbCols;
@@ -37,15 +38,20 @@ public class Modele extends Observable {
             }
         }
 
+        this.keys = new ArrayList<>();
         Type[] values = Type.values();
-
         int[] indices = new Random().ints(0, nbCols * nbRows).distinct().limit(values.length - 1).toArray();
 
         for (int i = 0; i < indices.length; i++) {
             this.cases.get(indices[i]).type = values[i + 1];
             if (values[i + 1] == Type.Heliport)
                 this.heliport = this.cases.get(indices[i]);
+
+            if (values[i+1] != Type.Heliport && values[i+1] != Type.Normale)
+                this.keys.add(new Key(values[i+1]));
         }
+
+        Collections.shuffle(this.keys);
 
         int[] spawn_idx = new Random().ints(0, nbCols * nbRows).limit(nbPlayer).toArray();
 
@@ -55,13 +61,15 @@ public class Modele extends Observable {
             this.cases.get(spawn_idx[i]).addPlayer(player);
         }
         setCurrentPlayer();
+
+
+
     }
 
     private void setCurrentPlayer(){
         if (this.currentPlayer != null)
             this.currentPlayer.setCurrent(false);
         this.currentPlayer = this.players.get(nbTour % nbPlayer);
-        System.out.println(this.currentPlayer.getID());
         this.currentPlayer.setActions(3);
         this.currentPlayer.setCurrent(true);
     }
@@ -102,6 +110,31 @@ public class Modele extends Observable {
         notifyObservers();
     }
 
+    public boolean recuperable(Zone c){
+        if (c.type == Type.Heliport || c.type == Type.Normale || c.etat == Etat.Submergee ||
+            this.currentPlayer.getActions() == 0 ||
+            this.currentPlayer.getPosition().x != c.x || this.currentPlayer.getPosition().y != c.y)
+            return false;
+
+
+        for (Key k : this.currentPlayer.getKeys()){
+            if (c.type == k.getElement())
+                return true;
+        }
+        return false;
+    }
+
+    public void recupere(Zone c){
+        this.currentPlayer.getKeys().removeIf(k -> k.getElement() == c.type);
+        this.currentPlayer.addArtefacts(new Artefact(c.type));
+        this.currentPlayer.setActions(this.currentPlayer.getActions() - 1);
+
+        c.type = Type.Normale;
+        System.out.println(this.currentPlayer);
+        notifyObservers();
+    }
+
+
     public void incrementeTour(){
         this.nbTour++;
         setCurrentPlayer();
@@ -128,22 +161,26 @@ public class Modele extends Observable {
             if(innondeCase(this.cases.get(idx)))
                 i++;
         }
-        notifyObservers();
     }
 
 
-    public void dropCles(){
+    public boolean dropCles(){
         float r = new Random().nextFloat();
         if (r > 0.66) {
-            this.currentPlayer.setCles(this.currentPlayer.getCles() + 1);
-            System.out.println(this.currentPlayer);
-            controller.gotKey();
-            notifyObservers();
+            if (this.keys.size() > 0) {
+                Key k = this.keys.get(0);
+                this.currentPlayer.addKey(k);
+                System.out.println(this.currentPlayer);
+                this.keys.remove(k);
+                return true;
+            }
+            return false;
         }
-        else if (r > 0.33) {
+        if (r > 0.33) {
             innondeCase(this.currentPlayer.getPosition());
-            notifyObservers();
+            return false;
         }
+        return false;
     }
 
     public int getNbRows() {
@@ -172,5 +209,4 @@ public class Modele extends Observable {
         return this.currentPlayer;
     }
 
-    public void setController(Controller controller) { this.controller = controller; }
 }

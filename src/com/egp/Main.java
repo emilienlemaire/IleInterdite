@@ -14,7 +14,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        System.out.println("Test du push");
+        System.out.println("Test du push gaetan");
         Modele modele = new Modele(12, 20, 5);
         FlowPane root = new FlowPane();
         stage.setTitle("Ile Interdite");

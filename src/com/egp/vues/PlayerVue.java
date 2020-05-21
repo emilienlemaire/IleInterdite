@@ -18,7 +18,7 @@ public class PlayerVue extends FlowPane {
     public PlayerVue(Player player) {
         super();
         this.player = player;
-        this.keys = player.getCles();
+        this.keys = player.getKeys().size();
 
         Image playerImg = new Image(new File("resources/players/normal.png").toURI().toString());
         ImageView playerView = new ImageView(playerImg);
@@ -40,7 +40,7 @@ public class PlayerVue extends FlowPane {
             this.keyViews.add(keyView);
         }
 
-        for (int i = 0; i< player.getCles(); i++) {
+        for (int i = 0; i< player.getKeys().size(); i++) {
             Image key = new Image(new File("resources/keys/cle" +
                     (i == 0 ? "" : (i + 1)) + ".png").toURI().toString());
             ImageView keyView = new ImageView(key);

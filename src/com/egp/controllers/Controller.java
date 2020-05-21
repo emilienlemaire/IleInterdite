@@ -22,7 +22,9 @@ public class Controller {
 
     public void finDeTour() {
         modele.inondeCases();
-        modele.dropCles();
+        if (modele.dropCles()){
+            gotKey();
+        }
         modele.incrementeTour();
     }
 
@@ -54,7 +56,16 @@ public class Controller {
                 actionsVue.hide();
             }
             actionsVue = new ActionsVue(zone, mouseEvent, this.grilleVue, this.modele, true, false);
-        } else {
+        }
+
+        else if (this.modele.recuperable(zone)) {
+            if (actionsVue != null) {
+                actionsVue.hide();
+            }
+            this.modele.recupere(zone);
+        }
+
+        else {
             if (actionsVue != null) {
                 actionsVue.hide();
             }
@@ -63,7 +74,7 @@ public class Controller {
 
 
     /*
-     * Si la zone est atteignable ou asséchable, alors
+     * Si la zone est atteignable, asséchable ou récupérable, alors
      * zoneVue.setGoodCursor()
      * sinon
      * zoneVue.setBadCursor()
@@ -72,7 +83,8 @@ public class Controller {
 
         Zone.setHover(zoneVue.getZone());
         zoneVue.setHover();
-        if (this.modele.atteignable(zoneVue.getZone()) || this.modele.assechable(zoneVue.getZone()))
+        if (this.modele.atteignable(zoneVue.getZone()) || this.modele.assechable(zoneVue.getZone()) ||
+            this.modele.recuperable(zoneVue.getZone()))
             zoneVue.setGoodCursor();
         else
             zoneVue.setBadCursor();
