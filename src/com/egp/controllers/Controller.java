@@ -6,7 +6,10 @@ import com.egp.vues.ActionsVue;
 import com.egp.vues.GrilleVue;
 import com.egp.vues.ZoneVue;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
+
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class Controller {
 

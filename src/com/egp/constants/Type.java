@@ -48,19 +48,30 @@ public enum Type {
         this.overlayPath = overlay;
     }
 
+    private Image pathToImage(String name) {
+        if (name.equals("normal.png"))
+            return Images.normalCase;
+        if (name.equals("air.png"))
+            return Images.airCase;
+        if (name.equals("earth.png"))
+            return Images.earthCase;
+        if (name.equals("fire.png"))
+            return Images.fireCase;
+        if (name.equals("heliport.png"))
+            return Images.heliportCase;
+        if (name.equals("water.png"))
+            return Images.waterCase;
+
+        return null;
+    }
+
     public Group getImage() {
-        Image img;
-        Image overlay;
-
-        img = new Image(new File("resources/cases/" + this.basePath).toURI().toString());
-        overlay = new Image(new File("resources/cases/" + this.overlayPath).toURI().toString());
-
         Group res;
-        ImageView base = new ImageView(img);
+        ImageView base = new ImageView(pathToImage(this.basePath));
         base.setFitWidth(32);
         base.setFitHeight(32);
         if (this.overlayPath != null) {
-            ImageView overlayView = new ImageView(overlay);
+            ImageView overlayView = new ImageView(pathToImage(this.overlayPath));
             overlayView.setBlendMode(BlendMode.SRC_ATOP);
             overlayView.setFitWidth(32);
             overlayView.setFitHeight(32);

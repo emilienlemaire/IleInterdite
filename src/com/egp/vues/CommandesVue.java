@@ -56,7 +56,6 @@ public class CommandesVue extends BorderPane implements Observer {
         int actionLeft = modele.getCurrentPlayer().getActions();
         actionLeftBar.setProgress(actionLeft / 3.);
         progressText.setText( actionLeft + " / 3");
-        drawPlayers();
     }
 
     public void drawPlayers() {

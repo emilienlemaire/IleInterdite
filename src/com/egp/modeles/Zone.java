@@ -12,7 +12,6 @@ public class Zone extends Observable {
     public final int y;
     public static Zone zone_hover = null;
     private ArrayList<Player> players = new ArrayList<>();
-    private boolean hasCurrent = false;
 
     public Zone(Etat etat, Type type, int x, int y){
         this.etat = etat;
@@ -61,11 +60,6 @@ public class Zone extends Observable {
 
     public ArrayList<Player> getPlayers() {
         return players;
-    }
-
-    public void setHasCurrent(boolean hasCurrent) {
-        this.hasCurrent = hasCurrent;
-        notifyObservers();
     }
 
     public boolean hasCurrent() {

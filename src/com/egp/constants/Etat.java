@@ -2,10 +2,7 @@ package com.egp.constants;
 
 import javafx.scene.Group;
 import javafx.scene.effect.BlendMode;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
-import java.io.File;
 
 public enum Etat {
     Normale("Normale", 0.f),
@@ -29,9 +26,7 @@ public enum Etat {
         if (blendFactor == 0.f)
             return img;
 
-        Image overlay = new Image(new File("resources/states/submerged.png").toURI().toString());
-
-        ImageView overlayView = new ImageView(overlay);
+        ImageView overlayView = new ImageView(Images.overlay);
         overlayView.setFitWidth(32);
         overlayView.setFitHeight(32);
 

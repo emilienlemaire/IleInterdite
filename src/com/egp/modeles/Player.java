@@ -91,7 +91,6 @@ public class Player extends Observable {
     }
 
     public void setCurrent(boolean current) {
-        this.position.setHasCurrent(current);
         isCurrent = current;
         notifyObservers();
     }
