@@ -28,12 +28,6 @@ public class Zone extends Observable {
         zone_hover = hover;
     }
 
-    public String toString(){
-        String msg = "Case d'état " + this.etat.toString() + ", de type "
-                + this.type.toString() + " et de coordonées (" + x + ", " + y + ")";
-        return msg;
-    }
-
     public void innonde() {
         if (this.etat == Etat.Normale)
             this.etat = Etat.Innondee;
@@ -75,6 +69,12 @@ public class Zone extends Observable {
     public void setType(Type type) {
         this.type = type;
         notifyObservers();
+    }
+
+    public String toString(){
+        String msg = "Case d'état " + this.etat.toString() + ", de type "
+                + this.type.toString() + " et de coordonées (" + x + ", " + y + ")";
+        return msg;
     }
 }
 

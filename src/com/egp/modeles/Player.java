@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class Player extends Observable {
     private Zone position;
     private boolean isCurrent = false;
+    private boolean isDead = false;
     private final int ID;
     private int actions = 3;
 
@@ -28,7 +29,6 @@ public class Player extends Observable {
 
     public void setActions(int actions){
         this.actions = actions;
-        notifyObservers();
     }
 
     public Zone getPosition(){
@@ -37,7 +37,6 @@ public class Player extends Observable {
 
     public void setPosition(Zone p){
         this.position = p;
-        notifyObservers();
     }
 
     public int getID(){ return this.ID; }
@@ -46,7 +45,6 @@ public class Player extends Observable {
 
     public void addKey(Key cle){
         this.keys.add(cle);
-        notifyObservers();
     }
 
     public ArrayList<Artefact> getArtefacts(){ return this.artefacts; }
@@ -58,7 +56,6 @@ public class Player extends Observable {
 
     public void removeKey(Key cle){
         this.keys.remove(cle);
-        notifyObservers();
     }
 
     public boolean atteignable(Zone c){
@@ -75,6 +72,20 @@ public class Player extends Observable {
         return false;
     }
 
+    public boolean isDead(){
+        this.isDead = this.position.etat == Etat.Submergee;
+        return this.isDead;
+    }
+
+    public boolean isCurrent() {
+        return isCurrent;
+    }
+
+    public void setCurrent(boolean current) {
+        isCurrent = current;
+        notifyObservers();
+    }
+
     public String toString(){
         String msg = "Joueur no : " + this.ID + "\nNombre d'actions restantes : " +
                 this.actions + "\nNombre d'artefacts : " + this.artefacts.size() +
@@ -86,12 +97,4 @@ public class Player extends Observable {
         return msg;
     }
 
-    public boolean isCurrent() {
-        return isCurrent;
-    }
-
-    public void setCurrent(boolean current) {
-        isCurrent = current;
-        notifyObservers();
-    }
 }

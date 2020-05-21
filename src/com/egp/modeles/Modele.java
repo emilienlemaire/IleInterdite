@@ -14,6 +14,7 @@ public class Modele extends Observable {
     private final int nbPlayer;
 
     private final ArrayList<Player> players;
+    private  ArrayList<Player> deadPlayers;
     private Zone heliport;
     private int nbTour = 0;
     private Player currentPlayer;
@@ -27,6 +28,7 @@ public class Modele extends Observable {
 
         this.cases = new ArrayList<>();
         this.players = new ArrayList<>();
+        this.deadPlayers = new ArrayList<>();
 
         this.init();
     }
@@ -66,14 +68,6 @@ public class Modele extends Observable {
 
     }
 
-    private void setCurrentPlayer(){
-        if (this.currentPlayer != null)
-            this.currentPlayer.setCurrent(false);
-        this.currentPlayer = this.players.get(nbTour % nbPlayer);
-        this.currentPlayer.setActions(3);
-        this.currentPlayer.setCurrent(true);
-    }
-
     /**
      * Méthodes qui testent si une action est faisaible sur la Zone c
      */
@@ -88,7 +82,7 @@ public class Modele extends Observable {
     public boolean recuperable(Zone c){
         if (c.type == Type.Heliport || c.type == Type.Normale || c.etat == Etat.Submergee ||
                 this.currentPlayer.getActions() == 0 ||
-                this.currentPlayer.getPosition().x != c.x || this.currentPlayer.getPosition().y != c.y)
+                this.currentPlayer.getPosition().x == c.x && this.currentPlayer.getPosition().y == c.y)
             return false;
 
 
@@ -121,41 +115,41 @@ public class Modele extends Observable {
         this.currentPlayer.getPosition().deletePlayer(this.currentPlayer);
         this.currentPlayer.setPosition(c);
         this.currentPlayer.getPosition().addPlayer(this.currentPlayer);
-        this.currentPlayer.setActions(this.currentPlayer.getActions() - 1);
 
-        notifyObservers();
+        afterAction();
     }
 
     public void asseche(Zone c){
         c.asseche();
-        this.currentPlayer.setActions(this.currentPlayer.getActions() - 1);
-        notifyObservers();
+
+        afterAction();
     }
 
     public void recupere(Zone c){
         this.currentPlayer.getKeys().removeIf(k -> k.getElement() == c.type);
         this.currentPlayer.addArtefacts(new Artefact(c.type));
-        this.currentPlayer.setActions(this.currentPlayer.getActions() - 1);
 
         c.setType(Type.Normale);
         System.out.println(this.currentPlayer);
+
+        afterAction();
+    }
+
+    /**
+     * Méthode à exécuter après chaque action
+     */
+    public void afterAction(){
+        this.currentPlayer.setActions(this.currentPlayer.getActions() - 1);
+        if (checkWin())
+            System.out.println("C'est win");
         notifyObservers();
     }
 
-
-    public void incrementeTour(){
-        this.nbTour++;
-        setCurrentPlayer();
-        notifyObservers();
-    }
 
     private boolean innondeCase(Zone c){
-        if (c.etat == Etat.Normale){
+        if (c.etat != Etat.Submergee){
             c.innonde();
-            return true;
-        }
-        if(c.etat == Etat.Innondee){
-            c.innonde();
+            checkDead();
             return true;
         }
         return false;
@@ -170,7 +164,6 @@ public class Modele extends Observable {
                 i++;
         }
     }
-
 
     public boolean dropCles(){
         float r = new Random().nextFloat();
@@ -194,6 +187,72 @@ public class Modele extends Observable {
         return false;
     }
 
+
+    public void incrementeTour(){
+        if(checkLoose())
+            System.out.println("C'est loose");
+        this.nbTour++;
+        setCurrentPlayer();
+        notifyObservers();
+    }
+
+    private void setCurrentPlayer(){
+        if (this.currentPlayer != null)
+            this.currentPlayer.setCurrent(false);
+        this.currentPlayer = this.players.get(this.nbTour % this.players.size());
+        this.currentPlayer.setActions(3);
+        this.currentPlayer.setCurrent(true);
+    }
+
+    public boolean checkDead(){
+        ArrayList<Player> toRemove = new ArrayList<>();
+        for(Player player : this.players){
+            if (player.isDead()){
+                toRemove.add(player);
+            }
+        }
+
+        if (toRemove.size() > 0) {
+            for (Player player : toRemove) {
+                this.players.remove(player);
+                this.deadPlayers.add(player);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkWin(){
+        int nbArtefacts = 0;
+        for (Player player : this.heliport.getPlayers()){
+            for(Artefact artefact : player.getArtefacts())
+                nbArtefacts++;
+        }
+
+        return nbArtefacts == 4;
+
+    }
+
+    public boolean checkLoose(){
+
+        if (this.players.size() == 0)
+            return true;
+
+        for(Player player : this.deadPlayers){
+            if (player.getArtefacts().size() > 0 || player.getKeys().size() > 0)
+                return true;
+        }
+
+        for(Zone c : this.cases){
+            if (c.type != Type.Normale && c.etat == Etat.Submergee)
+                return true;
+        }
+
+        return false;
+
+    }
+
+
     public int getNbRows() {
         return nbRows;
     }
@@ -208,16 +267,16 @@ public class Modele extends Observable {
 
     public ArrayList<Player> getPlayers() { return this.players; }
 
+    public Player getCurrentPlayer() {
+        return this.currentPlayer;
+    }
+
     public String toString() {
         String msg = "";
         for (Zone c : this.cases) {
             msg += c.toString() + "\n";
         }
         return msg;
-    }
-
-    public Player getCurrentPlayer() {
-        return this.currentPlayer;
     }
 
 }
