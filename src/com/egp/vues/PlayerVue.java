@@ -21,7 +21,7 @@ public class PlayerVue extends FlowPane implements Observer{
     public PlayerVue(Player player) {
         super();
         this.player = player;
-        this.keys = player.getCles();
+        this.keys = player.getKeys().size();
         this.isCurrent = this.player.isCurrent();
 
         this.player.addObserver(this);
@@ -45,7 +45,7 @@ public class PlayerVue extends FlowPane implements Observer{
             this.keyViews.add(keyView);
         }
 
-        for (int i = 0; i< player.getCles(); i++) {
+        for (int i = 0; i< player.getKeys().size(); i++) {
             Image key = new Image(new File("resources/keys/cle" +
                     (i == 0 ? "" : (i + 1)) + ".png").toURI().toString());
             ImageView keyView = new ImageView(key);
@@ -69,8 +69,8 @@ public class PlayerVue extends FlowPane implements Observer{
             this.getChildren().add(0, playerView);
         }
 
-        if (this.keys != this.player.getCles()) {
-            this.keys = this.player.getCles();
+        if (this.keys != this.player.getKeys().size()) {
+            this.keys = this.player.getKeys().size();
             ImageView keyView = keyViews.get(this.keys - 1);
             keyView.setEffect(null);
         }
