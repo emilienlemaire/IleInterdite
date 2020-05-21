@@ -19,25 +19,22 @@ import java.util.ArrayList;
 
 public class ZoneVue extends Pane implements Observer {
 
-    private final Modele modele;
-    private final Zone zone;
     private final MainVue mainVue;
-    private final Image hover = new Image(new File("resources/cases/hover2.png").toURI().toString());
-    private final ImageView hoverView = new ImageView(hover);
+    private final Zone zone;
+    private final GridPane playerPane;
+    private final ImageView hoverView = new ImageView(Images.hover);
     private Group typeGrp;
     private Group etatGrp;
-    private GridPane playerPane;
     private Type type;
 
     public ZoneVue(Modele modele, Zone zone, MainVue mainVue) {
-        this.modele = modele;
         this.zone = zone;
         this.type = zone.type;
         this.mainVue = mainVue;
         this.typeGrp = zone.type.getImage();
         this.etatGrp = zone.etat.getImage(typeGrp);
 
-        ArrayList<Player> players = this.modele.getPlayers();
+        ArrayList<Player> players = modele.getPlayers();
 
         for (Player player : players) {
             player.addObserver(this);

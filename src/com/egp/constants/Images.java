@@ -24,6 +24,12 @@ public class Images {
     public static final Image key4 = new Image(getPath("resources/keys/cle4.png"));
     public static final ArrayList<Image> keys = new ArrayList<>(Arrays.asList(key1, key2, key3, key4));
 
+    public static final Image artifact1 = new Image(getPath("resources/artifacts/artf1.png"));
+    public static final Image artifact2 = new Image(getPath("resources/artifacts/artf2.png"));
+    public static final Image artifact3 = new Image(getPath("resources/artifacts/artf3.png"));
+    public static final Image artifact4 = new Image(getPath("resources/artifacts/artf4.png"));
+    public static final ArrayList<Image> artifacts = new ArrayList<>(Arrays.asList(artifact1, artifact2, artifact3, artifact4));
+
     public static final Image overlay = new Image(getPath("resources/states/submerged.png"));
     public static final Image hover = new Image(getPath("resources/cases/hover2.png"));
 
