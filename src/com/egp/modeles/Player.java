@@ -8,7 +8,6 @@ import java.util.ArrayList;
 public class Player extends Observable {
     private Zone position;
     private boolean isCurrent = false;
-    private boolean isDead = false;
     private final int ID;
     private int actions = 3;
 
@@ -73,8 +72,8 @@ public class Player extends Observable {
     }
 
     public boolean isDead(){
-        this.isDead = this.position.etat == Etat.Submergee;
-        return this.isDead;
+        boolean isDead = this.position.etat == Etat.Submergee;
+        return isDead;
     }
 
     public boolean isCurrent() {
