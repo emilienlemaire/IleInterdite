@@ -74,6 +74,10 @@ public class Modele extends Observable {
         this.currentPlayer.setCurrent(true);
     }
 
+    /**
+     * Méthodes qui testent si une action est faisaible sur la Zone c
+     */
+
     public boolean atteignable(Zone c){
         if (this.currentPlayer.getActions() > 0)
             return this.currentPlayer.atteignable(c);
@@ -81,13 +85,18 @@ public class Modele extends Observable {
             return false;
     }
 
-    public void deplace(Zone c){
-        this.currentPlayer.getPosition().deletePlayer(this.currentPlayer);
-        this.currentPlayer.setPosition(c);
-        this.currentPlayer.getPosition().addPlayer(this.currentPlayer);
-        this.currentPlayer.setActions(this.currentPlayer.getActions() - 1);
+    public boolean recuperable(Zone c){
+        if (c.type == Type.Heliport || c.type == Type.Normale || c.etat == Etat.Submergee ||
+                this.currentPlayer.getActions() == 0 ||
+                this.currentPlayer.getPosition().x != c.x || this.currentPlayer.getPosition().y != c.y)
+            return false;
 
-        notifyObservers();
+
+        for (Key k : this.currentPlayer.getKeys()){
+            if (c.type == k.getElement())
+                return true;
+        }
+        return false;
     }
 
     public boolean assechable(Zone c){
@@ -98,30 +107,29 @@ public class Modele extends Observable {
             return false;
 
         if (this.currentPlayer.getPosition().x == c.x &&
-        this.currentPlayer.getPosition().y == c.y)
+                this.currentPlayer.getPosition().y == c.y)
             return true;
 
         return this.currentPlayer.atteignable(c);
+    }
+
+    /**
+     * Méthodes qui effectuent une action sur la Zone c
+     */
+
+    public void deplace(Zone c){
+        this.currentPlayer.getPosition().deletePlayer(this.currentPlayer);
+        this.currentPlayer.setPosition(c);
+        this.currentPlayer.getPosition().addPlayer(this.currentPlayer);
+        this.currentPlayer.setActions(this.currentPlayer.getActions() - 1);
+
+        notifyObservers();
     }
 
     public void asseche(Zone c){
         c.asseche();
         this.currentPlayer.setActions(this.currentPlayer.getActions() - 1);
         notifyObservers();
-    }
-
-    public boolean recuperable(Zone c){
-        if (c.type == Type.Heliport || c.type == Type.Normale || c.etat == Etat.Submergee ||
-            this.currentPlayer.getActions() == 0 ||
-            this.currentPlayer.getPosition().x != c.x || this.currentPlayer.getPosition().y != c.y)
-            return false;
-
-
-        for (Key k : this.currentPlayer.getKeys()){
-            if (c.type == k.getElement())
-                return true;
-        }
-        return false;
     }
 
     public void recupere(Zone c){
@@ -166,6 +174,7 @@ public class Modele extends Observable {
 
     public boolean dropCles(){
         float r = new Random().nextFloat();
+
         if (r > 0.66) {
             if (this.keys.size() > 0) {
                 Key k = this.keys.get(0);
@@ -176,10 +185,12 @@ public class Modele extends Observable {
             }
             return false;
         }
+
         if (r > 0.33) {
             innondeCase(this.currentPlayer.getPosition());
             return false;
         }
+
         return false;
     }
 
