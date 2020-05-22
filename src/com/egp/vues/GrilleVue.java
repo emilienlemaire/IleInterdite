@@ -5,6 +5,7 @@ import com.egp.modeles.Modele;
 import com.egp.modeles.Player;
 import com.egp.modeles.Zone;
 import com.egp.observer.Observer;
+import javafx.scene.Cursor;
 import javafx.scene.layout.GridPane;
 
 import java.util.ArrayList;
@@ -45,7 +46,7 @@ public class GrilleVue extends GridPane implements Observer {
 
                 ZoneVue newZone = new ZoneVue(modele, zone, this.mainVue);
 
-                newZone.setOnMouseClicked(mouseEvent -> controller.zoneClicked(zone, mouseEvent));
+                newZone.setOnMouseClicked(mouseEvent -> controller.zoneClicked(newZone, mouseEvent));
                 newZone.setOnMouseEntered(mouseEvent -> controller.mouseEnteredZone(newZone));
                 newZone.setOnMouseExited(mouseEvent -> controller.mouseExitedZone(newZone));
 

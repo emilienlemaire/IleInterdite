@@ -40,29 +40,29 @@ public class Controller {
     * modele.deplace(zone) ou modele.asseche(zone)
     * si elle est les deux alors tu crée une nouvelle actionVue
     */
-    public void zoneClicked(Zone zone, MouseEvent mouseEvent) {
+    public void zoneClicked(ZoneVue zoneVue, MouseEvent mouseEvent) {
 
         if (actionsVue != null)
             actionsVue.hide();
 
         ArrayList<String> actions = new ArrayList<>();
 
-        if (this.modele.atteignable(zone)) {
+        if (this.modele.atteignable(zoneVue.getZone())) {
             actions.add("move");
         }
-        if (this.modele.assechable(zone)) {
+        if (this.modele.assechable(zoneVue.getZone())) {
             if (actionsVue != null) {
                 actionsVue.hide();
             }
             actions.add("dry");
         }
 
-        if (this.modele.recuperable(zone)) {
+        if (this.modele.recuperable(zoneVue.getZone())) {
             actions.add("get");
         }
 
         if (!actions.isEmpty())
-            actionsVue = new ActionsVue(zone, mouseEvent, this.grilleVue, this.modele, actions);
+            actionsVue = new ActionsVue(zoneVue, mouseEvent, this.grilleVue, this.modele, actions);
     }
 
 

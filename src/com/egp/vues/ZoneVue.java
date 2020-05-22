@@ -9,12 +9,10 @@ import com.egp.observer.Observer;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.ImageCursor;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
-import java.io.File;
 import java.util.ArrayList;
 
 public class ZoneVue extends Pane implements Observer {
@@ -91,6 +89,10 @@ public class ZoneVue extends Pane implements Observer {
     }
 
     public Zone getZone() { return this.zone; }
+
+    public MainVue getMainVue() {
+        return mainVue;
+    }
 
     @Override
     public void update() {

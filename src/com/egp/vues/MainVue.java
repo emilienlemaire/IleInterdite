@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 
 public class MainVue extends Scene {
 
+    private final Controller controller;
     private final Stage stage;
 
     public MainVue(Modele modele, Pane root, Stage stage) {
@@ -23,7 +24,7 @@ public class MainVue extends Scene {
 
         this.stage = stage;
         GrilleVue grilleVue = new GrilleVue(modele, this);
-        Controller controller = grilleVue.getController();
+         controller = grilleVue.getController();
         CommandesVue commandesVue = new CommandesVue(modele, controller);
 
         root.getChildren().addAll(grilleVue, commandesVue);
@@ -45,4 +46,7 @@ public class MainVue extends Scene {
         popup.show(this.stage);
     }
 
+    public Controller getController() {
+        return controller;
+    }
 }

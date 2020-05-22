@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class ActionsVue extends ContextMenu {
 
-    public ActionsVue(Zone zone, MouseEvent mouseEvent, GrilleVue grilleVue, Modele modele, ArrayList<String> actions) {
+    public ActionsVue(ZoneVue zoneVue, MouseEvent mouseEvent, GrilleVue grilleVue, Modele modele, ArrayList<String> actions) {
         super();
 
         if (actions.size() < 1) {
@@ -23,24 +23,34 @@ public class ActionsVue extends ContextMenu {
                 actions) {
             if (action.equals("move")) {
                 MenuItem moveItem = new MenuItem("Se déplacer");
-                moveItem.setOnAction(actionEvent -> modele.deplace(zone));
+                moveItem.setOnAction(actionEvent -> {
+                    zoneVue.setBadCursor();
+                    modele.deplace(zoneVue.getZone());
+                });
                 menuItems.add(moveItem);
             }
 
             if (action.equals("dry")) {
                 MenuItem dryItem = new MenuItem("Assécher");
-                dryItem.setOnAction(actionEvent -> modele.asseche(zone));
+                dryItem.setOnAction(actionEvent -> {
+                    zoneVue.setBadCursor();
+                    modele.asseche(zoneVue.getZone());
+                });
                 menuItems.add(dryItem);
             }
 
             if (action.equals("get")) {
                 MenuItem getItem = new MenuItem("Récupérer");
-                getItem.setOnAction(actionEvent -> modele.recupere(zone));
+                getItem.setOnAction(actionEvent -> {
+                    zoneVue.setBadCursor();
+                    modele.recupere(zoneVue.getZone());
+                });
                 menuItems.add(getItem);
             }
         }
 
         this.getItems().addAll(menuItems);
+
 
         this.show(grilleVue, mouseEvent.getScreenX(), mouseEvent.getScreenY());
     }
