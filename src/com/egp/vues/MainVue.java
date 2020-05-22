@@ -13,6 +13,10 @@ import javafx.scene.paint.Color;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 
 public class MainVue extends Scene {
 
@@ -43,5 +47,9 @@ public class MainVue extends Scene {
         popup.setX(stage.getX());
         popup.setY(stage.getY() + 21);
         popup.show(this.stage);
+    }
+
+    public void hidePopup() {
+        popup.hide();
     }
 }
