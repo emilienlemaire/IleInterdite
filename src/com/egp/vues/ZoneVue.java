@@ -86,6 +86,10 @@ public class ZoneVue extends Pane implements Observer {
         mainVue.setCursor(new ImageCursor(Images.cursor));
     }
 
+    public void setDefaultCursor() {
+        mainVue.setCursor(Cursor.DEFAULT);
+    }
+
     public Zone getZone() { return this.zone; }
 
     @Override

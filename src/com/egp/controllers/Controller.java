@@ -85,7 +85,7 @@ public class Controller {
 
     public void mouseExitedZone(ZoneVue zoneVue) {
         zoneVue.deleteHover();
-        zoneVue.setGoodCursor();
+        zoneVue.setDefaultCursor();
     }
 
     public void gotKey() {
