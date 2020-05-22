@@ -1,6 +1,7 @@
 package com.egp.modeles;
 
 import com.egp.constants.Etat;
+import com.egp.constants.Type;
 import com.egp.observer.Observable;
 
 import java.util.ArrayList;
@@ -53,8 +54,9 @@ public class Player extends Observable {
         notifyObservers();
     }
 
-    public void removeKey(Key cle){
-        this.keys.remove(cle);
+    public void removeKey(Type type){
+        this.keys.removeIf(k -> k.getElement() == type);
+        notifyObservers();
     }
 
     public boolean atteignable(Zone c){
@@ -72,8 +74,7 @@ public class Player extends Observable {
     }
 
     public boolean isDead(){
-        boolean isDead = this.position.etat == Etat.Submergee;
-        return isDead;
+        return this.position.etat == Etat.Submergee;
     }
 
     public boolean isCurrent() {

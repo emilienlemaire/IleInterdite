@@ -1,10 +1,8 @@
 package com.egp;
 
-import com.egp.constants.Images;
-import javafx.application.Application;
-
 import com.egp.modeles.Modele;
 import com.egp.vues.MainVue;
+import javafx.application.Application;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 
@@ -16,7 +14,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Modele modele = new Modele(12, 20, 5);
+        Modele modele = new Modele(10, 10, 5);
         FlowPane root = new FlowPane();
         stage.setTitle("Ile Interdite");
         stage.setScene(new MainVue(modele, root, stage));

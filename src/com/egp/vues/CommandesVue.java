@@ -61,10 +61,11 @@ public class CommandesVue extends BorderPane implements Observer {
         VBox playerBox = new VBox();
         for (Player player :
                 players) {
-            PlayerVue playerVue = new PlayerVue(player);
+            PlayerVue playerVue = new PlayerVue(modele, player);
             playerBox.getChildren().add(playerVue);
         }
         playerBox.setMaxWidth(130);
+        this.setMaxHeight(modele.getNbRows() * 32);
         this.setCenter(playerBox);
     }
 }

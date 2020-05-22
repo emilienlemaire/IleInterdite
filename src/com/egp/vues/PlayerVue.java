@@ -3,39 +3,44 @@ package com.egp.vues;
 import com.egp.constants.Images;
 import com.egp.modeles.Artefact;
 import com.egp.modeles.Key;
+import com.egp.modeles.Modele;
 import com.egp.modeles.Player;
 import com.egp.observer.Observer;
+import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.effect.ColorAdjust;
+import javafx.scene.effect.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 
 public class PlayerVue extends FlowPane implements Observer{
     private final Player player;
     private boolean isCurrent;
-    private final ArrayList<Key> keys;
-    private final ArrayList<Artefact> artifacts;
+    private ArrayList<Key> keys;
+    private ArrayList<Artefact> artifacts;
     private final ArrayList<VBox> artKeyViews;
     private ImageView playerView;
+    private final double maxSize;
 
-    public PlayerVue(Player player) {
+    public PlayerVue(Modele modele, Player player) {
         super();
         this.player = player;
         this.keys = player.getKeys();
         this.artifacts = player.getArtefacts();
         this.isCurrent = this.player.isCurrent();
+        this.maxSize = ((modele.getNbRows() * 32.) - 60.) / (double)modele.getPlayers().size();
 
         this.player.addObserver(this);
 
         playerView = player.isCurrent() ?
                 new ImageView(Images.playerNormal) :
                 new ImageView(Images.playerNormalBW);
-        playerView.setFitWidth(64);
-        playerView.setFitHeight(64);
+        playerView.setFitWidth(this.maxSize);
+        playerView.setFitHeight(this.maxSize);
 
         this.getChildren().add(playerView);
 
@@ -58,10 +63,16 @@ public class PlayerVue extends FlowPane implements Observer{
             this.artKeyViews.add(artKeyView);
         }
 
+        for (Artefact artifact :
+                artifacts) {
+            VBox artKeyView = artKeyViews.get(artefactToInt(artifact));
+            artKeyView.getChildren().get(0).setEffect(null);
+        }
+
         for (Key key :
                 keys) {
             VBox artKeyView = artKeyViews.get(keyToInt(key));
-            artKeyView.getChildren().get(0).setEffect(null);
+            artKeyView.getChildren().get(1).setEffect(null);
         }
 
         this.getChildren().addAll(artKeyViews);
@@ -69,15 +80,38 @@ public class PlayerVue extends FlowPane implements Observer{
 
     @Override
     public void update() {
+        this.artifacts = this.player.getArtefacts();
+        this.keys = this.player.getKeys();
         if (this.isCurrent != this.player.isCurrent()) {
             this.getChildren().remove(playerView);
             this.isCurrent = this.player.isCurrent();
             this.playerView = this.player.isCurrent() ?
                     new ImageView(Images.playerNormal) :
                     new ImageView(Images.playerNormalBW);
-            this.playerView.setFitWidth(64);
-            this.playerView.setFitHeight(64);
-            this.getChildren().add(0, playerView);
+            this.playerView.setFitWidth(this.maxSize);
+            this.playerView.setFitHeight(this.maxSize);
+
+            if (this.player.isDead()) {
+                ColorAdjust adjust = new ColorAdjust();
+
+                Blend red = new Blend(
+                        BlendMode.SRC_ATOP,
+                        adjust,
+                        new ColorInput(
+                                0,
+                                0,
+                                this.maxSize,
+                                this.maxSize,
+                                Color.RED
+                        )
+                );
+
+                red.setOpacity(0.5);
+
+                this.playerView.effectProperty().set(red);
+            }
+
+            this.getChildren().add(0, this.playerView);
         }
 
         for (int i = 0; i < 4; i++) {
@@ -95,15 +129,15 @@ public class PlayerVue extends FlowPane implements Observer{
             this.artKeyViews.add(artKeyView);
         }
 
-        for (Key key :
-                keys) {
-            VBox artKeyView = artKeyViews.get(keyToInt(key));
+        for (Artefact artifact :
+                artifacts) {
+            VBox artKeyView = this.artKeyViews.get(artefactToInt(artifact));
             artKeyView.getChildren().get(0).setEffect(null);
         }
 
-        for (Artefact artifact :
-                artifacts) {
-            VBox artKeyView = artKeyViews.get(artefactToInt(artifact));
+        for (Key key :
+                keys) {
+            VBox artKeyView = this.artKeyViews.get(keyToInt(key));
             artKeyView.getChildren().get(1).setEffect(null);
         }
 

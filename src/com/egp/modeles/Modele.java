@@ -14,7 +14,7 @@ public class Modele extends Observable {
     private final int nbPlayer;
 
     private final ArrayList<Player> players;
-    private  ArrayList<Player> deadPlayers;
+    private final ArrayList<Player> deadPlayers;
     private Zone heliport;
     private int nbTour = 0;
     private Player currentPlayer;
@@ -126,7 +126,7 @@ public class Modele extends Observable {
     }
 
     public void recupere(Zone c){
-        this.currentPlayer.getKeys().removeIf(k -> k.getElement() == c.type);
+        this.currentPlayer.removeKey(c.type);
         this.currentPlayer.addArtefacts(new Artefact(c.type));
 
         c.setType(Type.Normale);
@@ -214,6 +214,7 @@ public class Modele extends Observable {
 
         if (toRemove.size() > 0) {
             for (Player player : toRemove) {
+                player.getPosition().deletePlayer(player);
                 this.players.remove(player);
                 this.deadPlayers.add(player);
             }
