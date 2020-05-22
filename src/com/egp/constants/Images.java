@@ -39,4 +39,6 @@ public class Images {
     public static final Image fireCase = new Image( getPath("resources/cases/fire.png"));
     public static final Image heliportCase = new Image( getPath("resources/cases/heliport.png"));
     public static final Image waterCase = new Image( getPath("resources/cases/water.png"));
+
+    public static final Image cursor = new Image( getPath("resources/cursors/invalid32x32.gif"));
 }

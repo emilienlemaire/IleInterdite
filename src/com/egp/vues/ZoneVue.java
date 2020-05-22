@@ -83,8 +83,7 @@ public class ZoneVue extends Pane implements Observer {
     }
 
     public void setBadCursor() {
-        Image cursor = new Image(new File("resources/cursors/invalid32x32.gif").toURI().toString());
-        mainVue.setCursor(new ImageCursor(cursor));
+        mainVue.setCursor(new ImageCursor(Images.cursor));
     }
 
     public Zone getZone() { return this.zone; }
