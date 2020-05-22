@@ -9,7 +9,6 @@ import javafx.stage.Stage;
 public class Main extends Application {
     private Modele modele;
     private FlowPane root;
-    private FirstPreloader preloader = new FirstPreloader();
 
     public static void main(String[] args) {
         launch(args);

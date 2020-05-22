@@ -197,11 +197,15 @@ public class Modele extends Observable {
     }
 
     private void setCurrentPlayer(){
-        if (this.currentPlayer != null)
-            this.currentPlayer.setCurrent(false);
-        this.currentPlayer = this.players.get(this.nbTour % this.players.size());
-        this.currentPlayer.setActions(3);
-        this.currentPlayer.setCurrent(true);
+        if (this.players.size() == 0) {
+            this.currentPlayer = null;
+        } else {
+            if (this.currentPlayer != null)
+                this.currentPlayer.setCurrent(false);
+            this.currentPlayer = this.players.get(this.nbTour % this.players.size());
+            this.currentPlayer.setActions(3);
+            this.currentPlayer.setCurrent(true);
+        }
     }
 
     public boolean checkDead(){
