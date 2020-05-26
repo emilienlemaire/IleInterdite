@@ -7,7 +7,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -76,7 +75,7 @@ public class StartVue extends Scene {
 
         HBox playerNumberBox = new HBox();
         playerNumberBox.setAlignment(Pos.CENTER_LEFT);
-        playerNumberBox.getChildren().addAll(new Text("Nombre de joueur: "), playerField);
+        playerNumberBox.getChildren().addAll(new Text("Nombre de joueurs: "), playerField);
 
         Text title = new Text("Ile Interdite");
 
