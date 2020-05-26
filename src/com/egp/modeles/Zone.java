@@ -11,7 +11,7 @@ public class Zone extends Observable {
     public final int x;
     public final int y;
     public static Zone zone_hover = null;
-    private ArrayList<Player> players = new ArrayList<>();
+    private final ArrayList<Player> players = new ArrayList<>();
 
     public Zone(Etat etat, Type type, int x, int y){
         this.etat = etat;

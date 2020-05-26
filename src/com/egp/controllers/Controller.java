@@ -1,5 +1,6 @@
 package com.egp.controllers;
 
+import com.egp.constants.Sounds;
 import com.egp.modeles.Modele;
 import com.egp.modeles.Zone;
 import com.egp.vues.ActionsVue;
@@ -7,6 +8,7 @@ import com.egp.vues.GrilleVue;
 import com.egp.vues.LostVue;
 import com.egp.vues.ZoneVue;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.MediaPlayer;
 
 import java.util.ArrayList;
 import java.util.concurrent.Executors;
@@ -33,6 +35,7 @@ public class Controller {
         modele.incrementeTour();
 
         if (modele.checkLoose()){
+
             LostVue lostVue = new LostVue(grilleVue.getMainVue());
         }
 
@@ -95,6 +98,9 @@ public class Controller {
     }
 
     public void gotKey() {
+        MediaPlayer keyPlayer = new MediaPlayer(Sounds.key);
+        keyPlayer.setAutoPlay(true);
+        keyPlayer.setOnEndOfMedia(grilleVue.getMainVue()::hidePopup);
         grilleVue.getMainVue().showPopUp();
     }
 }

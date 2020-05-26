@@ -6,14 +6,13 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static com.egp.constants.utils.getPath;
+
 public class Images {
     public static void init() {
         System.out.println("Init images");
     }
 
-    private static String getPath(String path) {
-        return new File(path).toURI().toString();
-    }
 
     public static final Image playerNormal = new Image(getPath("resources/players/normal.png"));
     public static final Image playerNormalBW = new Image(getPath("resources/players/normal-b&w.png"));

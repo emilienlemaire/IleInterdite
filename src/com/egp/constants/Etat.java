@@ -9,8 +9,8 @@ public enum Etat {
     Innondee("Innondée", .5f),
     Submergee("Submergée", 1.f);
 
-    private String name;
-    private Float blendFactor;
+    private final String name;
+    private final Float blendFactor;
 
     Etat(String name, Float blendFactor) {
         this.name = name;

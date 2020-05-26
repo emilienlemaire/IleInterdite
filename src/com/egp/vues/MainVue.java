@@ -18,6 +18,7 @@ public class MainVue extends Scene {
 
     private final Controller controller;
     private final Stage stage;
+    private Popup popup;
 
     public MainVue(Modele modele, Pane root, Stage stage) {
         super(root, modele.getNbRows() * 32 + 150, modele.getNbCols() * 32);
@@ -32,7 +33,7 @@ public class MainVue extends Scene {
 
 
     public void showPopUp() {
-        Popup popup = new Popup();
+        popup = new Popup();
         popup.setAutoHide(true);
         popup.setHideOnEscape(true);
         Label label = new Label("Vous avez reçu une clef");
@@ -44,6 +45,10 @@ public class MainVue extends Scene {
         popup.setX(stage.getX());
         popup.setY(stage.getY() + 21);
         popup.show(this.stage);
+    }
+
+    public void hidePopup() {
+        popup.hide();
     }
 
     public Controller getController() {

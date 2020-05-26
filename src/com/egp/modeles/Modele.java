@@ -1,6 +1,10 @@
 package com.egp.modeles;
-import com.egp.constants.*;
+
+import com.egp.constants.Etat;
+import com.egp.constants.Sounds;
+import com.egp.constants.Type;
 import com.egp.observer.Observable;
+import javafx.scene.media.MediaPlayer;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -132,6 +136,9 @@ public class Modele extends Observable {
         c.setType(Type.Normale);
         System.out.println(this.currentPlayer);
 
+        MediaPlayer artifactPlayer = new MediaPlayer(Sounds.artifact);
+        artifactPlayer.setAutoPlay(true);
+
         afterAction();
     }
 
@@ -163,6 +170,10 @@ public class Modele extends Observable {
             if(innondeCase(this.cases.get(idx)))
                 i++;
         }
+
+        MediaPlayer floodingPlayer = new MediaPlayer(Sounds.flooding);
+        floodingPlayer.setVolume(0.2);
+        floodingPlayer.setAutoPlay(true);
     }
 
     public boolean dropCles(){
@@ -220,6 +231,8 @@ public class Modele extends Observable {
                 this.players.remove(player);
                 this.deadPlayers.add(player);
             }
+            MediaPlayer mediaPlayer = new MediaPlayer(Sounds.die);
+            mediaPlayer.setAutoPlay(true);
             return true;
         }
         return false;

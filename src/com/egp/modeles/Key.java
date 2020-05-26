@@ -3,7 +3,7 @@ package com.egp.modeles;
 import com.egp.constants.Type;
 
 public class Key {
-    private Type element;
+    private final Type element;
 
     public Key(Type element){
         this.element = element;

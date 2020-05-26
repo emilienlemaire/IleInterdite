@@ -3,7 +3,7 @@ package com.egp.modeles;
 import com.egp.constants.Type;
 
 public class Artefact {
-    private Type element;
+    private final Type element;
 
     public Artefact(Type element){
         this.element = element;

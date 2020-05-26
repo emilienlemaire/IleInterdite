@@ -1,17 +1,19 @@
 package com.egp.vues;
 
 
-import javafx.scene.control.Alert;
 import com.egp.constants.Buttons;
+import com.egp.constants.Sounds;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.media.MediaPlayer;
 
 import java.util.Optional;
 
 
 public class LostVue extends Alert {
 
-    private MainVue mainVue;
+    private final MainVue mainVue;
 
     public LostVue(MainVue mainVue) {
         super(AlertType.CONFIRMATION, "Souhaitez-vous rejouer ?", Buttons.rejouer, Buttons.quitter);
@@ -20,6 +22,9 @@ public class LostVue extends Alert {
 
         this.setHeaderText(null);
         this.setTitle("Vous avez perdu :(");
+
+        MediaPlayer lostPlayer = new MediaPlayer(Sounds.lost);
+        lostPlayer.setAutoPlay(true);
 
         showAlert();
     }

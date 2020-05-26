@@ -5,7 +5,6 @@ import com.egp.modeles.Modele;
 import com.egp.modeles.Player;
 import com.egp.modeles.Zone;
 import com.egp.observer.Observer;
-import javafx.scene.Cursor;
 import javafx.scene.layout.GridPane;
 
 import java.util.ArrayList;
