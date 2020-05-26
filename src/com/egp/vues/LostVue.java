@@ -8,6 +8,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.media.MediaPlayer;
 
+import java.io.FileNotFoundException;
 import java.util.Optional;
 
 
@@ -39,6 +40,5 @@ public class LostVue extends Alert {
             // ERROR
             System.out.println("??");
         }
-
     }
 }
