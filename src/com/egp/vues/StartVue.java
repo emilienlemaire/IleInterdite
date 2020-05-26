@@ -31,18 +31,21 @@ public class StartVue extends Scene {
 
         Text title = new Text("Ile Interdite");
 
+
         GridPane gridPane = new GridPane();
+        gridPane.setStyle("-fx-font-size: 13pt; -fx-font-family: 'Arial'");
         gridPane.setMinWidth(250);
         gridPane.setMinHeight(300);
         gridPane.setPadding(new Insets(30, 30, 30, 30));
         gridPane.setVgap(15);
         gridPane.setHgap(15);
+
         gridPane.add(title,0,0);
         gridPane.add(jouerButton,0,1);
         gridPane.add(paramButton,0,2);
 
         String path = "resources/background/background.png";
-        FileInputStream imageStream = null;
+        FileInputStream imageStream;
         try {
             imageStream = new FileInputStream(path);
             Image image = new Image(imageStream);
