@@ -59,8 +59,7 @@ public class StartVue extends Scene {
         FlowPane mainRoot = new FlowPane(this.root);
         MainVue mainVue = new MainVue(modele, mainRoot, this.stage);
 
-        LostVue lostVue = new LostVue(mainVue);
-
         this.stage.setScene(mainVue);
     }
+
 }

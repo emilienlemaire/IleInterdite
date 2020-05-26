@@ -31,10 +31,9 @@ public class Controller {
             gotKey();
         }
         modele.incrementeTour();
-        boolean lost = modele.checkLoose();
 
-        if (lost){
-            System.out.println("C'est loose");
+        if (modele.checkLoose()){
+            LostVue lostVue = new LostVue(grilleVue.getMainVue());
         }
 
     }
