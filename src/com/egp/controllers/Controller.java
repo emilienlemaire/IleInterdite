@@ -4,6 +4,7 @@ import com.egp.modeles.Modele;
 import com.egp.modeles.Zone;
 import com.egp.vues.ActionsVue;
 import com.egp.vues.GrilleVue;
+import com.egp.vues.LostVue;
 import com.egp.vues.ZoneVue;
 import javafx.scene.input.MouseEvent;
 
@@ -32,8 +33,10 @@ public class Controller {
         modele.incrementeTour();
         boolean lost = modele.checkLoose();
 
-        if (lost)
+        if (lost){
             System.out.println("C'est loose");
+        }
+
     }
 
 

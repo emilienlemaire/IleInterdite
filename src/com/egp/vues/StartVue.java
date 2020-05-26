@@ -17,6 +17,7 @@ public class StartVue extends Scene {
 
         this.root = root;
         this.stage = stage;
+
         Button button = new Button("Passer au jeu");
 
         button.setOnMouseClicked(mouseEvent -> setMainScene());
@@ -29,7 +30,10 @@ public class StartVue extends Scene {
         root.getChildren().clear();
 
         FlowPane mainRoot = new FlowPane(this.root);
+        MainVue mainVue = new MainVue(modele, mainRoot, this.stage);
 
-        this.stage.setScene(new MainVue(modele, mainRoot, this.stage));
+        LostVue lostVue = new LostVue(mainVue);
+
+        this.stage.setScene(mainVue);
     }
 }

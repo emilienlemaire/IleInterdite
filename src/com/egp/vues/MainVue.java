@@ -24,7 +24,7 @@ public class MainVue extends Scene {
 
         this.stage = stage;
         GrilleVue grilleVue = new GrilleVue(modele, this);
-         controller = grilleVue.getController();
+        controller = grilleVue.getController();
         CommandesVue commandesVue = new CommandesVue(modele, controller);
 
         root.getChildren().addAll(grilleVue, commandesVue);
