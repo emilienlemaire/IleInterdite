@@ -1,14 +1,10 @@
 package com.egp.vues;
 
 import com.egp.modeles.Modele;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
@@ -17,6 +13,9 @@ import javafx.stage.Stage;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
+
+import static com.egp.constants.utils.*;
 
 
 public class StartVue extends Scene {
@@ -29,6 +28,12 @@ public class StartVue extends Scene {
     public StartVue(Pane root, Stage stage){
         super(root, 250, 300);
 
+        try {
+            this.getStylesheets().add(getURL("resources/styles/stylesheet.css").toExternalForm());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
         this.root = root;
         this.stage = stage;
 
@@ -37,7 +42,7 @@ public class StartVue extends Scene {
 
         TextField rowField = new TextField();
         rowField.setText("10");
-        rowField.setMaxWidth(40);
+        rowField.setMaxWidth(30);
         rowField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
                 rowField.setText(newValue.replaceAll("[^\\d]", ""));
@@ -47,7 +52,7 @@ public class StartVue extends Scene {
 
         TextField colField = new TextField();
         colField.setText("10");
-        colField.setMaxWidth(40);
+        colField.setMaxWidth(30);
         colField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
                 colField.setText(newValue.replaceAll("[^\\d]", ""));
@@ -77,7 +82,6 @@ public class StartVue extends Scene {
 
 
         GridPane gridPane = new GridPane();
-        gridPane.setStyle("-fx-font-size: 13pt; -fx-font-family: 'Arial'");
         gridPane.setAlignment(Pos.CENTER_LEFT);
         gridPane.setMinWidth(250);
         gridPane.setMinHeight(300);

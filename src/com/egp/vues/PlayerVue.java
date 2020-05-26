@@ -14,19 +14,20 @@ import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.ColorInput;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 
-public class PlayerVue extends FlowPane implements Observer{
+public class PlayerVue extends HBox implements Observer{
     private final Player player;
     private boolean isCurrent;
     private ArrayList<Key> keys;
     private ArrayList<Artefact> artifacts;
     private final ArrayList<VBox> artKeyViews;
     private ImageView playerView;
-    private final double maxSize;
+    private double maxSize;
 
     public PlayerVue(Modele modele, Player player) {
         super();
@@ -35,6 +36,9 @@ public class PlayerVue extends FlowPane implements Observer{
         this.artifacts = player.getArtefacts();
         this.isCurrent = this.player.isCurrent();
         this.maxSize = ((modele.getNbCols() * 32.) - 60.) / (double)modele.getPlayers().size();
+
+        if (this.maxSize > 64.)
+            this.maxSize = 64.;
 
         this.player.addObserver(this);
 

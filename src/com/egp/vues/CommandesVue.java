@@ -5,6 +5,7 @@ import com.egp.modeles.Modele;
 import com.egp.modeles.Player;
 import com.egp.observer.Observer;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.BorderPane;
@@ -60,6 +61,7 @@ public class CommandesVue extends BorderPane implements Observer {
     public void drawPlayers() {
         ArrayList<Player> players = modele.getPlayers();
         VBox playerBox = new VBox();
+        playerBox.setAlignment(Pos.CENTER);
         for (Player player :
                 players) {
             PlayerVue playerVue = new PlayerVue(modele, player);
@@ -68,5 +70,6 @@ public class CommandesVue extends BorderPane implements Observer {
         playerBox.setMaxWidth(130);
         this.setMaxHeight(modele.getNbRows() * 32);
         this.setCenter(playerBox);
+        setAlignment(playerBox, Pos.BOTTOM_CENTER);
     }
 }
