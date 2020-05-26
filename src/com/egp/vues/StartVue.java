@@ -18,7 +18,7 @@ public class StartVue extends Scene {
     private final Pane root;
     private final Stage stage;
 
-    public StartVue(Pane root, Stage stage) throws FileNotFoundException {
+    public StartVue(Pane root, Stage stage){
         super(root, 250, 300);
 
         this.root = root;
@@ -42,12 +42,16 @@ public class StartVue extends Scene {
         gridPane.add(paramButton,0,2);
 
         String path = "resources/background/background.png";
-        FileInputStream imageStream = new FileInputStream(path);
-        Image image = new Image(imageStream);
-        BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-        //BackgroundFill myBF = new BackgroundFill(Color.BLUEVIOLET, new CornerRadii(1), new Insets(0.0,0.0,0.0,0.0));
-
-        gridPane.setBackground(new Background(backgroundImage));
+        FileInputStream imageStream = null;
+        try {
+            imageStream = new FileInputStream(path);
+            Image image = new Image(imageStream);
+            BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+            //BackgroundFill myBF = new BackgroundFill(Color.BLUEVIOLET, new CornerRadii(1), new Insets(0.0,0.0,0.0,0.0));
+            gridPane.setBackground(new Background(backgroundImage));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
         root.getChildren().add(gridPane);
     }

@@ -6,6 +6,7 @@ import com.egp.constants.Buttons;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.FlowPane;
 
+import java.io.FileNotFoundException;
 import java.util.Optional;
 
 
@@ -34,6 +35,5 @@ public class LostVue extends Alert {
             // ERROR
             System.out.println("??");
         }
-
     }
 }
