@@ -94,7 +94,7 @@ public class StartVue extends Scene {
         gridPane.add(playerNumberBox, 0, 2);
         gridPane.add(jouerButton,0,3);
 
-        String path = "resources/background/background2.png";
+        String path = "resources/background/background.png";
         FileInputStream imageStream;
         try {
             imageStream = new FileInputStream(path);
