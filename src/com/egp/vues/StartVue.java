@@ -1,5 +1,6 @@
 package com.egp.vues;
 
+import com.egp.constants.Images;
 import com.egp.modeles.Modele;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -11,8 +12,6 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 
 import static com.egp.constants.utils.*;
@@ -70,7 +69,7 @@ public class StartVue extends Scene {
             players = Integer.parseInt(newValue);
         });
 
-        Text t = new Text("Taille de la grille: ");
+        Text sizeText = new Text("Taille de la grille: ");
         HBox grilleSizeBox = new HBox();
         grilleSizeBox.setAlignment(Pos.CENTER_LEFT);
         grilleSizeBox.getChildren().addAll(rowField, new Text("X"), colField);
@@ -81,12 +80,15 @@ public class StartVue extends Scene {
 
         Text title = new Text("Ile Interdite");
 
+        BackgroundImage backgroundImage = new BackgroundImage(Images.background, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+
         GridPane grilleSizeBoxCont = new GridPane();
-        grilleSizeBoxCont.add(t,0,0);
+        grilleSizeBoxCont.add(sizeText,0,0);
         grilleSizeBoxCont.add(grilleSizeBox,0,1);
 
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER_LEFT);
+        gridPane.setStyle("-fx-font-size: 10pt;");
         gridPane.setMinWidth(250);
         gridPane.setMinHeight(300);
         gridPane.setPadding(new Insets(30, 30, 30, 30));
@@ -98,16 +100,7 @@ public class StartVue extends Scene {
         gridPane.add(playerNumberBox, 0, 2);
         gridPane.add(jouerButton,0,3);
 
-        String path = "resources/background/background.png";
-        FileInputStream imageStream;
-        try {
-            imageStream = new FileInputStream(path);
-            Image image = new Image(imageStream);
-            BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-            gridPane.setBackground(new Background(backgroundImage));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        gridPane.setBackground(new Background(backgroundImage));
 
         root.getChildren().add(gridPane);
     }

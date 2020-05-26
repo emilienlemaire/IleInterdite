@@ -14,6 +14,8 @@ public class Images {
     }
 
 
+    public static final Image background = new Image(getPath("resources/background/background.png"));
+
     public static final Image playerNormal = new Image(getPath("resources/players/normal.png"));
     public static final Image playerNormalBW = new Image(getPath("resources/players/normal-b&w.png"));
 
@@ -32,12 +34,12 @@ public class Images {
     public static final Image overlay = new Image(getPath("resources/states/submerged.png"));
     public static final Image hover = new Image(getPath("resources/cases/hover2.png"));
 
-    public static final Image normalCase = new Image( getPath("resources/cases/normal.png"));
-    public static final Image airCase = new Image( getPath("resources/cases/air.png"));
-    public static final Image earthCase = new Image( getPath("resources/cases/earth.png"));
-    public static final Image fireCase = new Image( getPath("resources/cases/fire.png"));
-    public static final Image heliportCase = new Image( getPath("resources/cases/heliport.png"));
-    public static final Image waterCase = new Image( getPath("resources/cases/water.png"));
+    public static final Image normalCase = new Image(getPath("resources/cases/normal.png"));
+    public static final Image airCase = new Image(getPath("resources/cases/air.png"));
+    public static final Image earthCase = new Image(getPath("resources/cases/earth.png"));
+    public static final Image fireCase = new Image(getPath("resources/cases/fire.png"));
+    public static final Image heliportCase = new Image(getPath("resources/cases/heliport.png"));
+    public static final Image waterCase = new Image(getPath("resources/cases/water.png"));
 
-    public static final Image cursor = new Image( getPath("resources/cursors/invalid32x32.gif"));
+    public static final Image cursor = new Image(getPath("resources/cursors/invalid32x32.gif"));
 }
