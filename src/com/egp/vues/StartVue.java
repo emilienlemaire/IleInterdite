@@ -1,10 +1,15 @@
 package com.egp.vues;
 
 import com.egp.modeles.Modele;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
@@ -17,6 +22,9 @@ import java.io.FileNotFoundException;
 public class StartVue extends Scene {
     private final Pane root;
     private final Stage stage;
+    private int rows = 10;
+    private int cols = 10;
+    private int players = 1;
 
     public StartVue(Pane root, Stage stage){
         super(root, 250, 300);
@@ -27,19 +35,57 @@ public class StartVue extends Scene {
         Button jouerButton = new Button("Jouer");
         jouerButton.setOnMouseClicked(mouseEvent -> setMainScene());
 
-        Button paramButton = new Button("Paramètres");
+        TextField rowField = new TextField();
+        rowField.setText("10");
+        rowField.setMaxWidth(40);
+        rowField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                rowField.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+            rows = Integer.parseInt(newValue);
+        });
+
+        TextField colField = new TextField();
+        colField.setText("10");
+        colField.setMaxWidth(40);
+        colField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                colField.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+            cols = Integer.parseInt(newValue);
+        });
+
+        TextField playerField = new TextField();
+        playerField.setText("1");
+        playerField.setMaxWidth(40);
+        playerField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                playerField.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+            players = Integer.parseInt(newValue);
+        });
+
+        HBox grilleSizeBox = new HBox();
+        grilleSizeBox.setAlignment(Pos.CENTER_LEFT);
+        grilleSizeBox.getChildren().addAll(new Text("Taille de la grille: "), rowField, new Text("X"), colField);
+
+        HBox playerNumberBox = new HBox();
+        playerNumberBox.setAlignment(Pos.CENTER_LEFT);
+        playerNumberBox.getChildren().addAll(new Text("Nombre de joueur: "), playerField);
 
         Text title = new Text("Ile Interdite");
 
         GridPane gridPane = new GridPane();
+        gridPane.setAlignment(Pos.CENTER_LEFT);
         gridPane.setMinWidth(250);
         gridPane.setMinHeight(300);
         gridPane.setPadding(new Insets(30, 30, 30, 30));
         gridPane.setVgap(15);
         gridPane.setHgap(15);
         gridPane.add(title,0,0);
-        gridPane.add(jouerButton,0,1);
-        gridPane.add(paramButton,0,2);
+        gridPane.add(grilleSizeBox,0,1);
+        gridPane.add(playerNumberBox, 0, 2);
+        gridPane.add(jouerButton,0,3);
 
         String path = "resources/background/background.png";
         FileInputStream imageStream = null;
@@ -57,7 +103,7 @@ public class StartVue extends Scene {
     }
 
     private void setMainScene() {
-        Modele modele = new Modele(10, 10, 5);
+        Modele modele = new Modele(cols, rows, players);
         root.getChildren().clear();
 
         FlowPane mainRoot = new FlowPane(this.root);

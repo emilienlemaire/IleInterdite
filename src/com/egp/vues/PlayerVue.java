@@ -34,7 +34,7 @@ public class PlayerVue extends FlowPane implements Observer{
         this.keys = player.getKeys();
         this.artifacts = player.getArtefacts();
         this.isCurrent = this.player.isCurrent();
-        this.maxSize = ((modele.getNbRows() * 32.) - 60.) / (double)modele.getPlayers().size();
+        this.maxSize = ((modele.getNbCols() * 32.) - 60.) / (double)modele.getPlayers().size();
 
         this.player.addObserver(this);
 
