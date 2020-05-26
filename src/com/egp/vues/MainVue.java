@@ -49,4 +49,8 @@ public class MainVue extends Scene {
     public Controller getController() {
         return controller;
     }
+
+    public Stage getStage() {
+        return stage;
+    }
 }
