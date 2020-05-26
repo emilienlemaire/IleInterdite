@@ -70,9 +70,10 @@ public class StartVue extends Scene {
             players = Integer.parseInt(newValue);
         });
 
+        Text t = new Text("Taille de la grille: ");
         HBox grilleSizeBox = new HBox();
         grilleSizeBox.setAlignment(Pos.CENTER_LEFT);
-        grilleSizeBox.getChildren().addAll(new Text("Taille de la grille: "), rowField, new Text("X"), colField);
+        grilleSizeBox.getChildren().addAll(rowField, new Text("X"), colField);
 
         HBox playerNumberBox = new HBox();
         playerNumberBox.setAlignment(Pos.CENTER_LEFT);
@@ -80,17 +81,20 @@ public class StartVue extends Scene {
 
         Text title = new Text("Ile Interdite");
 
+        GridPane grilleSizeBoxCont = new GridPane();
+        grilleSizeBoxCont.add(t,0,0);
+        grilleSizeBoxCont.add(grilleSizeBox,0,1);
 
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER_LEFT);
         gridPane.setMinWidth(250);
         gridPane.setMinHeight(300);
         gridPane.setPadding(new Insets(30, 30, 30, 30));
-        gridPane.setVgap(15);
-        gridPane.setHgap(15);
+        gridPane.setHgap(20);
+        gridPane.setVgap(20);
 
         gridPane.add(title,0,0);
-        gridPane.add(grilleSizeBox,0,1);
+        gridPane.add(grilleSizeBoxCont,0,1);
         gridPane.add(playerNumberBox, 0, 2);
         gridPane.add(jouerButton,0,3);
 
@@ -100,7 +104,6 @@ public class StartVue extends Scene {
             imageStream = new FileInputStream(path);
             Image image = new Image(imageStream);
             BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-            //BackgroundFill myBF = new BackgroundFill(Color.BLUEVIOLET, new CornerRadii(1), new Insets(0.0,0.0,0.0,0.0));
             gridPane.setBackground(new Background(backgroundImage));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
