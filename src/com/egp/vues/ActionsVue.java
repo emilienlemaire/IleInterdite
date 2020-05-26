@@ -1,7 +1,6 @@
 package com.egp.vues;
 
 import com.egp.modeles.Modele;
-import com.egp.modeles.Zone;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;

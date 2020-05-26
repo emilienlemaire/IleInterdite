@@ -189,8 +189,6 @@ public class Modele extends Observable {
 
 
     public void incrementeTour(){
-        if(checkLoose())
-            System.out.println("C'est loose");
         this.nbTour++;
         setCurrentPlayer();
         notifyObservers();
