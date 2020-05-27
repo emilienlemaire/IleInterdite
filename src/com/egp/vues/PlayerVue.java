@@ -2,7 +2,7 @@ package com.egp.vues;
 
 import com.egp.constants.Images;
 import com.egp.modeles.Artefact;
-import com.egp.modeles.Key;
+import com.egp.modeles.Events.Key;
 import com.egp.modeles.Modele;
 import com.egp.modeles.Players.Player;
 import com.egp.observer.Observer;
