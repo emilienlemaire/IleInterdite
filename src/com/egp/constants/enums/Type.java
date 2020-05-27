@@ -39,8 +39,8 @@ public enum Type {
         }
     };
 
-    private String basePath;
-    private String overlayPath;
+    private final String basePath;
+    private final String overlayPath;
 
     Type(String basePath, String overlay) {
         this.basePath = basePath;

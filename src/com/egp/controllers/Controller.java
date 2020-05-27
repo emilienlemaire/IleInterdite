@@ -32,12 +32,12 @@ public class Controller {
         if (modele.dropCles()){
             gotKey();
         }
-        modele.incrementeTour();
 
         if (modele.checkLoose()){
-
             LostVue lostVue = new LostVue(grilleVue.getMainVue());
         }
+
+        modele.incrementeTour();
 
     }
 

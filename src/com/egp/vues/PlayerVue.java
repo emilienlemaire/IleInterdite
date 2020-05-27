@@ -42,8 +42,8 @@ public class PlayerVue extends HBox implements Observer{
         this.player.addObserver(this);
 
         playerView = player.isCurrent() ?
-                new ImageView(Images.playerNormal) :
-                new ImageView(Images.playerNormalBW);
+                new ImageView(player.getType().getImageCurrent()) :
+                new ImageView(player.getType().getImageNotCurrent());
         playerView.setFitWidth(this.maxSize);
         playerView.setFitHeight(this.maxSize);
 
@@ -91,8 +91,8 @@ public class PlayerVue extends HBox implements Observer{
             this.getChildren().remove(playerView);
             this.isCurrent = this.player.isCurrent();
             this.playerView = this.player.isCurrent() ?
-                    new ImageView(Images.playerNormal) :
-                    new ImageView(Images.playerNormalBW);
+                    new ImageView(player.getType().getImageCurrent()) :
+                    new ImageView(player.getType().getImageNotCurrent());
             this.playerView.setFitWidth(this.maxSize);
             this.playerView.setFitHeight(this.maxSize);
 

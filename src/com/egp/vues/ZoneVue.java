@@ -45,21 +45,22 @@ public class ZoneVue extends Pane implements Observer {
         int nbPlayers = this.zone.getPlayers().size();
 
         for (int i = 0; i < nbPlayers; i++) {
-            ImageView player =
-                    this.zone.getPlayers().get(i).isCurrent() ?
-                            new ImageView(Images.playerNormal) :
-                            new ImageView(Images.playerNormalBW);
+            Player player = this.zone.getPlayers().get(i);
+            ImageView playerView =
+                    player.isCurrent() ?
+                            new ImageView(player.getType().getImageCurrent()) :
+                            new ImageView(player.getType().getImageNotCurrent());
 
             if (nbPlayers > 1) {
-                player.setFitHeight(16);
-                player.setFitWidth(16);
+                playerView.setFitHeight(16);
+                playerView.setFitWidth(16);
                 int v = i > 1 ? 1 : 0;
                 int h = i % 2 == 1 ? 1 : 0;
-                playerPane.add(player, v, h);
+                playerPane.add(playerView, v, h);
             } else {
-                player.setFitHeight(32);
-                player.setFitWidth(32);
-                playerPane.add(player, 0, 0);
+                playerView.setFitHeight(32);
+                playerView.setFitWidth(32);
+                playerPane.add(playerView, 0, 0);
             }
         }
 
@@ -110,14 +111,15 @@ public class ZoneVue extends Pane implements Observer {
 
         int nbPlayers = this.zone.getPlayers().size();
         for (int i = 0; i < nbPlayers; i++) {
+            Player player = this.zone.getPlayers().get(i);
             ImageView playerView;
             if (this.zone.hasCurrent()) {
                 playerView =
-                        this.zone.getPlayers().get(i).isCurrent() ?
-                                new ImageView(Images.playerNormal) :
-                                new ImageView(Images.playerNormalBW);
+                        player.isCurrent() ?
+                                new ImageView(player.getType().getImageCurrent()) :
+                                new ImageView(player.getType().getImageNotCurrent());
             } else {
-                playerView = new ImageView(Images.playerNormalBW);
+                playerView = new ImageView(player.getType().getImageNotCurrent());
             }
             if (nbPlayers > 1) {
                 playerView.setFitHeight(16);

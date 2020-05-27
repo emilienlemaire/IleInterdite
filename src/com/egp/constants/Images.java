@@ -18,6 +18,10 @@ public class Images {
 
     public static final Image playerNormal = new Image(getPath("resources/players/normal.png"));
     public static final Image playerNormalBW = new Image(getPath("resources/players/normal-b&w.png"));
+    public static final Image playerPlonguer = new Image(getPath("resources/players/plonguer.png"));
+    public static final Image playerPlongeurBW = new Image(getPath("resources/players/plonguer-b&w.png"));
+    public static final Image playerExplorateur = new Image(getPath("resources/players/explorateur.png"));
+    public static final Image playerExplorateurBW = new Image(getPath("resources/players/explorateur-b&w.png"));
 
     public static final Image key1 = new Image(getPath("resources/keys/cle.png"));
     public static final Image key2 = new Image(getPath("resources/keys/cle2.png"));
@@ -42,4 +46,5 @@ public class Images {
     public static final Image waterCase = new Image(getPath("resources/cases/water.png"));
 
     public static final Image cursor = new Image(getPath("resources/cursors/invalid32x32.gif"));
+
 }
