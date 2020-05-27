@@ -1,9 +1,9 @@
 package com.egp.vues;
 
 import com.egp.constants.Images;
-import com.egp.constants.Type;
+import com.egp.constants.enums.Type;
 import com.egp.modeles.Modele;
-import com.egp.modeles.Player;
+import com.egp.modeles.Players.Player;
 import com.egp.modeles.Zone;
 import com.egp.observer.Observer;
 import javafx.scene.Cursor;

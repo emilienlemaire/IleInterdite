@@ -1,12 +1,11 @@
-package com.egp.constants;
+package com.egp.constants.enums;
 
 
+import com.egp.constants.Images;
 import javafx.scene.Group;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
-import java.io.File;
 
 public enum Type {
     Normale("normal.png", null){

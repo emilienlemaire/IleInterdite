@@ -2,7 +2,7 @@ package com.egp.vues;
 
 import com.egp.controllers.Controller;
 import com.egp.modeles.Modele;
-import com.egp.modeles.Player;
+import com.egp.modeles.Players.Player;
 import com.egp.observer.Observer;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

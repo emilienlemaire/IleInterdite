@@ -1,7 +1,11 @@
-package com.egp.modeles;
+package com.egp.modeles.Players;
 
-import com.egp.constants.Etat;
-import com.egp.constants.Type;
+import com.egp.constants.enums.Etat;
+import com.egp.constants.enums.PlayerTypes;
+import com.egp.constants.enums.Type;
+import com.egp.modeles.Artefact;
+import com.egp.modeles.Key;
+import com.egp.modeles.Zone;
 import com.egp.observer.Observable;
 
 import java.util.ArrayList;
@@ -11,13 +15,15 @@ public class Player extends Observable {
     private boolean isCurrent = false;
     private final int ID;
     private int actions = 3;
+    private PlayerTypes type;
 
     private final ArrayList<Key> keys;
     private final ArrayList<Artefact> artefacts;
 
-    public Player(Zone position, int ID){
+    public Player(Zone position, int ID, PlayerTypes type){
         this.position = position;
         this.ID = ID;
+        this.type = type;
 
         this.keys = new ArrayList<>();
         this.artefacts = new ArrayList<>();
@@ -41,6 +47,8 @@ public class Player extends Observable {
 
     public int getID(){ return this.ID; }
 
+    public PlayerTypes getType() { return this.type; }
+
     public ArrayList<Key> getKeys(){ return this.keys; }
 
     public void addKey(Key cle){
@@ -50,31 +58,30 @@ public class Player extends Observable {
     public ArrayList<Artefact> getArtefacts(){ return this.artefacts; }
 
     public void addArtefacts(Artefact artefact){
-        this.artefacts.add(artefact);
+        this.getArtefacts().add(artefact);
         notifyObservers();
     }
 
     public void removeKey(Type type){
-        this.keys.removeIf(k -> k.getElement() == type);
+        this.getKeys().removeIf(k -> k.getElement() == type);
         notifyObservers();
     }
 
     public boolean atteignable(Zone c){
-
         if (c.etat == Etat.Submergee)
             return false;
 
-        if (this.position.x == c.x)
-            return this.position.y == c.y - 1 || this.position.y == c.y + 1;
+        if (this.getPosition().x == c.x)
+            return this.getPosition().y == c.y - 1 || this.getPosition().y == c.y + 1;
 
-        if (this.position.y == c.y)
-            return this.position.x == c.x - 1 || this.position.x == c.x + 1;
+        if (this.getPosition().y == c.y)
+            return this.getPosition().x == c.x - 1 || this.getPosition().x == c.x + 1;
 
         return false;
     }
 
     public boolean isDead(){
-        return this.position.etat == Etat.Submergee;
+        return this.getPosition().etat == Etat.Submergee;
     }
 
     public boolean isCurrent() {

@@ -1,6 +1,7 @@
 package com.egp.vues;
 
 import com.egp.constants.Images;
+import com.egp.constants.enums.PlayerTypes;
 import com.egp.modeles.Modele;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,6 +13,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 
 import static com.egp.constants.utils.*;
 
@@ -21,10 +23,13 @@ public class StartVue extends Scene {
     private final Stage stage;
     private int rows = 10;
     private int cols = 10;
-    private int players = 1;
+    private ArrayList<PlayerTypes> players;
 
     public StartVue(Pane root, Stage stage){
         super(root, 250, 300);
+
+        this.players = new ArrayList<>();
+        this.players.add(PlayerTypes.Explorateur);
 
         try {
             this.getStylesheets().add(getURL("resources/styles/stylesheet.css").toExternalForm());
@@ -65,7 +70,10 @@ public class StartVue extends Scene {
             if (!newValue.matches("\\d*")) {
                 playerField.setText(newValue.replaceAll("[^\\d]", ""));
             }
-            players = Integer.parseInt(newValue);
+            int nbPlayer = Integer.parseInt(newValue);
+            this.players.clear();
+            for(int i = 0; i<nbPlayer; i++)
+                this.players.add(PlayerTypes.Explorateur);
         });
 
         Text sizeText = new Text("Taille de la grille: ");
@@ -105,7 +113,7 @@ public class StartVue extends Scene {
     }
 
     private void setMainScene() {
-        Modele modele = new Modele(cols, rows, players);
+        Modele modele = new Modele(cols, rows, players, 1./3.);
         root.getChildren().clear();
 
         FlowPane mainRoot = new FlowPane(this.root);

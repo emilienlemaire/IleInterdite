@@ -1,5 +1,6 @@
-package com.egp.constants;
+package com.egp.constants.enums;
 
+import com.egp.constants.Images;
 import javafx.scene.Group;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.image.ImageView;

@@ -1,5 +1,7 @@
 package com.egp.modeles;
-import com.egp.constants.*;
+import com.egp.constants.enums.Etat;
+import com.egp.constants.enums.Type;
+import com.egp.modeles.Players.Player;
 import com.egp.observer.Observable;
 
 import java.util.ArrayList;

@@ -1,6 +1,6 @@
 package com.egp.modeles;
 
-import com.egp.constants.Type;
+import com.egp.constants.enums.Type;
 
 public class Artefact {
     private final Type element;

@@ -1,8 +1,12 @@
 package com.egp.modeles;
 
-import com.egp.constants.Etat;
+import com.egp.constants.enums.Etat;
 import com.egp.constants.Sounds;
-import com.egp.constants.Type;
+import com.egp.constants.enums.PlayerTypes;
+import com.egp.constants.enums.Type;
+import com.egp.modeles.Players.Explorateur;
+import com.egp.modeles.Players.Player;
+import com.egp.modeles.Players.Plongeur;
 import com.egp.observer.Observable;
 import javafx.scene.media.MediaPlayer;
 
@@ -19,32 +23,36 @@ public class Modele extends Observable {
 
     private final ArrayList<Player> players;
     private final ArrayList<Player> deadPlayers;
+
     private Zone heliport;
     private int nbTour = 0;
     private Player currentPlayer;
 
-    private ArrayList<Key> keys;
+    private final ArrayList<Key> keys;
+    private final double dropKey;
 
-    public Modele(int nbCols, int nbRows, int nbPlayer) {
+    public Modele(int nbCols, int nbRows, ArrayList<PlayerTypes> playersType, double dropKey) {
         this.nbCols = nbCols;
         this.nbRows = nbRows;
-        this.nbPlayer = nbPlayer;
+        this.nbPlayer = playersType.size();
 
         this.cases = new ArrayList<>();
         this.players = new ArrayList<>();
         this.deadPlayers = new ArrayList<>();
 
-        this.init();
+        this.keys = new ArrayList<>();
+        this.dropKey = dropKey;
+
+        this.init(playersType);
     }
 
-    public void init() {
+    public void init(ArrayList<PlayerTypes> playersType) {
         for (int i = 0; i < nbRows; i++) {
             for (int j = 0; j < nbCols; j++) {
                 this.cases.add(new Zone(Etat.Normale, Type.Normale, j, i));
             }
         }
 
-        this.keys = new ArrayList<>();
         Type[] values = Type.values();
         int[] indices = new Random().ints(0, nbCols * nbRows).distinct().limit(values.length - 1).toArray();
 
@@ -61,15 +69,26 @@ public class Modele extends Observable {
 
         int[] spawn_idx = new Random().ints(0, nbCols * nbRows).limit(nbPlayer).toArray();
 
-        for(int i = 0; i<this.nbPlayer; i++) {
-            Player player = new Player(this.cases.get(spawn_idx[i]), i + 1);
+        for(int i = 0; i<playersType.size(); i++){
+            Player player = null;
+            switch (playersType.get(i)){
+                case Normal:
+                    player = new Player(this.cases.get(spawn_idx[i]), i + 1, playersType.get(i));
+                    break;
+                case Explorateur:
+                    player = new Explorateur(this.cases.get(spawn_idx[i]), i + 1, playersType.get(i));
+                    break;
+                case Plongeur:
+                    player = new Plongeur(this.cases.get(spawn_idx[i]), i + 1, playersType.get(i));
+                    break;
+            }
+
             this.players.add(player);
             this.cases.get(spawn_idx[i]).addPlayer(player);
         }
+
+
         setCurrentPlayer();
-
-
-
     }
 
     /**
@@ -84,11 +103,11 @@ public class Modele extends Observable {
     }
 
     public boolean recuperable(Zone c){
+
         if (c.type == Type.Heliport || c.type == Type.Normale || c.etat == Etat.Submergee ||
                 this.currentPlayer.getActions() == 0 ||
-                this.currentPlayer.getPosition().x == c.x && this.currentPlayer.getPosition().y == c.y)
+                this.currentPlayer.getPosition().x != c.x || this.currentPlayer.getPosition().y != c.y)
             return false;
-
 
         for (Key k : this.currentPlayer.getKeys()){
             if (c.type == k.getElement())
@@ -179,7 +198,7 @@ public class Modele extends Observable {
     public boolean dropCles(){
         float r = new Random().nextFloat();
 
-        if (r > 0.66) {
+        if (r > 1-this.dropKey) {
             if (this.keys.size() > 0) {
                 Key k = this.keys.get(0);
                 this.currentPlayer.addKey(k);
@@ -190,7 +209,7 @@ public class Modele extends Observable {
             return false;
         }
 
-        if (r > 0.33) {
+        if (r > (1-this.dropKey)/2.) {
             innondeCase(this.currentPlayer.getPosition());
             return false;
         }
@@ -251,8 +270,9 @@ public class Modele extends Observable {
 
     public boolean checkLoose(){
 
-        if (this.players.size() == 0)
+        if (this.players.size() == 0) {
             return true;
+        }
 
         for(Player player : this.deadPlayers){
             if (player.getArtefacts().size() > 0 || player.getKeys().size() > 0)
