@@ -43,4 +43,16 @@ public enum PlayerTypes {
         }
         return Images.playerNormalBW;
     }
+
+    public String getInformation() {
+        switch (this) {
+            case Normal:
+                return "C'est un jouer normal qui ne peut se déplacer qu'à l'horizontale ou à la verticale";
+            case Plongeur:
+                return "C'est un joueur qui peut se déplacer dans les cases submergées";
+            case Explorateur:
+                return "Ce joueur spécial peut se déplacer dans les zones submergées";
+        }
+        return "Veuillez selectionner un type de joueur";
+    }
 }
