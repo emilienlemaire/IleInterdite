@@ -2,7 +2,7 @@ package com.egp.modeles;
 
 import com.egp.constants.enums.Etat;
 import com.egp.constants.Sounds;
-import com.egp.constants.enums.PlayerTypes;
+import com.egp.constants.enums.PlayerType;
 import com.egp.constants.enums.Type;
 import com.egp.modeles.Cartes.Card;
 import com.egp.modeles.Cartes.Cards;
@@ -15,7 +15,6 @@ import com.egp.observer.Observable;
 import javafx.scene.media.MediaPlayer;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Random;
 
 public class Modele extends Observable {
@@ -35,7 +34,7 @@ public class Modele extends Observable {
     public Cards ZonePaquet;
     public Cards EventPaquet;
 
-    public Modele(int nbCols, int nbRows, ArrayList<PlayerTypes> playersType, double dropKey) {
+    public Modele(int nbCols, int nbRows, ArrayList<PlayerType> playersType, double dropKey) {
         this.nbCols = nbCols;
         this.nbRows = nbRows;
         this.nbPlayer = playersType.size();
@@ -52,7 +51,7 @@ public class Modele extends Observable {
      * @param playersType permet de créer les objets Player du bon type de joueur
      * @param dropKey proba de tirer une clé dans le paquet de cartes
      */
-    public void init(ArrayList<PlayerTypes> playersType, double dropKey) {
+    public void init(ArrayList<PlayerType> playersType, double dropKey) {
         for (int i = 0; i < nbRows; i++) {
             for (int j = 0; j < nbCols; j++) {
                 this.cases.add(new Zone(Etat.Normale, Type.Normale, j, i));

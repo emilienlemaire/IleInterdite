@@ -1,10 +1,10 @@
 package com.egp.modeles.Players;
 
-import com.egp.constants.enums.PlayerTypes;
+import com.egp.constants.enums.PlayerType;
 import com.egp.modeles.Zone;
 
 public class Plongeur extends Player{
-    public Plongeur(Zone position, int ID, PlayerTypes type) {
+    public Plongeur(Zone position, int ID, PlayerType type) {
         super(position, ID, type);
     }
 

@@ -1,11 +1,11 @@
 package com.egp.modeles.Players;
 
 import com.egp.constants.enums.Etat;
-import com.egp.constants.enums.PlayerTypes;
+import com.egp.constants.enums.PlayerType;
 import com.egp.modeles.Zone;
 
 public class Explorateur extends Player{
-    public Explorateur(Zone position, int ID, PlayerTypes type) {
+    public Explorateur(Zone position, int ID, PlayerType type) {
         super(position, ID, type);
     }
 

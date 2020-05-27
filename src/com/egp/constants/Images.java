@@ -18,8 +18,8 @@ public class Images {
 
     public static final Image playerNormal = new Image(getPath("resources/players/normal.png"));
     public static final Image playerNormalBW = new Image(getPath("resources/players/normal-b&w.png"));
-    public static final Image playerPlonguer = new Image(getPath("resources/players/plonguer.png"));
-    public static final Image playerPlongeurBW = new Image(getPath("resources/players/plonguer-b&w.png"));
+    public static final Image playerPlonguer = new Image(getPath("resources/players/plongeur.png"));
+    public static final Image playerPlongeurBW = new Image(getPath("resources/players/plongeur-b&w.png"));
     public static final Image playerExplorateur = new Image(getPath("resources/players/explorateur.png"));
     public static final Image playerExplorateurBW = new Image(getPath("resources/players/explorateur-b&w.png"));
 

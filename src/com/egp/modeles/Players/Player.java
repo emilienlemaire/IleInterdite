@@ -1,7 +1,7 @@
 package com.egp.modeles.Players;
 
 import com.egp.constants.enums.Etat;
-import com.egp.constants.enums.PlayerTypes;
+import com.egp.constants.enums.PlayerType;
 import com.egp.constants.enums.Type;
 import com.egp.modeles.Artefact;
 import com.egp.modeles.Events.Key;
@@ -15,12 +15,12 @@ public class Player extends Observable {
     private boolean isCurrent = false;
     private final int ID;
     private int actions = 3;
-    private PlayerTypes type;
+    private PlayerType type;
 
     private final ArrayList<Key> keys;
     private final ArrayList<Artefact> artefacts;
 
-    public Player(Zone position, int ID, PlayerTypes type){
+    public Player(Zone position, int ID, PlayerType type){
         this.position = position;
         this.ID = ID;
         this.type = type;
@@ -47,7 +47,7 @@ public class Player extends Observable {
 
     public int getID(){ return this.ID; }
 
-    public PlayerTypes getType() { return this.type; }
+    public PlayerType getType() { return this.type; }
 
     public ArrayList<Key> getKeys(){ return this.keys; }
 

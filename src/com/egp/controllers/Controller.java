@@ -38,8 +38,6 @@ public class Controller {
             LostVue lostVue = new LostVue(grilleVue.getMainVue());
         }
 
-        modele.incrementeTour();
-
     }
 
 

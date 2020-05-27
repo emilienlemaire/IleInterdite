@@ -3,7 +3,7 @@ package com.egp.constants.enums;
 import com.egp.constants.Images;
 import javafx.scene.image.Image;
 
-public enum PlayerTypes {
+public enum PlayerType {
     Normal {
         public String toString() {
             return "Normal";

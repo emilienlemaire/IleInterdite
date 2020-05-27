@@ -1,7 +1,7 @@
 package com.egp.vues;
 
 import com.egp.constants.Images;
-import com.egp.constants.enums.PlayerTypes;
+import com.egp.constants.enums.PlayerType;
 import com.egp.modeles.Modele;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -23,13 +23,13 @@ public class StartVue extends Scene {
     private final Stage stage;
     private int rows = 10;
     private int cols = 10;
-    private ArrayList<PlayerTypes> players;
+    private ArrayList<PlayerType> players;
 
     public StartVue(Pane root, Stage stage){
         super(root, 250, 300);
 
         this.players = new ArrayList<>();
-        this.players.add(PlayerTypes.Explorateur);
+        this.players.add(PlayerType.Explorateur);
 
         try {
             this.getStylesheets().add(getURL("resources/styles/stylesheet.css").toExternalForm());
@@ -73,7 +73,7 @@ public class StartVue extends Scene {
             int nbPlayer = Integer.parseInt(newValue);
             this.players.clear();
             for(int i = 0; i<nbPlayer; i++)
-                this.players.add(PlayerTypes.Explorateur);
+                this.players.add(PlayerType.Explorateur);
         });
 
         Text sizeText = new Text("Taille de la grille: ");
@@ -105,7 +105,8 @@ public class StartVue extends Scene {
         gridPane.add(title,0,0);
         gridPane.add(grilleSizeBoxCont,0,1);
         gridPane.add(playerNumberBox, 0, 2);
-        gridPane.add(jouerButton,0,3);
+        gridPane.add(jouerButton,0,4);
+        gridPane.add(new PlayerSelectVue(), 0, 3);
 
         gridPane.setBackground(new Background(backgroundImage));
 
