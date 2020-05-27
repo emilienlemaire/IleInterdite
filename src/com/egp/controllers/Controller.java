@@ -28,10 +28,11 @@ public class Controller {
     }
 
     public void finDeTour() {
-        modele.inondeCases();
-        if (modele.dropCles()){
+        if (modele.Event()){
             gotKey();
         }
+        modele.inondeCases();
+        modele.incrementeTour();
 
         if (modele.checkLoose()){
             LostVue lostVue = new LostVue(grilleVue.getMainVue());

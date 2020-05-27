@@ -4,7 +4,7 @@ import com.egp.constants.enums.Etat;
 import com.egp.constants.enums.PlayerTypes;
 import com.egp.constants.enums.Type;
 import com.egp.modeles.Artefact;
-import com.egp.modeles.Key;
+import com.egp.modeles.Events.Key;
 import com.egp.modeles.Zone;
 import com.egp.observer.Observable;
 

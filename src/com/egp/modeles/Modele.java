@@ -4,6 +4,10 @@ import com.egp.constants.enums.Etat;
 import com.egp.constants.Sounds;
 import com.egp.constants.enums.PlayerTypes;
 import com.egp.constants.enums.Type;
+import com.egp.modeles.Cartes.Card;
+import com.egp.modeles.Cartes.Cards;
+import com.egp.modeles.Events.Event;
+import com.egp.modeles.Events.Key;
 import com.egp.modeles.Players.Explorateur;
 import com.egp.modeles.Players.Player;
 import com.egp.modeles.Players.Plongeur;
@@ -28,8 +32,8 @@ public class Modele extends Observable {
     private int nbTour = 0;
     private Player currentPlayer;
 
-    private final ArrayList<Key> keys;
-    private final double dropKey;
+    public Cards ZonePaquet;
+    public Cards EventPaquet;
 
     public Modele(int nbCols, int nbRows, ArrayList<PlayerTypes> playersType, double dropKey) {
         this.nbCols = nbCols;
@@ -40,13 +44,15 @@ public class Modele extends Observable {
         this.players = new ArrayList<>();
         this.deadPlayers = new ArrayList<>();
 
-        this.keys = new ArrayList<>();
-        this.dropKey = dropKey;
-
-        this.init(playersType);
+        this.init(playersType, dropKey);
     }
 
-    public void init(ArrayList<PlayerTypes> playersType) {
+    /**
+     * Méthode initialisant tout les atributs du modèle
+     * @param playersType permet de créer les objets Player du bon type de joueur
+     * @param dropKey proba de tirer une clé dans le paquet de cartes
+     */
+    public void init(ArrayList<PlayerTypes> playersType, double dropKey) {
         for (int i = 0; i < nbRows; i++) {
             for (int j = 0; j < nbCols; j++) {
                 this.cases.add(new Zone(Etat.Normale, Type.Normale, j, i));
@@ -55,6 +61,7 @@ public class Modele extends Observable {
 
         Type[] values = Type.values();
         int[] indices = new Random().ints(0, nbCols * nbRows).distinct().limit(values.length - 1).toArray();
+        ArrayList<Event> keys = new ArrayList<>();
 
         for (int i = 0; i < indices.length; i++) {
             this.cases.get(indices[i]).type = values[i + 1];
@@ -62,10 +69,15 @@ public class Modele extends Observable {
                 this.heliport = this.cases.get(indices[i]);
 
             if (values[i+1] != Type.Heliport && values[i+1] != Type.Normale)
-                this.keys.add(new Key(values[i+1]));
+                keys.add(new Key(values[i+1]));
         }
 
-        Collections.shuffle(this.keys);
+
+        /**
+         * Initialisation des paquets de cartes
+         */
+        this.ZonePaquet = new Cards(this.cases);
+        this.EventPaquet = new Cards(keys, new Event[]{new Event("Rien"), new Event("Montée")}, dropKey);
 
         int[] spawn_idx = new Random().ints(0, nbCols * nbRows).limit(nbPlayer).toArray();
 
@@ -182,12 +194,12 @@ public class Modele extends Observable {
     }
 
     public void inondeCases() {
-        int i = 0;
-        Random r = new Random();
-        while (i < 3) {
-            int idx = r.nextInt(this.nbCols * this.nbRows);
-            if(innondeCase(this.cases.get(idx)))
-                i++;
+        for(int i = 0; i<3; i++){
+            Card c = this.ZonePaquet.tirer();
+            innondeCase((Zone) c.getObject());
+
+            if (((Zone) c.getObject()).etat == Etat.Submergee)
+                this.ZonePaquet.retire(c);
         }
 
         MediaPlayer floodingPlayer = new MediaPlayer(Sounds.flooding);
@@ -195,26 +207,26 @@ public class Modele extends Observable {
         floodingPlayer.setAutoPlay(true);
     }
 
-    public boolean dropCles(){
-        float r = new Random().nextFloat();
+    public boolean Event(){
+        Card c = this.EventPaquet.tirer();
+        Event e = (Event) c.getObject();
 
-        if (r > 1-this.dropKey) {
-            if (this.keys.size() > 0) {
-                Key k = this.keys.get(0);
-                this.currentPlayer.addKey(k);
+        switch (e.getName()){
+            case "Rien":
+                return false;
+
+            case "Montée":
+                innondeCase(this.currentPlayer.getPosition());
+                this.ZonePaquet.melangeTrash();
+                this.ZonePaquet.placeTrash();
+                return false;
+
+            default:
+                this.currentPlayer.addKey((Key) e);
                 System.out.println(this.currentPlayer);
-                this.keys.remove(k);
+                this.EventPaquet.retire(c);
                 return true;
-            }
-            return false;
         }
-
-        if (r > (1-this.dropKey)/2.) {
-            innondeCase(this.currentPlayer.getPosition());
-            return false;
-        }
-
-        return false;
     }
 
 
@@ -269,7 +281,6 @@ public class Modele extends Observable {
     }
 
     public boolean checkLoose(){
-
         if (this.players.size() == 0) {
             return true;
         }
