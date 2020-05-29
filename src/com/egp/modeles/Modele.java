@@ -5,7 +5,7 @@ import com.egp.constants.Sounds;
 import com.egp.constants.enums.PlayerType;
 import com.egp.constants.enums.Type;
 import com.egp.modeles.Cartes.Card;
-import com.egp.modeles.Cartes.Cards;
+import com.egp.modeles.Cartes.CardDeck;
 import com.egp.modeles.Events.Event;
 import com.egp.modeles.Events.Key;
 import com.egp.modeles.Players.Explorateur;
@@ -31,8 +31,8 @@ public class Modele extends Observable {
     private int nbTour = 0;
     private Player currentPlayer;
 
-    public Cards ZonePaquet;
-    public Cards EventPaquet;
+    public CardDeck zonePaquet;
+    public CardDeck eventPaquet;
 
     public Modele(int nbCols, int nbRows, ArrayList<PlayerType> playersType, double dropKey) {
         this.nbCols = nbCols;
@@ -72,11 +72,9 @@ public class Modele extends Observable {
         }
 
 
-        /**
-         * Initialisation des paquets de cartes
-         */
-        this.ZonePaquet = new Cards(this.cases);
-        this.EventPaquet = new Cards(keys, new Event[]{new Event("Rien"), new Event("Montée")}, dropKey);
+        //Initialisation des paquets de cartes.
+        this.zonePaquet = new CardDeck(this.cases);
+        this.eventPaquet = new CardDeck(keys, new Event[]{new Event("Rien"), new Event("Montée")}, dropKey);
 
         int[] spawn_idx = new Random().ints(0, nbCols * nbRows).limit(nbPlayer).toArray();
 
@@ -194,11 +192,11 @@ public class Modele extends Observable {
 
     public void inondeCases() {
         for(int i = 0; i<3; i++){
-            Card c = this.ZonePaquet.tirer();
+            Card c = this.zonePaquet.tirer();
             innondeCase((Zone) c.getObject());
 
             if (((Zone) c.getObject()).etat == Etat.Submergee)
-                this.ZonePaquet.retire(c);
+                this.zonePaquet.retire(c);
         }
 
         MediaPlayer floodingPlayer = new MediaPlayer(Sounds.flooding);
@@ -207,7 +205,7 @@ public class Modele extends Observable {
     }
 
     public boolean Event(){
-        Card c = this.EventPaquet.tirer();
+        Card c = this.eventPaquet.tirer();
         Event e = (Event) c.getObject();
 
         switch (e.getName()){
@@ -216,14 +214,14 @@ public class Modele extends Observable {
 
             case "Montée":
                 innondeCase(this.currentPlayer.getPosition());
-                this.ZonePaquet.melangeTrash();
-                this.ZonePaquet.placeTrash();
+                this.zonePaquet.melangeTrash();
+                this.zonePaquet.placeTrash();
                 return false;
 
             default:
                 this.currentPlayer.addKey((Key) e);
                 System.out.println(this.currentPlayer);
-                this.EventPaquet.retire(c);
+                this.eventPaquet.retire(c);
                 return true;
         }
     }
@@ -271,7 +269,7 @@ public class Modele extends Observable {
     public boolean checkWin(){
         int nbArtefacts = 0;
         for (Player player : this.heliport.getPlayers()){
-            for(Artefact artefact : player.getArtefacts())
+            for(Artefact ignored : player.getArtefacts())
                 nbArtefacts++;
         }
 

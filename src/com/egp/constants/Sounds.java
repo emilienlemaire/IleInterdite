@@ -14,4 +14,5 @@ public class Sounds {
     public static final Media key = new Media(getPath("resources/sounds/key.wav"));
     public static final Media artifact = new Media(getPath("resources/sounds/artifact.wav"));
     public static final Media lost = new Media(getPath("resources/sounds/lost.wav"));
+    public static final Media win = new Media(getPath("resources/sounds/win.wav"));
 }

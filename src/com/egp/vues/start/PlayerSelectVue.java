@@ -1,12 +1,9 @@
-package com.egp.vues;
+package com.egp.vues.start;
 
 import com.egp.constants.enums.PlayerType;
-import com.egp.modeles.Players.Player;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 

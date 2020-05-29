@@ -1,9 +1,9 @@
 .root {
-    -fx-font-family: "Arial";
+    -fx-font-family: Arial;
     -fx-font-size: 8pt;
     -fx-font-smoothing-type: gray;
 }
 
-.menu-item {
-    -fx-text-fill: white;
+.main {
+    -fx-font-size: 10pt;
 }

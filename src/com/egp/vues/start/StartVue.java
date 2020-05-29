@@ -1,8 +1,10 @@
-package com.egp.vues;
+package com.egp.vues.start;
 
 import com.egp.constants.Images;
 import com.egp.constants.enums.PlayerType;
 import com.egp.modeles.Modele;
+import com.egp.vues.end.WinView;
+import com.egp.vues.game.MainVue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -24,7 +26,7 @@ public class StartVue extends Scene {
     private final Stage stage;
     private int rows = 10;
     private int cols = 10;
-    private ArrayList<PlayerType> players;
+    private final ArrayList<PlayerType> players;
 
     public StartVue(Pane root, Stage stage){
         super(root, 250, 300);

@@ -1,4 +1,4 @@
-package com.egp.vues;
+package com.egp.vues.game;
 
 import com.egp.modeles.Modele;
 import javafx.scene.control.ContextMenu;
@@ -49,7 +49,6 @@ public class ActionsVue extends ContextMenu {
         }
 
         this.getItems().addAll(menuItems);
-
 
         this.show(grilleVue, mouseEvent.getScreenX(), mouseEvent.getScreenY());
     }

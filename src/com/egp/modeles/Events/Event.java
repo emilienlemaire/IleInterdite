@@ -1,7 +1,7 @@
 package com.egp.modeles.Events;
 
 public class Event {
-    private String name;
+    private final String name;
 
     public Event(String name){
         this.name = name;

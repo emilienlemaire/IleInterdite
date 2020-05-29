@@ -1,7 +1,7 @@
 package com.egp;
 
 import com.egp.constants.Sounds;
-import com.egp.vues.StartVue;
+import com.egp.vues.start.StartVue;
 import javafx.application.Application;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;

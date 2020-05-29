@@ -1,4 +1,4 @@
-package com.egp.vues;
+package com.egp.vues.game;
 
 import com.egp.controllers.Controller;
 import com.egp.modeles.Modele;
@@ -13,6 +13,10 @@ import javafx.scene.paint.Color;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 
+import java.net.MalformedURLException;
+
+import static com.egp.constants.utils.getURL;
+
 
 public class MainVue extends Scene {
 
@@ -22,6 +26,13 @@ public class MainVue extends Scene {
 
     public MainVue(Modele modele, Pane root, Stage stage) {
         super(root, modele.getNbRows() * 32 + 150, modele.getNbCols() * 32);
+
+        try {
+            this.getStylesheets().add(getURL("resources/styles/stylesheet.css").toExternalForm());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        root.getStyleClass().add("main");
 
         this.stage = stage;
         GrilleVue grilleVue = new GrilleVue(modele, this);

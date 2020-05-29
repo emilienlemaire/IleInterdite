@@ -47,4 +47,5 @@ public class Images {
 
     public static final Image cursor = new Image(getPath("resources/cursors/invalid32x32.gif"));
 
+    public static final Image winIcon = new Image(getPath("resources/icons/winIcon.png"));
 }

@@ -3,17 +3,14 @@ package com.egp.controllers;
 import com.egp.constants.Sounds;
 import com.egp.modeles.Modele;
 import com.egp.modeles.Zone;
-import com.egp.vues.ActionsVue;
-import com.egp.vues.GrilleVue;
-import com.egp.vues.LostVue;
-import com.egp.vues.ZoneVue;
+import com.egp.vues.game.ActionsVue;
+import com.egp.vues.game.GrilleVue;
+import com.egp.vues.end.LostVue;
+import com.egp.vues.game.ZoneVue;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.MediaPlayer;
 
 import java.util.ArrayList;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public class Controller {
 
@@ -32,12 +29,12 @@ public class Controller {
             gotKey();
         }
         modele.inondeCases();
-        modele.incrementeTour();
 
         if (modele.checkLoose()){
             LostVue lostVue = new LostVue(grilleVue.getMainVue());
         }
 
+        modele.incrementeTour();
     }
 
 

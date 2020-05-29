@@ -1,4 +1,4 @@
-package com.egp.vues;
+package com.egp.vues.game;
 
 import com.egp.controllers.Controller;
 import com.egp.modeles.Modele;

@@ -1,4 +1,4 @@
-package com.egp.vues;
+package com.egp.vues.start;
 
 import com.egp.constants.enums.PlayerType;
 import javafx.scene.control.ListCell;

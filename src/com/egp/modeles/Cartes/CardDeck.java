@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-public class Cards {
+public class CardDeck {
 
     private ArrayList<Card> cards;
     private final ArrayList<Card> trash;
 
-    public Cards(ArrayList<Zone> list){
+    public CardDeck(ArrayList<Zone> list){
         this.cards = new ArrayList<>();
         this.trash = new ArrayList<>();
 
@@ -22,7 +22,7 @@ public class Cards {
         this.melanger();
     }
 
-    public Cards(ArrayList<Event> keys, Event[] events, double dropKey){
+    public CardDeck(ArrayList<Event> keys, Event[] events, double dropKey){
         this.cards = new ArrayList<>();
         this.trash = new ArrayList<>();
 

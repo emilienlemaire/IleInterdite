@@ -1,14 +1,15 @@
-package com.egp.vues;
+package com.egp.vues.end;
 
 
 import com.egp.constants.Buttons;
 import com.egp.constants.Sounds;
+import com.egp.vues.game.MainVue;
+import com.egp.vues.start.StartVue;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.media.MediaPlayer;
 
-import java.io.FileNotFoundException;
 import java.util.Optional;
 
 
