@@ -45,7 +45,7 @@ public class StartVue extends Scene {
 
         TextField rowField = new TextField();
         rowField.setText("10");
-        rowField.setMaxWidth(30);
+        rowField.setMaxWidth(40);
         rowField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
                 rowField.setText(newValue.replaceAll("[^\\d]", ""));
@@ -55,12 +55,15 @@ public class StartVue extends Scene {
 
         TextField colField = new TextField();
         colField.setText("10");
-        colField.setMaxWidth(30);
+        colField.setMaxWidth(40);
         colField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
                 colField.setText(newValue.replaceAll("[^\\d]", ""));
+            } else {
+                try {
+                    cols = Integer.parseInt(newValue);
+                } catch(NumberFormatException ignored) {}
             }
-            cols = Integer.parseInt(newValue);
         });
 
 
@@ -111,7 +114,15 @@ public class StartVue extends Scene {
             }
         }
 
-        if (allPlayerSelect){
+        if(rows < 5 || cols < 5 || rows > 20 || cols > 20) {
+           Alert alert = new Alert(Alert.AlertType.ERROR);
+
+            alert.setTitle("La taille de la grille ne va pas :(");
+            alert.setHeaderText("Mauvaise taille de la grille");
+            alert.setContentText("Veuillez selectionner une grille de 5x5 à 20x20 :)");
+
+            alert.showAndWait();
+        } else if (allPlayerSelect){
             Modele modele = new Modele(cols, rows, players, 1./3.);
             root.getChildren().clear();
 
@@ -123,6 +134,7 @@ public class StartVue extends Scene {
             Alert alert = new Alert(Alert.AlertType.ERROR);
 
             alert.setTitle("Selectionnez tous les types de joueurs");
+            alert.setHeaderText("Joueurs non sélectionnés");
             alert.setContentText("Il semblerait que vous ayez oublié de selectionner un ou plusieurs type de" +
                     "joueurs, veuillez tous les selectionner ou supprimer ceux aue vous ne voulez pas.");
 
