@@ -2,18 +2,12 @@ package com.egp.constants;
 
 import javafx.scene.image.Image;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import static com.egp.constants.utils.getPath;
 
 public class Images {
-    public static void init() {
-        System.out.println("Init images");
-    }
-
-
     public static final Image background = new Image(getPath("resources/background/background.png"));
 
     public static final Image playerNormal = new Image(getPath("resources/players/normal.png"));

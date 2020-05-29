@@ -16,63 +16,63 @@ public class PlayerSelectVue extends VBox {
 
     public PlayerSelectVue() {
         super();
-        plusButton.setOnMouseClicked(mouseEvent -> addPlayer());
-        minusButton.setOnMouseClicked(mouseEvent -> removePlayer());
+        this.plusButton.setOnMouseClicked(mouseEvent -> addPlayer());
+        this.minusButton.setOnMouseClicked(mouseEvent -> removePlayer());
 
         PlayerComboBoxVue comboBoxVue = new PlayerComboBoxVue();
-        comboBoxVues.add(comboBoxVue);
-        playerTypes.add(null);
+        this.comboBoxVues.add(comboBoxVue);
+        this.playerTypes.add(null);
         comboBoxVue.setOnAction(actionEvent -> {
-            int idx = comboBoxVues.indexOf(comboBoxVue);
-            playerTypes.set(idx, comboBoxVue.getValue());
+            int idx = this.comboBoxVues.indexOf(comboBoxVue);
+            this.playerTypes.set(idx, comboBoxVue.getValue());
         });
 
         HBox hBox = new HBox(comboBoxVue, plusButton);
         hBox.setSpacing(7.5);
-        hBoxes.add(hBox);
+        this.hBoxes.add(hBox);
         this.setMaxWidth(250);
-        this.getChildren().addAll(hBoxes);
+        this.getChildren().addAll(this.hBoxes);
     }
 
     private void removePlayer() {
         this.getChildren().clear();
 
-        hBoxes.remove(hBoxes.size() - 1);
-        hBoxes.get(hBoxes.size() - 1).getChildren().add(plusButton);
-        if (hBoxes.size() > 1) {
-            hBoxes.get(hBoxes.size() - 1).getChildren().add(minusButton);
+        this.hBoxes.remove(this.hBoxes.size() - 1);
+        this.hBoxes.get(this.hBoxes.size() - 1).getChildren().add(this.plusButton);
+        if (this.hBoxes.size() > 1) {
+            this.hBoxes.get(this.hBoxes.size() - 1).getChildren().add(this.minusButton);
         }
 
-        comboBoxVues.remove(comboBoxVues.size() - 1);
+        this.comboBoxVues.remove(this.comboBoxVues.size() - 1);
 
-        playerTypes.remove(playerTypes.size() - 1);
+        this.playerTypes.remove(this.playerTypes.size() - 1);
 
-        this.getChildren().addAll(hBoxes);
+        this.getChildren().addAll(this.hBoxes);
     }
 
     public void addPlayer() {
         PlayerComboBoxVue comboBoxVue = new PlayerComboBoxVue();
-        comboBoxVues.add(comboBoxVue);
+        this.comboBoxVues.add(comboBoxVue);
 
-        playerTypes.add(null);
+        this.playerTypes.add(null);
         comboBoxVue.setOnAction(actionEvent -> {
-            int idx = comboBoxVues.indexOf(comboBoxVue);
-            playerTypes.set(idx, comboBoxVue.getValue());
+            int idx = this.comboBoxVues.indexOf(comboBoxVue);
+            this.playerTypes.set(idx, comboBoxVue.getValue());
         });
-        HBox hBox = new HBox(comboBoxVue, plusButton, minusButton);
+        HBox hBox = new HBox(comboBoxVue, this.plusButton, this.minusButton);
         hBox.setSpacing(7.5);
-        hBoxes.add(hBox);
+        this.hBoxes.add(hBox);
         this.getChildren().clear();
-        this.getChildren().addAll(hBoxes);
+        this.getChildren().addAll(this.hBoxes);
 
-        if (comboBoxVues.size() > 4) {
-            for (HBox hBox1 : hBoxes) {
-                hBox1.getChildren().remove(plusButton);
+        if (this.comboBoxVues.size() > 4) {
+            for (HBox hBox1 : this.hBoxes) {
+                hBox1.getChildren().remove(this.plusButton);
             }
         }
     }
 
     public ArrayList<PlayerType> getPlayerTypes() {
-        return playerTypes;
+        return this.playerTypes;
     }
 }

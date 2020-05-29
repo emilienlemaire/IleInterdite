@@ -28,18 +28,22 @@ public class LostVue extends Alert {
         MediaPlayer lostPlayer = new MediaPlayer(Sounds.lost);
         lostPlayer.setAutoPlay(true);
 
-        showAlert();
+        this.showAlert();
     }
 
     public void showAlert() {
         Optional<ButtonType> result = this.showAndWait();
-        if (result.get() == Buttons.rejouer){
-            mainVue.getStage().setScene(new StartVue(new FlowPane(), mainVue.getStage()));
-        } else if (result.get() == Buttons.quitter){
-            mainVue.getStage().close();
+        if (result.isPresent() && result.get() == Buttons.rejouer){
+            this.mainVue.getStage().setScene(
+                    new StartVue(
+                            new FlowPane(),
+                            this.mainVue.getStage()
+                    ));
+        } else if (result.isPresent() && result.get() == Buttons.quitter){
+            this.mainVue.getStage().close();
         } else {
             // ERROR
-            System.out.println("??");
+            System.out.println("Bouton invalide.");
         }
     }
 }

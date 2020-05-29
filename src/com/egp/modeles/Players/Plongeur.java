@@ -18,4 +18,11 @@ public class Plongeur extends Player{
 
         return false;
     }
+
+    @Override
+    public boolean isDead() {
+        return false;
+    }
+
+
 }

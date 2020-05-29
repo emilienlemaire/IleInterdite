@@ -41,17 +41,17 @@ public class PlayerVue extends HBox implements Observer{
 
         this.player.addObserver(this);
 
-        playerView = player.isCurrent() ?
+        this.playerView = player.isCurrent() ?
                 new ImageView(player.getType().getImageCurrent()) :
                 new ImageView(player.getType().getImageNotCurrent());
-        playerView.setFitWidth(this.maxSize);
-        playerView.setFitHeight(this.maxSize);
+        this.playerView.setFitWidth(this.maxSize);
+        this.playerView.setFitHeight(this.maxSize);
 
-        this.getChildren().add(playerView);
+        this.getChildren().add(this.playerView);
 
         this.setAlignment(Pos.CENTER_LEFT);
 
-        artKeyViews = new ArrayList<>();
+        this.artKeyViews = new ArrayList<>();
 
         for (int i = 0; i < 4; i++) {
             ImageView artView = new ImageView(Images.artifacts.get(i));
@@ -69,18 +69,18 @@ public class PlayerVue extends HBox implements Observer{
         }
 
         for (Artefact artifact :
-                artifacts) {
-            VBox artKeyView = artKeyViews.get(artefactToInt(artifact));
+                this.artifacts) {
+            VBox artKeyView = this.artKeyViews.get(artefactToInt(artifact));
             artKeyView.getChildren().get(0).setEffect(null);
         }
 
         for (Key key :
-                keys) {
-            VBox artKeyView = artKeyViews.get(keyToInt(key));
+                this.keys) {
+            VBox artKeyView = this.artKeyViews.get(keyToInt(key));
             artKeyView.getChildren().get(1).setEffect(null);
         }
 
-        this.getChildren().addAll(artKeyViews);
+        this.getChildren().addAll(this.artKeyViews);
     }
 
     @Override
@@ -88,11 +88,11 @@ public class PlayerVue extends HBox implements Observer{
         this.artifacts = this.player.getArtefacts();
         this.keys = this.player.getKeys();
         if (this.isCurrent != this.player.isCurrent()) {
-            this.getChildren().remove(playerView);
+            this.getChildren().remove(this.playerView);
             this.isCurrent = this.player.isCurrent();
             this.playerView = this.player.isCurrent() ?
-                    new ImageView(player.getType().getImageCurrent()) :
-                    new ImageView(player.getType().getImageNotCurrent());
+                    new ImageView(this.player.getType().getImageCurrent()) :
+                    new ImageView(this.player.getType().getImageNotCurrent());
             this.playerView.setFitWidth(this.maxSize);
             this.playerView.setFitHeight(this.maxSize);
 
@@ -135,13 +135,13 @@ public class PlayerVue extends HBox implements Observer{
         }
 
         for (Artefact artifact :
-                artifacts) {
+                this.artifacts) {
             VBox artKeyView = this.artKeyViews.get(artefactToInt(artifact));
             artKeyView.getChildren().get(0).setEffect(null);
         }
 
         for (Key key :
-                keys) {
+                this.keys) {
             VBox artKeyView = this.artKeyViews.get(keyToInt(key));
             artKeyView.getChildren().get(1).setEffect(null);
         }

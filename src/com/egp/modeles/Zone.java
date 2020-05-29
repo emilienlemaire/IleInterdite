@@ -36,31 +36,31 @@ public class Zone extends Observable {
         else if (this.etat == Etat.Innondee)
             this.etat = Etat.Submergee;
 
-        notifyObservers();
+        this.notifyObservers();
     }
 
     public void asseche() {
         this.etat = Etat.Normale;
-        notifyObservers();
+        this.notifyObservers();
     }
 
     public void addPlayer(Player player) {
         this.players.add(player);
-        notifyObservers();
+        this.notifyObservers();
     }
 
     public void deletePlayer(Player player) {
         this.players.remove(player);
-        notifyObservers();
+        this.notifyObservers();
     }
 
     public ArrayList<Player> getPlayers() {
-        return players;
+        return this.players;
     }
 
     public boolean hasCurrent() {
         for (Player player :
-                players) {
+                this.players) {
             if (player.isCurrent())
                 return true;
         }
@@ -70,13 +70,12 @@ public class Zone extends Observable {
 
     public void setType(Type type) {
         this.type = type;
-        notifyObservers();
+        this.notifyObservers();
     }
 
     public String toString(){
-        String msg = "Case d'état " + this.etat.toString() + ", de type "
+        return "Case d'état " + this.etat.toString() + ", de type "
                 + this.type.toString() + " et de coordonées (" + x + ", " + y + ")";
-        return msg;
     }
 }
 

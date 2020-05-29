@@ -10,7 +10,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.media.MediaPlayer;
-import javafx.stage.Stage;
 
 import java.util.Optional;
 
@@ -35,15 +34,19 @@ public class WinView extends Alert {
         MediaPlayer winPlayer = new MediaPlayer(Sounds.win);
         winPlayer.setVolume(0.25);
         winPlayer.setAutoPlay(true);
-        showAlert();
+        this.showAlert();
     }
 
     private void showAlert() {
         Optional<ButtonType> result = this.showAndWait();
         if (result.isPresent() && result.get() == Buttons.rejouer){
-            mainVue.getStage().setScene(new StartVue(new FlowPane(), mainVue.getStage()));
+            this.mainVue.getStage().setScene(
+                    new StartVue(
+                            new FlowPane(),
+                            this.mainVue.getStage()
+                    ));
         } else if (result.isPresent() && result.get() == Buttons.quitter){
-            mainVue.getStage().close();
+            this.mainVue.getStage().close();
         } else {
             // ERROR
             System.out.println("??");

@@ -26,16 +26,16 @@ public class CommandesVue extends BorderPane implements Observer {
 
         this.setPadding(new Insets(10));
 
-        modele.addObserver(this);
+        this.modele.addObserver(this);
 
-        actionLeftBar = new ProgressBar();
-        actionLeftBar.setProgress(1);
+        this.actionLeftBar = new ProgressBar();
+        this.actionLeftBar.setProgress(1);
 
-        progressText = new Text("3 / 3");
+        this.progressText = new Text("3 / 3");
 
         StackPane progressPane = new StackPane();
         progressPane.setMinWidth(130);
-        progressPane.getChildren().addAll(actionLeftBar, progressText);
+        progressPane.getChildren().addAll(this.actionLeftBar, this.progressText);
         this.setTop(progressPane);
 
         Button finTourButton = new Button("Fin de tour");
@@ -48,27 +48,27 @@ public class CommandesVue extends BorderPane implements Observer {
 
         this.setBottom(buttonPane);
 
-        drawPlayers();
+        this.drawPlayers();
     }
 
     @Override
     public void update() {
-        int actionLeft = modele.getCurrentPlayer().getActions();
-        actionLeftBar.setProgress(actionLeft / 3.);
-        progressText.setText( actionLeft + " / 3");
+        int actionLeft = this.modele.getCurrentPlayer().getActions();
+        this.actionLeftBar.setProgress(actionLeft / 3.);
+        this.progressText.setText( actionLeft + " / 3");
     }
 
     public void drawPlayers() {
-        ArrayList<Player> players = modele.getPlayers();
+        ArrayList<Player> players = this.modele.getPlayers();
         VBox playerBox = new VBox();
         playerBox.setAlignment(Pos.CENTER);
         for (Player player :
                 players) {
-            PlayerVue playerVue = new PlayerVue(modele, player);
+            PlayerVue playerVue = new PlayerVue(this.modele, player);
             playerBox.getChildren().add(playerVue);
         }
         playerBox.setMaxWidth(130);
-        this.setMaxHeight(modele.getNbRows() * 32);
+        this.setMaxHeight(this.modele.getNbRows() * 32);
         this.setCenter(playerBox);
         setAlignment(playerBox, Pos.BOTTOM_CENTER);
     }

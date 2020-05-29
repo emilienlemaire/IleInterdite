@@ -30,7 +30,7 @@ public class ZoneVue extends Pane implements Observer {
         this.type = zone.type;
         this.mainVue = mainVue;
         this.typeGrp = zone.type.getImage();
-        this.etatGrp = zone.etat.getImage(typeGrp);
+        this.etatGrp = zone.etat.getImage(this.typeGrp);
 
         ArrayList<Player> players = modele.getPlayers();
 
@@ -40,7 +40,7 @@ public class ZoneVue extends Pane implements Observer {
 
         zone.addObserver(this);
 
-        playerPane = new GridPane();
+        this.playerPane = new GridPane();
 
         int nbPlayers = this.zone.getPlayers().size();
 
@@ -56,49 +56,46 @@ public class ZoneVue extends Pane implements Observer {
                 playerView.setFitWidth(16);
                 int v = i > 1 ? 1 : 0;
                 int h = i % 2 == 1 ? 1 : 0;
-                playerPane.add(playerView, v, h);
+                this.playerPane.add(playerView, v, h);
             } else {
                 playerView.setFitHeight(32);
                 playerView.setFitWidth(32);
-                playerPane.add(playerView, 0, 0);
+                this.playerPane.add(playerView, 0, 0);
             }
         }
 
-        etatGrp.getChildren().add(playerPane);
+        etatGrp.getChildren().add(this.playerPane);
 
-        this.getChildren().add(etatGrp);
+        this.getChildren().add(this.etatGrp);
     }
 
     public void setHover() {
-        this.getChildren().add(hoverView);
+        this.getChildren().add(this.hoverView);
     }
 
     public void deleteHover() {
-        this.getChildren().remove(hoverView);
+        this.getChildren().remove(this.hoverView);
     }
 
     public void setGoodCursor() {
-        mainVue.setCursor(Cursor.HAND);
+        this.mainVue.setCursor(Cursor.HAND);
     }
 
     public void setBadCursor() {
-        mainVue.setCursor(new ImageCursor(Images.cursor));
+        this.mainVue.setCursor(new ImageCursor(Images.cursor));
     }
 
     public void setDefaultCursor() {
-        mainVue.setCursor(Cursor.DEFAULT);
+        this.mainVue.setCursor(Cursor.DEFAULT);
     }
 
     public Zone getZone() { return this.zone; }
 
-    public MainVue getMainVue() {
-        return mainVue;
-    }
 
     @Override
     public void update() {
 
-        this.getChildren().remove(etatGrp);
+        this.getChildren().remove(this.etatGrp);
         if (this.zone.type != this.type) {
             this.type = this.zone.type;
             this.typeGrp = this.type.getImage();
@@ -133,6 +130,6 @@ public class ZoneVue extends Pane implements Observer {
                 this.playerPane.add(playerView, 0, 0);
             }
         }
-        this.getChildren().add(etatGrp);
+        this.getChildren().add(this.etatGrp);
     }
 }

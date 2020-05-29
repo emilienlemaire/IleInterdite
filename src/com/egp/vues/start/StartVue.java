@@ -3,29 +3,33 @@ package com.egp.vues.start;
 import com.egp.constants.Images;
 import com.egp.constants.enums.PlayerType;
 import com.egp.modeles.Modele;
-import com.egp.vues.end.WinView;
 import com.egp.vues.game.MainVue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 
-import static com.egp.constants.utils.*;
+import static com.egp.constants.utils.getURL;
 
 
 public class StartVue extends Scene {
     private final Pane root;
     private final Stage stage;
+
     private int rows = 10;
     private int cols = 10;
+    private Double difficulty = 0.25;
     private final ArrayList<PlayerType> players;
 
     public StartVue(Pane root, Stage stage){
@@ -51,7 +55,7 @@ public class StartVue extends Scene {
                 rowField.setText(newValue.replaceAll("[^\\d]", ""));
             } else {
                 try {
-                    rows = Integer.parseInt(newValue);
+                    this.rows = Integer.parseInt(newValue);
                 } catch(NumberFormatException ignored) {}
             }
         });
@@ -64,7 +68,7 @@ public class StartVue extends Scene {
                 colField.setText(newValue.replaceAll("[^\\d]", ""));
             } else {
                 try {
-                    cols = Integer.parseInt(newValue);
+                   this.cols = Integer.parseInt(newValue);
                 } catch(NumberFormatException ignored) {}
             }
         });
@@ -77,12 +81,35 @@ public class StartVue extends Scene {
 
         Text title = new Text("Ile Interdite");
 
-        BackgroundImage backgroundImage = new BackgroundImage(Images.background, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+        BackgroundImage backgroundImage = new BackgroundImage(
+                Images.background,
+                BackgroundRepeat.REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT
+        );
 
         GridPane grilleSizeBoxCont = new GridPane();
         grilleSizeBoxCont.add(sizeText,0,0);
         grilleSizeBoxCont.add(grilleSizeBox,0,1);
 
+
+        HBox difficuktyHBox = new HBox();
+        Text difficultyText = new Text("Difficulté");
+        Text difficultyValueText = new Text(Double.toString(this.difficulty));
+        Slider difficultySlider = new Slider(0.25, 0.75, 0.25);
+        difficultySlider.setMaxWidth(145);
+
+        difficultySlider.valueProperty().addListener(
+                (observableValue, oldValue, newValue) -> {
+                    Double formatedValue = BigDecimal.valueOf(newValue.doubleValue())
+                            .setScale(2, RoundingMode.HALF_UP).doubleValue();
+                    difficultyValueText.setText(String.valueOf(formatedValue));
+                    this.difficulty = formatedValue;
+                }
+        );
+
+        difficuktyHBox.getChildren().addAll(difficultyText, difficultySlider, difficultyValueText);
 
         PlayerSelectVue playerSelectVue = new PlayerSelectVue();
         this.players = playerSelectVue.getPlayerTypes();
@@ -98,26 +125,27 @@ public class StartVue extends Scene {
 
         gridPane.add(title,0,0);
         gridPane.add(grilleSizeBoxCont,0,1);
-        gridPane.add(playerSelectVue, 0, 2);
-        gridPane.add(jouerButton,0,3);
+        gridPane.add(difficuktyHBox, 0, 2);
+        gridPane.add(playerSelectVue, 0, 3);
+        gridPane.add(jouerButton,0,4);
 
         gridPane.setBackground(new Background(backgroundImage));
 
-        root.getChildren().add(gridPane);
+        this.root.getChildren().add(gridPane);
     }
 
     private void setMainScene() {
         boolean allPlayerSelect = true;
 
         for (PlayerType playerType :
-                players) {
+                this.players) {
             if (playerType == null) {
                 allPlayerSelect = false;
                 break;
             }
         }
 
-        if(rows < 5 || cols < 5 || rows > 20 || cols > 20) {
+        if(this.rows < 6 || this.cols < 6 || this.rows > 20 || this.cols > 20) {
            Alert alert = new Alert(Alert.AlertType.ERROR);
 
             alert.setTitle("La taille de la grille ne va pas :(");
@@ -126,8 +154,14 @@ public class StartVue extends Scene {
 
             alert.showAndWait();
         } else if (allPlayerSelect){
-            Modele modele = new Modele(cols, rows, players, 1./3.);
-            root.getChildren().clear();
+            Modele modele = new Modele(
+                    this.cols,
+                    this.rows,
+                    this.players,
+                    1. - this.difficulty
+            );
+
+            this.root.getChildren().clear();
 
             FlowPane mainRoot = new FlowPane(this.root);
             MainVue mainVue = new MainVue(modele, mainRoot, this.stage);

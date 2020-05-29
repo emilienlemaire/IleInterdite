@@ -11,11 +11,12 @@ import com.egp.observer.Observable;
 import java.util.ArrayList;
 
 public class Player extends Observable {
+    private final int ID;
+    private final PlayerType type;
+
     private Zone position;
     private boolean isCurrent = false;
-    private final int ID;
     private int actions = 3;
-    private PlayerType type;
 
     private final ArrayList<Key> keys;
     private final ArrayList<Artefact> artefacts;
@@ -94,14 +95,14 @@ public class Player extends Observable {
     }
 
     public String toString(){
-        String msg = "Joueur no : " + this.ID + "\nNombre d'actions restantes : " +
+        StringBuilder msg = new StringBuilder("Joueur no : " + this.ID + "\nNombre d'actions restantes : " +
                 this.actions + "\nNombre d'artefacts : " + this.artefacts.size() +
-                "\nType de clé disponible : ";
+                "\nType de clé disponible : ");
 
         for(Key k : this.keys)
-            msg += "\n"+k.getElement();
+            msg.append("\n").append(k.getElement());
 
-        return msg;
+        return msg.toString();
     }
 
 }

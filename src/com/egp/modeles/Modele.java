@@ -1,7 +1,7 @@
 package com.egp.modeles;
 
-import com.egp.constants.enums.Etat;
 import com.egp.constants.Sounds;
+import com.egp.constants.enums.Etat;
 import com.egp.constants.enums.PlayerType;
 import com.egp.constants.enums.Type;
 import com.egp.controllers.Controller;
@@ -116,9 +116,12 @@ public class Modele extends Observable {
 
     public boolean recuperable(Zone c){
 
-        if (c.type == Type.Heliport || c.type == Type.Normale || c.etat == Etat.Submergee ||
+        if (c.type == Type.Heliport ||
+                c.type == Type.Normale ||
+                (c.etat == Etat.Submergee && this.currentPlayer.getType() != PlayerType.Plongeur) ||
                 this.currentPlayer.getActions() == 0 ||
-                this.currentPlayer.getPosition().x != c.x || this.currentPlayer.getPosition().y != c.y)
+                this.currentPlayer.getPosition().x != c.x ||
+                this.currentPlayer.getPosition().y != c.y)
             return false;
 
         for (Key k : this.currentPlayer.getKeys()){
@@ -151,13 +154,13 @@ public class Modele extends Observable {
         this.currentPlayer.setPosition(c);
         this.currentPlayer.getPosition().addPlayer(this.currentPlayer);
 
-        afterAction();
+        this.afterAction();
     }
 
     public void asseche(Zone c){
         c.asseche();
 
-        afterAction();
+        this.afterAction();
     }
 
     public void recupere(Zone c){
@@ -170,7 +173,7 @@ public class Modele extends Observable {
         MediaPlayer artifactPlayer = new MediaPlayer(Sounds.artifact);
         artifactPlayer.setAutoPlay(true);
 
-        afterAction();
+        this.afterAction();
     }
 
     /**
@@ -180,21 +183,21 @@ public class Modele extends Observable {
         this.currentPlayer.setActions(this.currentPlayer.getActions() - 1);
         if (checkWin())
             this.controller.gameWon();
-        notifyObservers();
+        this.notifyObservers();
     }
 
 
     private void innondeCase(Zone c){
         if (c.etat != Etat.Submergee){
             c.innonde();
-            checkDead();
+            this.checkDead();
         }
     }
 
     public void inondeCases() {
         for(int i = 0; i<3; i++){
             Card c = this.zonePaquet.tirer();
-            innondeCase((Zone) c.getObject());
+            this.innondeCase((Zone) c.getObject());
 
             if (((Zone) c.getObject()).etat == Etat.Submergee)
                 this.zonePaquet.retire(c);
@@ -230,8 +233,8 @@ public class Modele extends Observable {
 
     public void incrementeTour(){
         this.nbTour++;
-        setCurrentPlayer();
-        notifyObservers();
+        this.setCurrentPlayer();
+        this.notifyObservers();
     }
 
     private void setCurrentPlayer(){
@@ -288,9 +291,28 @@ public class Modele extends Observable {
                 return true;
         }
 
+        ArrayList<Key> diversKeys = new ArrayList<>();
+
+        for (Player player :
+                players) {
+            if (player.getType() == PlayerType.Plongeur) {
+                diversKeys.addAll(player.getKeys());
+                break;
+            }
+        }
+
         for(Zone c : this.cases){
-            if (c.type != Type.Normale && c.etat == Etat.Submergee)
-                return true;
+            if (c.type != Type.Normale && c.etat == Etat.Submergee) {
+                boolean found = false;
+                for (Key key :
+                        diversKeys) {
+                    if (key.getElement() == c.type) {
+                        found = true;
+                    }
+                }
+                if (!found)
+                    return true;
+            }
         }
 
         return false;
@@ -312,7 +334,9 @@ public class Modele extends Observable {
         return this.cases;
     }
 
-    public ArrayList<Player> getPlayers() { return this.players; }
+    public ArrayList<Player> getPlayers() {
+        return this.players;
+    }
 
     public Player getCurrentPlayer() {
         return this.currentPlayer;

@@ -3,10 +3,10 @@ package com.egp.controllers;
 import com.egp.constants.Sounds;
 import com.egp.modeles.Modele;
 import com.egp.modeles.Zone;
+import com.egp.vues.end.LostVue;
 import com.egp.vues.end.WinView;
 import com.egp.vues.game.ActionsVue;
 import com.egp.vues.game.GrilleVue;
-import com.egp.vues.end.LostVue;
 import com.egp.vues.game.ZoneVue;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.MediaPlayer;
@@ -49,8 +49,8 @@ public class Controller {
     */
     public void zoneClicked(ZoneVue zoneVue, MouseEvent mouseEvent) {
 
-        if (actionsVue != null)
-            actionsVue.hide();
+        if (this.actionsVue != null)
+            this.actionsVue.hide();
 
         ArrayList<String> actions = new ArrayList<>();
 
@@ -58,8 +58,8 @@ public class Controller {
             actions.add("move");
         }
         if (this.modele.assechable(zoneVue.getZone())) {
-            if (actionsVue != null) {
-                actionsVue.hide();
+            if (this.actionsVue != null) {
+                this.actionsVue.hide();
             }
             actions.add("dry");
         }
@@ -69,7 +69,7 @@ public class Controller {
         }
 
         if (!actions.isEmpty())
-            actionsVue = new ActionsVue(zoneVue, mouseEvent, this.grilleVue, this.modele, actions);
+            this.actionsVue = new ActionsVue(zoneVue, mouseEvent, this.grilleVue, this.modele, actions);
     }
 
 
@@ -98,8 +98,8 @@ public class Controller {
     public void gotKey() {
         MediaPlayer keyPlayer = new MediaPlayer(Sounds.key);
         keyPlayer.setAutoPlay(true);
-        keyPlayer.setOnEndOfMedia(grilleVue.getMainVue()::hidePopup);
-        grilleVue.getMainVue().showPopUp();
+        keyPlayer.setOnEndOfMedia(this.grilleVue.getMainVue()::hidePopup);
+        this.grilleVue.getMainVue().showPopUp();
     }
 
     public void gameWon() {

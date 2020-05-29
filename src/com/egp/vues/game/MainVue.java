@@ -36,34 +36,30 @@ public class MainVue extends Scene {
 
         this.stage = stage;
         GrilleVue grilleVue = new GrilleVue(modele, this);
-        controller = grilleVue.getController();
-        CommandesVue commandesVue = new CommandesVue(modele, controller);
+        this.controller = grilleVue.getController();
+        CommandesVue commandesVue = new CommandesVue(modele, this.controller);
 
         root.getChildren().addAll(grilleVue, commandesVue);
     }
 
 
     public void showPopUp() {
-        popup = new Popup();
-        popup.setAutoHide(true);
-        popup.setHideOnEscape(true);
+        this.popup = new Popup();
+        this.popup.setAutoHide(true);
+        this.popup.setHideOnEscape(true);
         Label label = new Label("Vous avez reçu une clef");
         BackgroundFill backgroundFill = new BackgroundFill(Color.WHEAT, CornerRadii.EMPTY, Insets.EMPTY);
         label.setBackground(new Background(backgroundFill));
 
-        popup.getContent().add(label);
+        this.popup.getContent().add(label);
 
-        popup.setX(stage.getX());
-        popup.setY(stage.getY() + 21);
-        popup.show(this.stage);
+        this.popup.setX(this.stage.getX());
+        this.popup.setY(this.stage.getY() + 21);
+        this.popup.show(this.stage);
     }
 
     public void hidePopup() {
-        popup.hide();
-    }
-
-    public Controller getController() {
-        return controller;
+        this.popup.hide();
     }
 
     public Stage getStage() {

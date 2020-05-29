@@ -75,15 +75,15 @@ public class CardDeck {
     }
 
     public String toString(){
-        String msg = "Paquet :\n";
+        StringBuilder msg = new StringBuilder("Paquet :\n");
         for (Card c : this.cards){
-            msg += c.getObject().toString() + "\n";
+            msg.append(c.getObject().toString()).append("\n");
         }
-        msg += "\nDéfausse :\n";
+        msg.append("\nDéfausse :\n");
         for (Card c : this.trash){
-            msg += c.getObject().toString() + "\n";
+            msg.append(c.getObject().toString()).append("\n");
         }
-        return msg;
+        return msg.toString();
     }
 }
 

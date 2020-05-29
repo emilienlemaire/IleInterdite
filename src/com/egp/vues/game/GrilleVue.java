@@ -4,12 +4,11 @@ import com.egp.controllers.Controller;
 import com.egp.modeles.Modele;
 import com.egp.modeles.Players.Player;
 import com.egp.modeles.Zone;
-import com.egp.observer.Observer;
 import javafx.scene.layout.GridPane;
 
 import java.util.ArrayList;
 
-public class GrilleVue extends GridPane implements Observer {
+public class GrilleVue extends GridPane {
 
     private final Modele modele;
     private final Controller controller;
@@ -29,27 +28,25 @@ public class GrilleVue extends GridPane implements Observer {
         this.zones = modele.getCases();
         this.players = modele.getPlayers();
 
-        modele.addObserver(this);
-
-        generateGrid();
+        this.generateGrid();
     }
 
     public Controller getController() {
-        return controller;
+        return this.controller;
     }
 
     private void generateGrid() {
-        for (int i = 0; i < ROWS; i++) {
-            for (int j = 0; j < COLS; j++) {
-                Zone zone = zones.get(i * COLS + j);
+        for (int i = 0; i < this.ROWS; i++) {
+            for (int j = 0; j < this.COLS; j++) {
+                Zone zone = this.zones.get(i * this.COLS + j);
 
                 ZoneVue newZone = new ZoneVue(modele, zone, this.mainVue);
 
-                newZone.setOnMouseClicked(mouseEvent -> controller.zoneClicked(newZone, mouseEvent));
-                newZone.setOnMouseEntered(mouseEvent -> controller.mouseEnteredZone(newZone));
-                newZone.setOnMouseExited(mouseEvent -> controller.mouseExitedZone(newZone));
+                newZone.setOnMouseClicked(mouseEvent -> this.controller.zoneClicked(newZone, mouseEvent));
+                newZone.setOnMouseEntered(mouseEvent -> this.controller.mouseEnteredZone(newZone));
+                newZone.setOnMouseExited(mouseEvent -> this.controller.mouseExitedZone(newZone));
 
-                zoneVues.add(newZone);
+                this.zoneVues.add(newZone);
 
                 this.add(newZone, i, j);
             }
@@ -58,10 +55,5 @@ public class GrilleVue extends GridPane implements Observer {
 
     public MainVue getMainVue() {
         return mainVue;
-    }
-
-    @Override
-    public void update() {
-
     }
 }
