@@ -30,12 +30,18 @@ public class CardDeck {
             this.cards.add(new Card(key));
         }
 
-        for(int i = 0; i<Math.round(keys.size()/dropKey); i++){
+        for(int i = this.cards.size(); i<Math.round(keys.size()/dropKey); i++){
             int r = new Random().nextInt(events.length);
             this.cards.add(new Card(events[r]));
         }
 
         this.melanger();
+        System.out.println(this.cards.size());
+
+        for(Card c : this.cards){
+            System.out.println(c.getObject().toString());
+        }
+
     }
 
     public void melanger() { Collections.shuffle(this.cards); }
