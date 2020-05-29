@@ -3,6 +3,7 @@ package com.egp.controllers;
 import com.egp.constants.Sounds;
 import com.egp.modeles.Modele;
 import com.egp.modeles.Zone;
+import com.egp.vues.end.WinView;
 import com.egp.vues.game.ActionsVue;
 import com.egp.vues.game.GrilleVue;
 import com.egp.vues.end.LostVue;
@@ -22,6 +23,7 @@ public class Controller {
     public Controller(Modele modele, GrilleVue grilleVue) {
         this.modele = modele;
         this.grilleVue = grilleVue;
+        this.modele.setController(this);
     }
 
     public void finDeTour() {
@@ -98,5 +100,9 @@ public class Controller {
         keyPlayer.setAutoPlay(true);
         keyPlayer.setOnEndOfMedia(grilleVue.getMainVue()::hidePopup);
         grilleVue.getMainVue().showPopUp();
+    }
+
+    public void gameWon() {
+        WinView winView = new WinView(this.grilleVue.getMainVue());
     }
 }

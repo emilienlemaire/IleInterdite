@@ -4,6 +4,7 @@ import com.egp.constants.enums.Etat;
 import com.egp.constants.Sounds;
 import com.egp.constants.enums.PlayerType;
 import com.egp.constants.enums.Type;
+import com.egp.controllers.Controller;
 import com.egp.modeles.Cartes.Card;
 import com.egp.modeles.Cartes.CardDeck;
 import com.egp.modeles.Events.Event;
@@ -18,18 +19,20 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Modele extends Observable {
-    private final ArrayList<Zone> cases;
-
     private final int nbCols;
     private final int nbRows;
     private final int nbPlayer;
 
+    private Controller controller;
+
+    private final ArrayList<Zone> cases;
     private final ArrayList<Player> players;
     private final ArrayList<Player> deadPlayers;
 
     private Zone heliport;
-    private int nbTour = 0;
     private Player currentPlayer;
+
+    private int nbTour = 0;
 
     public CardDeck zonePaquet;
     public CardDeck eventPaquet;
@@ -175,17 +178,17 @@ public class Modele extends Observable {
      */
     public void afterAction(){
         this.currentPlayer.setActions(this.currentPlayer.getActions() - 1);
+        if (checkWin())
+            this.controller.gameWon();
         notifyObservers();
     }
 
 
-    private boolean innondeCase(Zone c){
+    private void innondeCase(Zone c){
         if (c.etat != Etat.Submergee){
             c.innonde();
             checkDead();
-            return true;
         }
-        return false;
     }
 
     public void inondeCases() {
@@ -291,9 +294,11 @@ public class Modele extends Observable {
         }
 
         return false;
-
     }
 
+    public void setController(Controller controller) {
+        this.controller = controller;
+    }
 
     public int getNbRows() {
         return nbRows;
@@ -314,11 +319,11 @@ public class Modele extends Observable {
     }
 
     public String toString() {
-        String msg = "";
+        StringBuilder msg = new StringBuilder();
         for (Zone c : this.cases) {
-            msg += c.toString() + "\n";
+            msg.append(c.toString()).append("\n");
         }
-        return msg;
+        return msg.toString();
     }
 
 }
