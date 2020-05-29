@@ -49,8 +49,11 @@ public class StartVue extends Scene {
         rowField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
                 rowField.setText(newValue.replaceAll("[^\\d]", ""));
+            } else {
+                try {
+                    rows = Integer.parseInt(newValue);
+                } catch(NumberFormatException ignored) {}
             }
-            rows = Integer.parseInt(newValue);
         });
 
         TextField colField = new TextField();
