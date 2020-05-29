@@ -175,8 +175,6 @@ public class Modele extends Observable {
      */
     public void afterAction(){
         this.currentPlayer.setActions(this.currentPlayer.getActions() - 1);
-        if (checkWin())
-            System.out.println("C'est win");
         notifyObservers();
     }
 
@@ -273,7 +271,7 @@ public class Modele extends Observable {
                 nbArtefacts++;
         }
 
-        return nbArtefacts == 4;
+        return nbArtefacts == 4 && this.heliport.getPlayers().size() == this.players.size();
 
     }
 
