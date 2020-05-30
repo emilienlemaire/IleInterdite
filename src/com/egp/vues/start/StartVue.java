@@ -29,7 +29,7 @@ public class StartVue extends Scene {
     private final ArrayList<PlayerType> players;
 
     public StartVue(Pane root, Stage stage){
-        super(root, 250, 300);
+        super(root, 250, 350);
 
         try {
             this.getStylesheets().add(getURL("resources/styles/stylesheet.css").toExternalForm());
@@ -91,7 +91,7 @@ public class StartVue extends Scene {
         gridPane.setAlignment(Pos.CENTER_LEFT);
         gridPane.setStyle("-fx-font-size: 10pt;");
         gridPane.setMinWidth(250);
-        gridPane.setMinHeight(300);
+        gridPane.setMinHeight(350);
         gridPane.setPadding(new Insets(30, 30, 30, 30));
         gridPane.setHgap(20);
         gridPane.setVgap(20);

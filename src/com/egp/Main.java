@@ -18,6 +18,7 @@ public class Main extends Application {
         FlowPane root = new FlowPane();
         stage.setTitle("Ile Interdite");
         stage.setScene(new StartVue(root, stage));
+        stage.setResizable(false);
         stage.show();
     }
 }

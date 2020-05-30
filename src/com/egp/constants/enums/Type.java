@@ -23,7 +23,7 @@ public enum Type {
             return "Air";
         }
     },
-    Terre("earth.png", null){
+    Terre("normal.png","earth.png"){
         public String toString() {
             return "Terre";
         }
