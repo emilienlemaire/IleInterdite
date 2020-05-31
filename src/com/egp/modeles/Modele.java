@@ -137,6 +137,10 @@ public class Modele extends Observable {
                 this.currentPlayer.getPosition().y == c.y)
             return true;
 
+        if (this.currentPlayer.getType() == PlayerType.Pilote){
+            return Pilote.assechable(this.currentPlayer, c);
+        }
+
         return this.currentPlayer.atteignable(c);
     }
 
