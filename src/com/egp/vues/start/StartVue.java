@@ -112,7 +112,7 @@ public class StartVue extends Scene {
         difficuktyHBox.getChildren().addAll(difficultyText, difficultySlider, difficultyValueText);
 
         PlayerSelectVue playerSelectVue = new PlayerSelectVue();
-        this.players = playerSelectVue.getPlayerTypes();
+        this.players = playerSelectVue.getPlayersSelected();
 
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER_LEFT);

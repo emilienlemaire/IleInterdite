@@ -4,7 +4,7 @@ import com.egp.constants.enums.PlayerType;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.ImageView;
 
-public class PlayerComboVue extends ListCell<PlayerType> {
+public class PlayerComboCellVue extends ListCell<PlayerType> {
     @Override
     protected void updateItem(PlayerType playerType, boolean b) {
         super.updateItem(playerType, b);

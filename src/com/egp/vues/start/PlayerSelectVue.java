@@ -1,14 +1,18 @@
 package com.egp.vues.start;
 
 import com.egp.constants.enums.PlayerType;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class PlayerSelectVue extends VBox {
-    private final ArrayList<PlayerType> playerTypes = new ArrayList<>();
+    private final ArrayList<PlayerType> playersSelected = new ArrayList<>();
+    private final ArrayList<PlayerType> availablePlayers = new ArrayList<>();
     private final ArrayList<PlayerComboBoxVue> comboBoxVues = new ArrayList<>();
     private final ArrayList<HBox> hBoxes = new ArrayList<>();
     private final Button plusButton = new Button("+");
@@ -18,13 +22,42 @@ public class PlayerSelectVue extends VBox {
         super();
         this.plusButton.setOnMouseClicked(mouseEvent -> addPlayer());
         this.minusButton.setOnMouseClicked(mouseEvent -> removePlayer());
-
-        PlayerComboBoxVue comboBoxVue = new PlayerComboBoxVue();
+        this.availablePlayers.addAll(
+                Arrays.asList(PlayerType.Normal,
+                        PlayerType.Explorateur,
+                        PlayerType.Pilote,
+                        PlayerType.Plongeur)
+        );
+        PlayerComboBoxVue comboBoxVue = new PlayerComboBoxVue(availablePlayers);
+        comboBoxVue.setItems(FXCollections.observableArrayList(availablePlayers));
         this.comboBoxVues.add(comboBoxVue);
-        this.playerTypes.add(null);
+        this.playersSelected.add(null);
         comboBoxVue.setOnAction(actionEvent -> {
             int idx = this.comboBoxVues.indexOf(comboBoxVue);
-            this.playerTypes.set(idx, comboBoxVue.getValue());
+
+            PlayerType currentPlayerType = comboBoxVue.getValue();
+            this.playersSelected.set(idx, currentPlayerType);
+
+            if (currentPlayerType != PlayerType.Normal) {
+                this.availablePlayers.remove(currentPlayerType);
+                for (PlayerComboBoxVue playerComboBoxVue
+                        : comboBoxVues) {
+                    if (playerComboBoxVue != comboBoxVue) {
+                        playerComboBoxVue.getItems().remove(currentPlayerType);
+                    }
+                }
+            }
+
+            if (currentPlayerType != comboBoxVue.getPlayerType() && comboBoxVue.getPlayerType() != null) {
+                this.availablePlayers.add(comboBoxVue.getPlayerType());
+                for (PlayerComboBoxVue playerComboBoxVue
+                        : comboBoxVues) {
+                    if (playerComboBoxVue != comboBoxVue)
+                        playerComboBoxVue.getItems().add(comboBoxVue.getPlayerType());
+                }
+            }
+
+            comboBoxVue.setPlayerType(currentPlayerType);
         });
 
         HBox hBox = new HBox(comboBoxVue, plusButton);
@@ -43,21 +76,54 @@ public class PlayerSelectVue extends VBox {
             this.hBoxes.get(this.hBoxes.size() - 1).getChildren().add(this.minusButton);
         }
 
+        PlayerType removedPlayerType = this.playersSelected.get(this.playersSelected.size() - 1);
+
+
         this.comboBoxVues.remove(this.comboBoxVues.size() - 1);
 
-        this.playerTypes.remove(this.playerTypes.size() - 1);
+        this.playersSelected.remove(this.playersSelected.size() - 1);
+
+        if (removedPlayerType != PlayerType.Normal) {
+            availablePlayers.add(removedPlayerType);
+            for (PlayerComboBoxVue playerComboBoxVue
+                    : comboBoxVues) {
+                playerComboBoxVue.getItems().add(removedPlayerType);
+            }
+        }
 
         this.getChildren().addAll(this.hBoxes);
     }
 
     public void addPlayer() {
-        PlayerComboBoxVue comboBoxVue = new PlayerComboBoxVue();
+        PlayerComboBoxVue comboBoxVue = new PlayerComboBoxVue(this.availablePlayers);
+        comboBoxVue.setItems(FXCollections.observableArrayList(this.availablePlayers));
         this.comboBoxVues.add(comboBoxVue);
 
-        this.playerTypes.add(null);
+        this.playersSelected.add(null);
         comboBoxVue.setOnAction(actionEvent -> {
             int idx = this.comboBoxVues.indexOf(comboBoxVue);
-            this.playerTypes.set(idx, comboBoxVue.getValue());
+            PlayerType currentPlayerType = comboBoxVue.getValue();
+            this.playersSelected.set(idx, currentPlayerType);
+            if (currentPlayerType != PlayerType.Normal) {
+                this.availablePlayers.remove(currentPlayerType);
+                for (PlayerComboBoxVue playerComboBoxVue :
+                        comboBoxVues) {
+                    if (playerComboBoxVue != comboBoxVue) {
+                        playerComboBoxVue.getItems().remove(currentPlayerType);
+                    }
+                }
+            }
+
+            if (currentPlayerType != comboBoxVue.getPlayerType() && comboBoxVue.getPlayerType() != null) {
+                this.availablePlayers.add(comboBoxVue.getPlayerType());
+                for (PlayerComboBoxVue playerComboBoxVue
+                        : comboBoxVues) {
+                    if (playerComboBoxVue != comboBoxVue)
+                        playerComboBoxVue.getItems().add(comboBoxVue.getPlayerType());
+                }
+            }
+
+            comboBoxVue.setPlayerType(currentPlayerType);
         });
         HBox hBox = new HBox(comboBoxVue, this.plusButton, this.minusButton);
         hBox.setSpacing(7.5);
@@ -72,7 +138,7 @@ public class PlayerSelectVue extends VBox {
         }
     }
 
-    public ArrayList<PlayerType> getPlayerTypes() {
-        return this.playerTypes;
+    public ArrayList<PlayerType> getPlayersSelected() {
+        return this.playersSelected;
     }
 }
