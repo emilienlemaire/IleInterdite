@@ -150,7 +150,7 @@ public class StartVue extends Scene {
 
             alert.setTitle("La taille de la grille ne va pas :(");
             alert.setHeaderText("Mauvaise taille de la grille");
-            alert.setContentText("Veuillez selectionner une grille de 5x5 à 20x20 :)");
+            alert.setContentText("Veuillez selectionner une grille de 6x6 à 20x20 :)");
 
             alert.showAndWait();
         } else if (allPlayerSelect){

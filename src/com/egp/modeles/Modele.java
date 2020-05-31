@@ -119,7 +119,7 @@ public class Modele extends Observable {
         if (c.type == Type.Heliport || c.type == Type.Normale)
             return false;
 
-        return this.currentPlayer.recuperable(c);
+        return (this.currentPlayer.getActions() > 0) && this.currentPlayer.recuperable(c);
     }
 
     public boolean assechable(Zone c){

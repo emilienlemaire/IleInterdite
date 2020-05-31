@@ -3,11 +3,19 @@ package com.egp.vues.game;
 import com.egp.modeles.Modele;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 
 import java.util.ArrayList;
 
 public class ActionsVue extends ContextMenu {
+
+    private static final MouseEvent mouseEntered =  new MouseEvent(MouseEvent.MOUSE_ENTERED, 1, 2, 3, 4,
+            MouseButton.NONE, 5,
+            true, true,  true, true, true, true, true, true, true, true, null);
+    private static final MouseEvent mouseExited =  new MouseEvent(MouseEvent.MOUSE_EXITED, 1, 2, 3, 4,
+            MouseButton.NONE, 5,
+            true, true,  true, true, true, true, true, true, true, true, null);
 
     public ActionsVue(ZoneVue zoneVue, MouseEvent mouseEvent, GrilleVue grilleVue, Modele modele, ArrayList<String> actions) {
         super();
@@ -23,8 +31,9 @@ public class ActionsVue extends ContextMenu {
             if (action.equals("move")) {
                 MenuItem moveItem = new MenuItem("Se déplacer");
                 moveItem.setOnAction(actionEvent -> {
-                    zoneVue.setBadCursor();
                     modele.deplace(zoneVue.getZone());
+                    zoneVue.fireEvent(mouseEntered);
+                    zoneVue.fireEvent(mouseExited);
                 });
                 menuItems.add(moveItem);
             }
@@ -32,8 +41,9 @@ public class ActionsVue extends ContextMenu {
             if (action.equals("dry")) {
                 MenuItem dryItem = new MenuItem("Assécher");
                 dryItem.setOnAction(actionEvent -> {
-                    zoneVue.setBadCursor();
                     modele.asseche(zoneVue.getZone());
+                    zoneVue.fireEvent(mouseEntered);
+                    zoneVue.fireEvent(mouseExited);
                 });
                 menuItems.add(dryItem);
             }
@@ -41,8 +51,9 @@ public class ActionsVue extends ContextMenu {
             if (action.equals("get")) {
                 MenuItem getItem = new MenuItem("Récupérer");
                 getItem.setOnAction(actionEvent -> {
-                    zoneVue.setBadCursor();
                     modele.recupere(zoneVue.getZone());
+                    zoneVue.fireEvent(mouseEntered);
+                    zoneVue.fireEvent(mouseExited);
                 });
                 menuItems.add(getItem);
             }

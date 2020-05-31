@@ -3,6 +3,7 @@ package com.egp.vues.game;
 import com.egp.controllers.Controller;
 import com.egp.modeles.Modele;
 import javafx.geometry.Insets;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
@@ -20,7 +21,6 @@ import static com.egp.constants.utils.getURL;
 
 public class MainVue extends Scene {
 
-    private final Controller controller;
     private final Stage stage;
     private Popup popup;
 
@@ -35,9 +35,10 @@ public class MainVue extends Scene {
         root.getStyleClass().add("main");
 
         this.stage = stage;
+        this.setCursor(Cursor.HAND);
         GrilleVue grilleVue = new GrilleVue(modele, this);
-        this.controller = grilleVue.getController();
-        CommandesVue commandesVue = new CommandesVue(modele, this.controller);
+        Controller controller = grilleVue.getController();
+        CommandesVue commandesVue = new CommandesVue(modele, controller);
 
         root.getChildren().addAll(grilleVue, commandesVue);
     }

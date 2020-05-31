@@ -12,6 +12,7 @@ import javafx.scene.effect.Blend;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.ColorInput;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -57,10 +58,8 @@ public class PlayerVue extends HBox implements Observer{
             ImageView artView = new ImageView(Images.artifacts.get(i));
             ImageView keyView = new ImageView(Images.keys.get(i));
 
-            ColorAdjust colorAdjust = new ColorAdjust();
-            colorAdjust.setBrightness(-1);
-            artView.setEffect(colorAdjust);
-            keyView.setEffect(colorAdjust);
+            artView.setOpacity(0.1);
+            keyView.setOpacity(0.1);
 
             VBox artKeyView = new VBox();
             artKeyView.setAlignment(Pos.CENTER_RIGHT);
@@ -119,31 +118,26 @@ public class PlayerVue extends HBox implements Observer{
             this.getChildren().add(0, this.playerView);
         }
 
-        for (int i = 0; i < 4; i++) {
-            ImageView artView = new ImageView(Images.artifacts.get(i));
-            ImageView keyView = new ImageView(Images.keys.get(i));
+        for(VBox artKeyView :
+                this.artKeyViews) {
+            ImageView artView = (ImageView) artKeyView.getChildren().get(0);
+            ImageView keyView = (ImageView) artKeyView.getChildren().get(1);
 
-            ColorAdjust colorAdjust = new ColorAdjust();
-            colorAdjust.setBrightness(-1);
-            artView.setEffect(colorAdjust);
-            keyView.setEffect(colorAdjust);
+            artView.setOpacity(0.1);
+            keyView.setOpacity(0.1);
 
-            VBox artKeyView = new VBox();
-            artKeyView.setPadding(new Insets(10));
-            artKeyView.getChildren().addAll(artView, keyView);
-            this.artKeyViews.add(artKeyView);
         }
 
-        for (Artefact artifact :
+        for (Artefact artefact :
                 this.artifacts) {
-            VBox artKeyView = this.artKeyViews.get(artefactToInt(artifact));
-            artKeyView.getChildren().get(0).setEffect(null);
+            VBox artKeyView = this.artKeyViews.get(artefactToInt(artefact));
+            artKeyView.getChildren().get(0).setOpacity(1.);
         }
 
         for (Key key :
                 this.keys) {
             VBox artKeyView = this.artKeyViews.get(keyToInt(key));
-            artKeyView.getChildren().get(1).setEffect(null);
+            artKeyView.getChildren().get(1).setOpacity(1.);
         }
 
     }

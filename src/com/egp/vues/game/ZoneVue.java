@@ -17,10 +17,13 @@ import java.util.ArrayList;
 
 public class ZoneVue extends Pane implements Observer {
 
+    private static final ImageCursor wrongCursor = new ImageCursor(Images.cursor);
+
     private final MainVue mainVue;
     private final Zone zone;
     private final GridPane playerPane;
     private final ImageView hoverView = new ImageView(Images.hover);
+
     private Group typeGrp;
     private Group etatGrp;
     private Type type;
@@ -70,7 +73,8 @@ public class ZoneVue extends Pane implements Observer {
     }
 
     public void setHover() {
-        this.getChildren().add(this.hoverView);
+        if (!this.getChildren().contains(this.hoverView))
+            this.getChildren().add(this.hoverView);
     }
 
     public void deleteHover() {
@@ -82,7 +86,7 @@ public class ZoneVue extends Pane implements Observer {
     }
 
     public void setBadCursor() {
-        this.mainVue.setCursor(new ImageCursor(Images.cursor));
+        this.mainVue.setCursor(wrongCursor);
     }
 
     public void setDefaultCursor() {
