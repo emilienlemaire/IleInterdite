@@ -47,6 +47,17 @@ public class PlayerSelectVue extends VBox {
                     }
                 }
             }
+
+            if (currentPlayerType != comboBoxVue.getPlayerType() && comboBoxVue.getPlayerType() != null) {
+                this.availablePlayers.add(comboBoxVue.getPlayerType());
+                for (PlayerComboBoxVue playerComboBoxVue
+                        : comboBoxVues) {
+                    if (playerComboBoxVue != comboBoxVue)
+                        playerComboBoxVue.getItems().add(comboBoxVue.getPlayerType());
+                }
+            }
+
+            comboBoxVue.setPlayerType(currentPlayerType);
         });
 
         HBox hBox = new HBox(comboBoxVue, plusButton);
@@ -65,9 +76,20 @@ public class PlayerSelectVue extends VBox {
             this.hBoxes.get(this.hBoxes.size() - 1).getChildren().add(this.minusButton);
         }
 
+        PlayerType removedPlayerType = this.playersSelected.get(this.playersSelected.size() - 1);
+
+
         this.comboBoxVues.remove(this.comboBoxVues.size() - 1);
 
         this.playersSelected.remove(this.playersSelected.size() - 1);
+
+        if (removedPlayerType != PlayerType.Normal) {
+            availablePlayers.add(removedPlayerType);
+            for (PlayerComboBoxVue playerComboBoxVue
+                    : comboBoxVues) {
+                playerComboBoxVue.getItems().add(removedPlayerType);
+            }
+        }
 
         this.getChildren().addAll(this.hBoxes);
     }
@@ -91,6 +113,17 @@ public class PlayerSelectVue extends VBox {
                     }
                 }
             }
+
+            if (currentPlayerType != comboBoxVue.getPlayerType() && comboBoxVue.getPlayerType() != null) {
+                this.availablePlayers.add(comboBoxVue.getPlayerType());
+                for (PlayerComboBoxVue playerComboBoxVue
+                        : comboBoxVues) {
+                    if (playerComboBoxVue != comboBoxVue)
+                        playerComboBoxVue.getItems().add(comboBoxVue.getPlayerType());
+                }
+            }
+
+            comboBoxVue.setPlayerType(currentPlayerType);
         });
         HBox hBox = new HBox(comboBoxVue, this.plusButton, this.minusButton);
         hBox.setSpacing(7.5);
