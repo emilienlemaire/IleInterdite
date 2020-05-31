@@ -12,7 +12,6 @@ public class Zone extends Observable {
     public Type type;
     public final int x;
     public final int y;
-    public static Zone zone_hover = null;
     private final ArrayList<Player> players = new ArrayList<>();
 
     public Zone(Etat etat, Type type, int x, int y){
@@ -22,13 +21,6 @@ public class Zone extends Observable {
         this.y = y;
     }
 
-    public static Zone getHover(){
-        return zone_hover;
-    }
-
-    public static void setHover(Zone hover){
-        zone_hover = hover;
-    }
 
     public void innonde() {
         if (this.etat == Etat.Normale)

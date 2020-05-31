@@ -88,7 +88,6 @@ public class Controller {
      * */
     public void mouseEnteredZone(ZoneVue zoneVue) {
 
-        Zone.setHover(zoneVue.getZone());
         zoneVue.setHover();
         if (this.modele.atteignable(zoneVue.getZone()) || this.modele.assechable(zoneVue.getZone()) ||
             this.modele.recuperable(zoneVue.getZone()))

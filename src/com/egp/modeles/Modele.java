@@ -315,6 +315,7 @@ public class Modele extends Observable {
                 for (Key key : plongeurKeys) {
                     if (key.getElement() == c.type) {
                         found = true;
+                        break;
                     }
                 }
                 if (!found)
