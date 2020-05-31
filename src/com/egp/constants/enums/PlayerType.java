@@ -60,7 +60,7 @@ public enum PlayerType {
             case Explorateur:
                 return "Ce joueur spécial peut se déplacer dans les zones submergées";
             case Pilote:
-                return "TODO";
+                return "Ce joueur spécial peut se déplacer sur toutes les cases non submergées";
         }
         return "Veuillez selectionner un type de joueur";
     }
