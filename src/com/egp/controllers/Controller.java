@@ -1,6 +1,7 @@
 package com.egp.controllers;
 
 import com.egp.constants.Sounds;
+import com.egp.modeles.Events.Event;
 import com.egp.modeles.Modele;
 import com.egp.modeles.Zone;
 import com.egp.vues.end.LostVue;
@@ -8,6 +9,7 @@ import com.egp.vues.end.WinView;
 import com.egp.vues.game.ActionsVue;
 import com.egp.vues.game.GrilleVue;
 import com.egp.vues.game.ZoneVue;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.MediaPlayer;
 
@@ -27,16 +29,21 @@ public class Controller {
     }
 
     public void finDeTour() {
-        if (modele.Event()){
-            gotKey();
-        }
+        Event e = modele.eventDrop();
         modele.inondeCases();
 
-        if (modele.checkLoose()){
-            LostVue lostVue = new LostVue(grilleVue.getMainVue());
-        }
+        if (modele.checkLoose())
+            new LostVue(grilleVue.getMainVue());
+        else {
 
-        modele.incrementeTour();
+            if (e.getName().equals("Montée")) {
+                risingWater();
+            } else if (!e.getName().equalsIgnoreCase("Rien")) {
+                gotKey(e.getName());
+            }
+
+            modele.incrementeTour();
+        }
     }
 
 
@@ -95,14 +102,34 @@ public class Controller {
         zoneVue.setDefaultCursor();
     }
 
-    public void gotKey() {
+    public void gotKey(String el) {
+        String msg = "Vous avez reçu la clé ";
+        switch (el){
+            case "Terre":
+                msg += "de la ";
+                break;
+            case "Feu":
+                msg += "du ";
+                break;
+            default:
+                msg += "de l'";
+        }
+
+        msg += el;
         MediaPlayer keyPlayer = new MediaPlayer(Sounds.key);
         keyPlayer.setAutoPlay(true);
         keyPlayer.setOnEndOfMedia(this.grilleVue.getMainVue()::hidePopup);
-        this.grilleVue.getMainVue().showPopUp();
+        this.grilleVue.getMainVue().showPopUp(new Label(msg));
+    }
+
+    public void risingWater() {
+        MediaPlayer keyPlayer = new MediaPlayer(Sounds.danger);
+        keyPlayer.setAutoPlay(true);
+        keyPlayer.setOnEndOfMedia(this.grilleVue.getMainVue()::hidePopup);
+        this.grilleVue.getMainVue().showPopUp(new Label("Attention, l'eau monte !"));
     }
 
     public void gameWon() {
-        WinView winView = new WinView(this.grilleVue.getMainVue());
+        new WinView(this.grilleVue.getMainVue());
     }
 }

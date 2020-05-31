@@ -116,19 +116,10 @@ public class Modele extends Observable {
 
     public boolean recuperable(Zone c){
 
-        if (c.type == Type.Heliport ||
-                c.type == Type.Normale ||
-                (c.etat == Etat.Submergee && this.currentPlayer.getType() != PlayerType.Plongeur) ||
-                this.currentPlayer.getActions() == 0 ||
-                this.currentPlayer.getPosition().x != c.x ||
-                this.currentPlayer.getPosition().y != c.y)
+        if (c.type == Type.Heliport || c.type == Type.Normale)
             return false;
 
-        for (Key k : this.currentPlayer.getKeys()){
-            if (c.type == k.getElement())
-                return true;
-        }
-        return false;
+        return this.currentPlayer.recuperable(c);
     }
 
     public boolean assechable(Zone c){
@@ -168,7 +159,6 @@ public class Modele extends Observable {
         this.currentPlayer.addArtefacts(new Artefact(c.type));
 
         c.setType(Type.Normale);
-        System.out.println(this.currentPlayer);
 
         MediaPlayer artifactPlayer = new MediaPlayer(Sounds.artifact);
         artifactPlayer.setAutoPlay(true);
@@ -208,28 +198,33 @@ public class Modele extends Observable {
         floodingPlayer.setAutoPlay(true);
     }
 
-    public boolean Event(){
+    /**
+     * Méthode qui tire et exécute un évènement après la fin d'un tour. Le tirage d'un évènement est géré par la classe CardDeck
+     * @return l'évènement tiré
+     */
+    public Event eventDrop(){
         Card c = this.eventPaquet.tirer();
         Event e = (Event) c.getObject();
 
         switch (e.getName()){
             case "Rien":
-                return false;
-
+                break;
             case "Montée":
                 innondeCase(this.currentPlayer.getPosition());
                 this.zonePaquet.melangeTrash();
                 this.zonePaquet.placeTrash();
-                return false;
-
+                break;
             default:
                 this.currentPlayer.addKey((Key) e);
-                System.out.println(this.currentPlayer);
                 this.eventPaquet.retire(c);
-                return true;
         }
+
+        return e;
     }
 
+    /**
+     * Méthode réunissant les méthodes à appeler à la fin d'un tour
+     */
 
     public void incrementeTour(){
         this.nbTour++;
@@ -237,18 +232,21 @@ public class Modele extends Observable {
         this.notifyObservers();
     }
 
+    /**
+     * Méthode décidant quel joueur doit joueur pour ce tour
+     */
     private void setCurrentPlayer(){
-        if (this.players.size() == 0) {
-            this.currentPlayer = null;
-        } else {
-            if (this.currentPlayer != null)
-                this.currentPlayer.setCurrent(false);
-            this.currentPlayer = this.players.get(this.nbTour % this.players.size());
-            this.currentPlayer.setActions(3);
-            this.currentPlayer.setCurrent(true);
-        }
+        if (this.currentPlayer != null)
+            this.currentPlayer.setCurrent(false);
+        this.currentPlayer = this.players.get(this.nbTour % this.players.size());
+        this.currentPlayer.setActions(3);
+        this.currentPlayer.setCurrent(true);
     }
 
+    /**
+     * Méthode qui vérifie si un ou plusieurs joueurs sont morts
+     * @return true si un ou plusieurs joueurs sont morts, false sinon
+     */
     public boolean checkDead(){
         ArrayList<Player> toRemove = new ArrayList<>();
         for(Player player : this.players){
@@ -270,6 +268,10 @@ public class Modele extends Observable {
         return false;
     }
 
+    /**
+     * Méthode qui vérifie si la partie est gagnée
+     * @return true si la partie est gagnée, false sinon
+     */
     public boolean checkWin(){
         int nbArtefacts = 0;
         for (Player player : this.heliport.getPlayers()){
@@ -280,7 +282,10 @@ public class Modele extends Observable {
         return nbArtefacts == 4 && this.heliport.getPlayers().size() == this.players.size();
 
     }
-
+    /**
+     * Méthode qui vérifie si la partie est perdue
+     * @return true si la partie est perdue, false sinon
+     */
     public boolean checkLoose(){
         if (this.players.size() == 0) {
             return true;
@@ -291,12 +296,11 @@ public class Modele extends Observable {
                 return true;
         }
 
-        ArrayList<Key> diversKeys = new ArrayList<>();
+        ArrayList<Key> plongeurKeys = new ArrayList<>();
 
-        for (Player player :
-                players) {
+        for (Player player : players) {
             if (player.getType() == PlayerType.Plongeur) {
-                diversKeys.addAll(player.getKeys());
+                plongeurKeys.addAll(player.getKeys());
                 break;
             }
         }
@@ -304,8 +308,7 @@ public class Modele extends Observable {
         for(Zone c : this.cases){
             if (c.type != Type.Normale && c.etat == Etat.Submergee) {
                 boolean found = false;
-                for (Key key :
-                        diversKeys) {
+                for (Key key : plongeurKeys) {
                     if (key.getElement() == c.type) {
                         found = true;
                     }

@@ -1,6 +1,7 @@
 package com.egp.modeles.Players;
 
 import com.egp.constants.enums.PlayerType;
+import com.egp.modeles.Events.Key;
 import com.egp.modeles.Zone;
 
 public class Plongeur extends Player{
@@ -20,9 +21,14 @@ public class Plongeur extends Player{
     }
 
     @Override
-    public boolean isDead() {
+    public boolean recuperable(Zone c) {
+        if(this.getPosition().x != c.x || this.getPosition().y != c.y)
+            return false;
+
+        for (Key k : this.getKeys()){
+            if (c.type == k.getElement())
+                return true;
+        }
         return false;
     }
-
-
 }

@@ -29,7 +29,7 @@ public class StartVue extends Scene {
 
     private int rows = 10;
     private int cols = 10;
-    private Double difficulty = 0.25;
+    private int difficulty = 1;
     private final ArrayList<PlayerType> players;
 
     public StartVue(Pane root, Stage stage){
@@ -96,14 +96,14 @@ public class StartVue extends Scene {
 
         HBox difficuktyHBox = new HBox();
         Text difficultyText = new Text("Difficulté");
-        Text difficultyValueText = new Text(Double.toString(this.difficulty));
-        Slider difficultySlider = new Slider(0.25, 0.75, 0.25);
+        Text difficultyValueText = new Text(Integer.toString(this.difficulty));
+        Slider difficultySlider = new Slider(1, 5, 1);
         difficultySlider.setMaxWidth(145);
 
         difficultySlider.valueProperty().addListener(
                 (observableValue, oldValue, newValue) -> {
-                    Double formatedValue = BigDecimal.valueOf(newValue.doubleValue())
-                            .setScale(2, RoundingMode.HALF_UP).doubleValue();
+                    int formatedValue = BigDecimal.valueOf(newValue.intValue())
+                            .setScale(2, RoundingMode.HALF_UP).intValue();
                     difficultyValueText.setText(String.valueOf(formatedValue));
                     this.difficulty = formatedValue;
                 }
@@ -158,7 +158,7 @@ public class StartVue extends Scene {
                     this.cols,
                     this.rows,
                     this.players,
-                    1. - this.difficulty
+                    1. - (this.difficulty / 6.)
             );
 
             this.root.getChildren().clear();

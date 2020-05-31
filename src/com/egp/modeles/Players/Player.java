@@ -81,6 +81,17 @@ public class Player extends Observable {
         return false;
     }
 
+    public boolean recuperable(Zone c){
+        if(c.etat == Etat.Submergee || this.getPosition().x != c.x || this.getPosition().y != c.y)
+            return false;
+
+        for (Key k : this.getKeys()){
+            if (c.type == k.getElement())
+                return true;
+        }
+        return false;
+    }
+
     public boolean isDead(){
         return this.getPosition().etat == Etat.Submergee;
     }

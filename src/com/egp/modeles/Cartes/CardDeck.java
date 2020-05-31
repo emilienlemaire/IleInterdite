@@ -36,11 +36,6 @@ public class CardDeck {
         }
 
         this.melanger();
-        System.out.println(this.cards.size());
-
-        for(Card c : this.cards){
-            System.out.println(c.getObject().toString());
-        }
 
     }
 

@@ -26,4 +26,5 @@ public class Explorateur extends Player{
 
         return false;
     }
+
 }

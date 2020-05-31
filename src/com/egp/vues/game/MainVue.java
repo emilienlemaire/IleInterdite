@@ -43,11 +43,10 @@ public class MainVue extends Scene {
     }
 
 
-    public void showPopUp() {
+    public void showPopUp(Label label) {
         this.popup = new Popup();
         this.popup.setAutoHide(true);
         this.popup.setHideOnEscape(true);
-        Label label = new Label("Vous avez reçu une clef");
         BackgroundFill backgroundFill = new BackgroundFill(Color.WHEAT, CornerRadii.EMPTY, Insets.EMPTY);
         label.setBackground(new Background(backgroundFill));
 
