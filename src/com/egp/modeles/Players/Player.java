@@ -38,11 +38,14 @@ public class Player extends Observable {
         this.actions = actions;
     }
 
+    public void doubleCost(Zone c){}
+
     public Zone getPosition(){
         return this.position;
     }
 
     public void setPosition(Zone p){
+        doubleCost(p);
         this.position = p;
     }
 
@@ -79,6 +82,10 @@ public class Player extends Observable {
             return this.getPosition().x == c.x - 1 || this.getPosition().x == c.x + 1;
 
         return false;
+    }
+
+    public boolean assechable(Zone c){
+        return atteignable(c);
     }
 
     public boolean recuperable(Zone c){

@@ -13,20 +13,46 @@ public class Pilote extends Player{
     public boolean atteignable(Zone c) {
         if (c.etat == Etat.Submergee)
             return false;
-        return true;
+
+        if (this.getPosition().x == c.x)
+            if (this.getPosition().y == c.y - 1 || this.getPosition().y == c.y + 1)
+                return true;
+
+        if (this.getPosition().y == c.y)
+            if (this.getPosition().x == c.x - 1 || this.getPosition().x == c.x + 1)
+                return true;
+
+        if (this.getActions() > 1) {
+            return true;
+        }
+        return false;
     }
 
-   static public boolean assechable(Player pilote, Zone c) {
+    @Override
+    public boolean assechable(Zone c) {
         if (c.etat == Etat.Submergee)
             return false;
 
-        if (pilote.getPosition().x == c.x)
-            return pilote.getPosition().y == c.y - 1 || pilote.getPosition().y == c.y + 1;
+        if (this.getPosition().x == c.x)
+            return this.getPosition().y == c.y - 1 || this.getPosition().y == c.y + 1;
 
-        if (pilote.getPosition().y == c.y)
-            return pilote.getPosition().x == c.x - 1 || pilote.getPosition().x == c.x + 1;
-
+        if (this.getPosition().y == c.y)
+            return this.getPosition().x == c.x - 1 || this.getPosition().x == c.x + 1;
         return false;
+    }
+
+    @Override
+    public void doubleCost(Zone c){
+        boolean estLoin = !
+                (((this.getPosition().x == c.x)
+                        && (this.getPosition().y == c.y - 1 || this.getPosition().y == c.y + 1))
+            ||
+                ((this.getPosition().y == c.y)
+                        && (this.getPosition().x == c.x - 1 || this.getPosition().x == c.x + 1)));
+
+        if (estLoin){
+            this.setActions(this.getActions() - 1);
+        }
     }
 
 }
