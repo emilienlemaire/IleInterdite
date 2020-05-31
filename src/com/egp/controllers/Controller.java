@@ -122,6 +122,9 @@ public class Controller {
         this.grilleVue.getMainVue().showPopUp(new Label(msg));
     }
 
+    /**
+     * Averti avec un popup un joueur lorsque la case sur laquelle il se trouve est innondée
+     */
     public void risingWater() {
         MediaPlayer keyPlayer = new MediaPlayer(Sounds.danger);
         keyPlayer.setAutoPlay(true);

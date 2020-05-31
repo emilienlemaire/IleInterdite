@@ -18,6 +18,9 @@ public enum PlayerType {
         public String toString() {
             return "Explorateur";
         }
+    },
+    Pilote {
+        public String toString() { return "Pilote"; }
     };
 
     public Image getImageCurrent() {
@@ -28,6 +31,8 @@ public enum PlayerType {
                 return Images.playerPlonguer;
             case Explorateur:
                 return Images.playerExplorateur;
+            case Pilote:
+                return Images.playerPilote;
         }
         return Images.playerNormal;
     }
@@ -40,6 +45,8 @@ public enum PlayerType {
                 return Images.playerPlongeurBW;
             case Explorateur:
                 return Images.playerExplorateurBW;
+            case Pilote:
+                return Images.playerPiloteBW;
         }
         return Images.playerNormalBW;
     }
@@ -52,6 +59,8 @@ public enum PlayerType {
                 return "C'est un joueur qui peut se déplacer dans les cases submergées";
             case Explorateur:
                 return "Ce joueur spécial peut se déplacer dans les zones submergées";
+            case Pilote:
+                return "TODO";
         }
         return "Veuillez selectionner un type de joueur";
     }

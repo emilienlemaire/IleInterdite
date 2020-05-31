@@ -10,6 +10,7 @@ import com.egp.modeles.Cartes.CardDeck;
 import com.egp.modeles.Events.Event;
 import com.egp.modeles.Events.Key;
 import com.egp.modeles.Players.Explorateur;
+import com.egp.modeles.Players.Pilote;
 import com.egp.modeles.Players.Player;
 import com.egp.modeles.Players.Plongeur;
 import com.egp.observer.Observable;
@@ -92,6 +93,9 @@ public class Modele extends Observable {
                     break;
                 case Plongeur:
                     player = new Plongeur(this.cases.get(spawn_idx[i]), i + 1, playersType.get(i));
+                    break;
+                case Pilote:
+                    player = new Pilote(this.cases.get(spawn_idx[i]), i + 1, playersType.get(i));
                     break;
             }
 
