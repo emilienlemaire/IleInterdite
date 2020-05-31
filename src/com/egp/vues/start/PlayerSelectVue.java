@@ -2,7 +2,6 @@ package com.egp.vues.start;
 
 import com.egp.constants.enums.PlayerType;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -30,6 +29,7 @@ public class PlayerSelectVue extends VBox {
         );
         PlayerComboBoxVue comboBoxVue = new PlayerComboBoxVue(availablePlayers);
         comboBoxVue.setItems(FXCollections.observableArrayList(availablePlayers));
+        comboBoxVue.setMinWidth(150);
         this.comboBoxVues.add(comboBoxVue);
         this.playersSelected.add(null);
         comboBoxVue.setOnAction(actionEvent -> {
@@ -63,6 +63,7 @@ public class PlayerSelectVue extends VBox {
         HBox hBox = new HBox(comboBoxVue, plusButton);
         hBox.setSpacing(7.5);
         this.hBoxes.add(hBox);
+        this.setMinWidth(250);
         this.setMaxWidth(250);
         this.getChildren().addAll(this.hBoxes);
     }
@@ -83,7 +84,7 @@ public class PlayerSelectVue extends VBox {
 
         this.playersSelected.remove(this.playersSelected.size() - 1);
 
-        if (removedPlayerType != PlayerType.Normal) {
+        if (removedPlayerType != PlayerType.Normal && removedPlayerType != null) {
             availablePlayers.add(removedPlayerType);
             for (PlayerComboBoxVue playerComboBoxVue
                     : comboBoxVues) {
@@ -97,9 +98,11 @@ public class PlayerSelectVue extends VBox {
     public void addPlayer() {
         PlayerComboBoxVue comboBoxVue = new PlayerComboBoxVue(this.availablePlayers);
         comboBoxVue.setItems(FXCollections.observableArrayList(this.availablePlayers));
-        this.comboBoxVues.add(comboBoxVue);
+        comboBoxVue.setMinWidth(150);
 
+        this.comboBoxVues.add(comboBoxVue);
         this.playersSelected.add(null);
+
         comboBoxVue.setOnAction(actionEvent -> {
             int idx = this.comboBoxVues.indexOf(comboBoxVue);
             PlayerType currentPlayerType = comboBoxVue.getValue();
@@ -125,8 +128,10 @@ public class PlayerSelectVue extends VBox {
 
             comboBoxVue.setPlayerType(currentPlayerType);
         });
+
         HBox hBox = new HBox(comboBoxVue, this.plusButton, this.minusButton);
         hBox.setSpacing(7.5);
+
         this.hBoxes.add(hBox);
         this.getChildren().clear();
         this.getChildren().addAll(this.hBoxes);
