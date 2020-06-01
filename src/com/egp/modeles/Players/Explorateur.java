@@ -14,7 +14,7 @@ public class Explorateur extends Player{
         if (c.etat == Etat.Submergee)
             return false;
 
-        if (this.getPosition().x == c.x+1 || this.getPosition().x == c.x-1 &&
+        if ((this.getPosition().x == c.x+1 || this.getPosition().x == c.x-1) &&
                 (this.getPosition().y == c.y+1 || this.getPosition().y == c.y-1)){
             return true;
         }
