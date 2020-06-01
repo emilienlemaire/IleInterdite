@@ -29,8 +29,8 @@ public class Controller {
     }
 
     public void finDeTour() {
-        Event e = modele.eventDrop();
         modele.inondeCases();
+        Event e = modele.eventDrop();
 
         if (modele.checkLoose())
             new LostVue(grilleVue.getMainVue());
