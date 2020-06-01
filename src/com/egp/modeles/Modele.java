@@ -161,6 +161,7 @@ public class Modele extends Observable {
         c.setType(Type.Normale);
 
         MediaPlayer artifactPlayer = new MediaPlayer(Sounds.artifact);
+        artifactPlayer.setVolume(0.2);
         artifactPlayer.setAutoPlay(true);
 
         this.afterAction();
