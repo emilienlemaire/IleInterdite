@@ -4,7 +4,7 @@
 - Chaque joueur spawn sur une case aléatoire
 - Il y a 4 clés par partie (une pour chaque artéfact)
 * Une défaite est détecté si :
-    * Tout les joueurs sont morts
+    * Tous les joueurs sont morts
     * Un joueur avec une clé ou un artefact est mort
     * Si l'héliport est submergé
     * Si un artefact est submergé et qu'aucun plongeur ne possède la clé de cet artefact
@@ -16,9 +16,12 @@
 - Simulation d'un vrai paquet de cartes
 
 ## Autres améliorations
-- Difficulté modulable : La difficulté est le nombre de carte "clé" sur le nombre total de cartes (clé, rien ou montée des eaux). On a fait le choix de n'avoir qu'une clé par artefact, il y a donc toujours 4 cartes "clé". On ajuste le nombre de cartes des deux autres évènement pour que 4/(nombre total de cartes) = difficulté.
-- Sons : Un son est attribué à chaque action et évènement.
-- Écran de fin : Un écran de fin est affiché en fonction de la finalité de la patie (victoire ou défaite)
+- Difficulté modulable : la difficulté (notée Diff) est le nombre de cartes "clés" sur le nombre total de cartes (noté TotCartes) 
+(clé, rien ou montée des eaux). On a fait le choix de n'avoir qu'une clé par artefact, 
+il y a donc toujours 4 cartes "clés". On ajuste le nombre de cartes des deux autres évènement pour que 
+```Diff = 4 / TotCartes```
+- Sons : un son spécifique est attribué à chaque action et évènement.
+- Écran de fin : un écran de fin est affiché en fonction de la finalité de la patie (victoire ou défaite)
 
 ## Diagramme de classe
 ![Diagramme de classe](dependencies-graph.png)

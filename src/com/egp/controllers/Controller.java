@@ -3,7 +3,6 @@ package com.egp.controllers;
 import com.egp.constants.Sounds;
 import com.egp.modeles.Events.Event;
 import com.egp.modeles.Modele;
-import com.egp.modeles.Zone;
 import com.egp.vues.end.LostVue;
 import com.egp.vues.end.WinView;
 import com.egp.vues.game.ActionsVue;
