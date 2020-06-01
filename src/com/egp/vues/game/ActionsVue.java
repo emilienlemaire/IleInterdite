@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 public class ActionsVue extends ContextMenu {
 
+    //MouseEvent pour avoir un bon curseur après avoir sélectionner l'action à effectuer.
     private static final MouseEvent mouseEntered =  new MouseEvent(MouseEvent.MOUSE_ENTERED, 1, 2, 3, 4,
             MouseButton.NONE, 5,
             true, true,  true, true, true, true, true, true, true, true, null);

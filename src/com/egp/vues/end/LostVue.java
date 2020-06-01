@@ -1,6 +1,5 @@
 package com.egp.vues.end;
 
-
 import com.egp.constants.Buttons;
 import com.egp.constants.Sounds;
 import com.egp.vues.game.MainVue;
@@ -11,7 +10,6 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.media.MediaPlayer;
 
 import java.util.Optional;
-
 
 public class LostVue extends Alert {
 
@@ -42,7 +40,6 @@ public class LostVue extends Alert {
         } else if (result.isPresent() && result.get() == Buttons.quitter){
             this.mainVue.getStage().close();
         } else {
-            // ERROR
             System.out.println("Bouton invalide.");
         }
     }

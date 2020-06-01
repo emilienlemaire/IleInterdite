@@ -49,7 +49,7 @@ public class WinView extends Alert {
             this.mainVue.getStage().close();
         } else {
             // ERROR
-            System.out.println("??");
+            System.out.println("Button non reconnu");
         }
     }
 }

@@ -19,6 +19,7 @@ public class PlayerSelectVue extends VBox {
 
     public PlayerSelectVue() {
         super();
+
         this.plusButton.setOnMouseClicked(mouseEvent -> addPlayer());
         this.minusButton.setOnMouseClicked(mouseEvent -> removePlayer());
         this.availablePlayers.addAll(
@@ -27,11 +28,14 @@ public class PlayerSelectVue extends VBox {
                         PlayerType.Pilote,
                         PlayerType.Plongeur)
         );
-        PlayerComboBoxVue comboBoxVue = new PlayerComboBoxVue(availablePlayers);
+
+        PlayerComboBoxVue comboBoxVue = new PlayerComboBoxVue();
         comboBoxVue.setItems(FXCollections.observableArrayList(availablePlayers));
         comboBoxVue.setMinWidth(150);
+
         this.comboBoxVues.add(comboBoxVue);
         this.playersSelected.add(null);
+
         comboBoxVue.setOnAction(actionEvent -> {
             int idx = this.comboBoxVues.indexOf(comboBoxVue);
 
@@ -96,7 +100,7 @@ public class PlayerSelectVue extends VBox {
     }
 
     public void addPlayer() {
-        PlayerComboBoxVue comboBoxVue = new PlayerComboBoxVue(this.availablePlayers);
+        PlayerComboBoxVue comboBoxVue = new PlayerComboBoxVue();
         comboBoxVue.setItems(FXCollections.observableArrayList(this.availablePlayers));
         comboBoxVue.setMinWidth(150);
 

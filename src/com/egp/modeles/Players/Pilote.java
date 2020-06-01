@@ -11,6 +11,7 @@ public class Pilote extends Player{
 
     @Override
     public boolean atteignable(Zone c) {
+
         if (c.etat == Etat.Submergee)
             return false;
 
