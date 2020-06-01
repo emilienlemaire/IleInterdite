@@ -5,8 +5,8 @@ import com.egp.modeles.Events.Key;
 import com.egp.modeles.Zone;
 
 public class Plongeur extends Player{
-    public Plongeur(Zone position, int ID, PlayerType type) {
-        super(position, ID, type);
+    public Plongeur(Zone position, PlayerType type) {
+        super(position, type);
     }
 
     @Override

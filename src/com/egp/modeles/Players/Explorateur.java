@@ -5,8 +5,8 @@ import com.egp.constants.enums.PlayerType;
 import com.egp.modeles.Zone;
 
 public class Explorateur extends Player{
-    public Explorateur(Zone position, int ID, PlayerType type) {
-        super(position, ID, type);
+    public Explorateur(Zone position, PlayerType type) {
+        super(position, type);
     }
 
     @Override

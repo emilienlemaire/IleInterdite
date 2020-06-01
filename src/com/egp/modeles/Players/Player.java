@@ -11,7 +11,6 @@ import com.egp.observer.Observable;
 import java.util.ArrayList;
 
 public class Player extends Observable {
-    private final int ID;
     private final PlayerType type;
 
     private Zone position;
@@ -21,9 +20,8 @@ public class Player extends Observable {
     private final ArrayList<Key> keys;
     private final ArrayList<Artefact> artefacts;
 
-    public Player(Zone position, int ID, PlayerType type){
+    public Player(Zone position, PlayerType type){
         this.position = position;
-        this.ID = ID;
         this.type = type;
 
         this.keys = new ArrayList<>();
@@ -48,8 +46,6 @@ public class Player extends Observable {
         doubleCost(p);
         this.position = p;
     }
-
-    public int getID(){ return this.ID; }
 
     public PlayerType getType() { return this.type; }
 
@@ -116,7 +112,7 @@ public class Player extends Observable {
     }
 
     public String toString(){
-        StringBuilder msg = new StringBuilder("Joueur no : " + this.ID + "\nNombre d'actions restantes : " +
+        StringBuilder msg = new StringBuilder("Joueur no : " + "\nNombre d'actions restantes : " +
                 this.actions + "\nNombre d'artefacts : " + this.artefacts.size() +
                 "\nType de clé disponible : ");
 

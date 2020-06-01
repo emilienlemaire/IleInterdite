@@ -86,16 +86,16 @@ public class Modele extends Observable {
             Player player = null;
             switch (playersType.get(i)){
                 case Normal:
-                    player = new Player(this.cases.get(spawn_idx[i]), i + 1, playersType.get(i));
+                    player = new Player(this.cases.get(spawn_idx[i]), playersType.get(i));
                     break;
                 case Explorateur:
-                    player = new Explorateur(this.cases.get(spawn_idx[i]), i + 1, playersType.get(i));
+                    player = new Explorateur(this.cases.get(spawn_idx[i]), playersType.get(i));
                     break;
                 case Plongeur:
-                    player = new Plongeur(this.cases.get(spawn_idx[i]), i + 1, playersType.get(i));
+                    player = new Plongeur(this.cases.get(spawn_idx[i]), playersType.get(i));
                     break;
                 case Pilote:
-                    player = new Pilote(this.cases.get(spawn_idx[i]), i + 1, playersType.get(i));
+                    player = new Pilote(this.cases.get(spawn_idx[i]), playersType.get(i));
                     break;
             }
 
