@@ -22,7 +22,7 @@ public class Pilote extends Player{
             if (this.getPosition().x == c.x - 1 || this.getPosition().x == c.x + 1)
                 return true;
 
-        if (this.getActions() > 1) {
+        if (this.getActions() > 1 && this.getPosition().x != c.x && this.getPosition().y != c.y) {
             return true;
         }
         return false;

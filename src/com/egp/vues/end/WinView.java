@@ -18,7 +18,7 @@ public class WinView extends Alert {
     private final MainVue mainVue;
 
     public WinView(MainVue mainVue) {
-        super(AlertType.INFORMATION, "Souhaitez-vous rejouer?", Buttons.rejouer, Buttons.quitter);
+        super(AlertType.INFORMATION, "Souhaitez-vous rejouer ?", Buttons.rejouer, Buttons.quitter);
 
         this.mainVue = mainVue;
 

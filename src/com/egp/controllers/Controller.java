@@ -38,7 +38,7 @@ public class Controller {
 
             if (e.getName().equals("Montée")) {
                 risingWater();
-            } else if (!e.getName().equalsIgnoreCase("Rien")) {
+            } else if (!e.getName().equals("Rien")) {
                 gotKey(e.getName());
             }
 
@@ -52,7 +52,7 @@ public class Controller {
     * que la case soit atteignable ou asséchable,
     * si elle est que l'une des deux alors tu appelles
     * modele.deplace(zone) ou modele.asseche(zone)
-    * si elle est les deux alors tu crée une nouvelle actionVue
+    * si elle est les deux alors tu crées une nouvelle actionVue
     */
     public void zoneClicked(ZoneVue zoneVue, MouseEvent mouseEvent) {
 
