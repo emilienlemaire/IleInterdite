@@ -125,9 +125,10 @@ public class Controller {
      * Averti avec un popup un joueur lorsque la case sur laquelle il se trouve est innondée
      */
     public void risingWater() {
-        MediaPlayer keyPlayer = new MediaPlayer(Sounds.danger);
-        keyPlayer.setAutoPlay(true);
-        keyPlayer.setOnEndOfMedia(this.grilleVue.getMainVue()::hidePopup);
+        MediaPlayer waterPlayer = new MediaPlayer(Sounds.danger);
+        waterPlayer.setAutoPlay(true);
+        waterPlayer.setVolume(0.5);
+        waterPlayer.setOnEndOfMedia(this.grilleVue.getMainVue()::hidePopup);
         this.grilleVue.getMainVue().showPopUp(new Label("Attention, l'eau monte !"));
     }
 
