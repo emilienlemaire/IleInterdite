@@ -85,6 +85,9 @@ public class Player extends Observable {
     }
 
     public boolean assechable(Zone c){
+        if (this.getPosition() == c)
+            return true;
+
         return atteignable(c);
     }
 

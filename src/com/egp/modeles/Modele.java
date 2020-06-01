@@ -133,10 +133,6 @@ public class Modele extends Observable {
         if (this.currentPlayer.getActions() == 0)
             return false;
 
-        if (this.currentPlayer.getPosition().x == c.x &&
-                this.currentPlayer.getPosition().y == c.y)
-            return true;
-
         return this.currentPlayer.assechable(c);
     }
 

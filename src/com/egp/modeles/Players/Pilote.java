@@ -14,18 +14,10 @@ public class Pilote extends Player{
         if (c.etat == Etat.Submergee)
             return false;
 
-        if (this.getPosition().x == c.x)
-            if (this.getPosition().y == c.y - 1 || this.getPosition().y == c.y + 1)
-                return true;
-
-        if (this.getPosition().y == c.y)
-            if (this.getPosition().x == c.x - 1 || this.getPosition().x == c.x + 1)
-                return true;
-
-        if (this.getActions() > 1 && this.getPosition().x != c.x && this.getPosition().y != c.y) {
+        if (this.getActions() > 1 && this.getPosition() != c)
             return true;
-        }
-        return false;
+
+        return super.atteignable(c);
     }
 
     @Override
@@ -33,11 +25,15 @@ public class Pilote extends Player{
         if (c.etat == Etat.Submergee)
             return false;
 
+        if (this.getPosition() == c)
+            return true;
+
         if (this.getPosition().x == c.x)
             return this.getPosition().y == c.y - 1 || this.getPosition().y == c.y + 1;
 
         if (this.getPosition().y == c.y)
             return this.getPosition().x == c.x - 1 || this.getPosition().x == c.x + 1;
+
         return false;
     }
 
