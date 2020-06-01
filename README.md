@@ -16,7 +16,7 @@
 - Simulation d'un vrai paquet de cartes
 
 ## Autres améliorations
-- Difficulté modulable : la difficulté (notée Diff) est le nombre de cartes "clés" sur le nombre total de cartes (noté TotCartes) 
+- Difficulté modulable : la difficulté (*notée Diff*) est le nombre de cartes "clés" sur le nombre total de cartes (*noté TotCartes*) 
 (clé, rien ou montée des eaux). On a fait le choix de n'avoir qu'une clé par artefact, 
 il y a donc toujours 4 cartes "clés". On ajuste le nombre de cartes des deux autres évènement pour que 
 ```Diff = 4 / TotCartes```
