@@ -3,7 +3,7 @@
 ## Choix
 - Chaque joueur spawn sur une case aléatoire
 - Il y a 4 clés par partie (une pour chaque artéfact)
-* Une défaite est détecté si :
+* Une défaite est détectée si :
     * Tous les joueurs sont morts
     * Un joueur avec une clé ou un artefact est mort
     * Si l'héliport est submergé
